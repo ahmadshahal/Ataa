@@ -10,9 +10,11 @@ private val LightColorPalette = lightColors(
     background = White300,
     secondary = Black600,
     secondaryVariant = Gray300,
-    surface = Gray600,
+    surface = White800,
     onPrimary = White800,
     onSecondary = White800,
+    onSurface = Black600,
+    primaryVariant = Gray600,
 )
 
 @Composable
