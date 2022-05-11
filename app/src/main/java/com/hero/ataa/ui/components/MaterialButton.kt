@@ -24,7 +24,7 @@ fun MaterialButton(
         onClick = onClicked,
         modifier = Modifier
             .fillMaxWidth()
-            .height(47.dp)
+            .height(45.dp)
             .clip(RoundedCornerShape(7.dp)),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
