@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ataa</string>
+    <string name="welcome_to_ataa">Welcome to Ataa</string>
+    <string name="welcome_on_board_again">Welcome onboard again, sign in to your account or create a new account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">عطاء</string>
+    <string name="welcome_to_ataa">أهلاً بك في عَطاء</string>
+    <string name="welcome_on_board_again">مرحباً بك معنا مجدداً, قم بتسجيل الدخول إلى حسابك أو قم بإنشاء حساب جديد</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+</resources>
