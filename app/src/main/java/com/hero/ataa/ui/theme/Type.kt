@@ -28,7 +28,7 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = NotoSans,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp
+        fontSize = 26.sp
     ),
     h2 = TextStyle(
         fontFamily = NotoSans,
