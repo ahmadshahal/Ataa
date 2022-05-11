@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.Ataa" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/black_600</item>
+        <item name="android:statusBarColor">@color/white_300</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
