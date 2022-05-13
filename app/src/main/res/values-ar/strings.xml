@@ -2,8 +2,13 @@
 <resources>
     <string name="app_name">عطاء</string>
     <string name="welcome_to_ataa">أهلاً بك في عَطاء</string>
-    <string name="welcome_on_board_again">مرحباً بك معنا مجدداً, قم بتسجيل الدخول إلى حسابك أو قم بإنشاء حساب جديد</string>
+    <string name="welcome_on_board_again">مرحباً بك معنا مجدداً, قم بتسجيل الدخول إلى</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="password">كلمة المرور</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="login_later">تسجيل الدخول لاحقاً؟</string>
+    <string name="skip">تخطي</string>
+    <string name="create_new_account">قم بإنشاء حساب جديد</string>
+    <string name="to_your_account">حسابك أو</string>
 </resources>

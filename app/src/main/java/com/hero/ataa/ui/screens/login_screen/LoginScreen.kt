@@ -2,9 +2,12 @@ package com.hero.ataa.ui.screens.login_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -15,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.LinedTextField
@@ -22,85 +26,35 @@ import com.hero.ataa.ui.components.MaterialButton
 
 @Composable
 fun LoginScreen() {
-    val emailText = remember {
+    val emailTextState = remember {
         mutableStateOf("")
     }
-    val passwordText = remember {
+    val passwordTextState = remember {
         mutableStateOf("")
     }
-    val passwordVisible = remember {
+    val passwordVisibleState = remember {
         mutableStateOf(false)
     }
-    Scaffold(backgroundColor = MaterialTheme.colors.background) {
+    val scrollState = rememberScrollState()
+
+    Scaffold(
+        backgroundColor = MaterialTheme.colors.background
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(horizontal = 18.dp)
+                .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_app_logo),
-                contentDescription = "",
-                modifier = Modifier
-                    .height(174.067.dp)
-                    .width(158.8.dp),
-            )
-            Spacer(modifier = Modifier.height(25.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(0.8F),
-                text = stringResource(id = R.string.welcome_to_ataa),
-                style = MaterialTheme.typography.h2,
-                textAlign = TextAlign.Center
-            )
+            Spacer(modifier = Modifier.height(18.dp))
+            WelcomeColumn()
+            EmailTextField(emailTextState = emailTextState)
             Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(0.8F),
-                text = stringResource(id = R.string.welcome_on_board_again),
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            LinedTextField(
-                value = emailText.value,
-                hint = stringResource(id = R.string.email),
-                onValueChanged = { newValue ->
-                    emailText.value = newValue
-                },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_email_icon),
-                        contentDescription = "",
-                        modifier = Modifier.size(18.dp)
-                    )
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-            )
-            Spacer(modifier = Modifier.height(5.dp))
-            LinedTextField(
-                value = passwordText.value,
-                hint = stringResource(id = R.string.password),
-                onValueChanged = { newValue ->
-                    passwordText.value = newValue
-                },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_password_icon),
-                        contentDescription = "",
-                        modifier = Modifier.size(19.dp)
-                    )
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                trailingIcon = {
-                    IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                        Icon(
-                            painter = painterResource(id = if (passwordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon),
-                            contentDescription = "",
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                },
-                visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+            PasswordTextField(
+                passwordTextState = passwordTextState,
+                passwordVisibleState = passwordVisibleState
             )
             Spacer(modifier = Modifier.height(25.dp))
             MaterialButton(
@@ -109,6 +63,144 @@ fun LoginScreen() {
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
             )
+            Spacer(modifier = Modifier.height(5.dp))
+            SkipRow()
+            Spacer(modifier = Modifier.height(18.dp))
+        }
+    }
+}
+
+@Composable
+fun EmailTextField(emailTextState: MutableState<String>) {
+    LinedTextField(
+        value = emailTextState.value,
+        hint = stringResource(id = R.string.email),
+        onValueChanged = { newValue ->
+            emailTextState.value = newValue
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_email_icon),
+                contentDescription = "",
+                modifier = Modifier.size(18.dp)
+            )
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+    )
+}
+
+@Composable
+fun PasswordTextField(
+    passwordTextState: MutableState<String>,
+    passwordVisibleState: MutableState<Boolean>
+) {
+    LinedTextField(
+        value = passwordTextState.value,
+        hint = stringResource(id = R.string.password),
+        onValueChanged = { newValue ->
+            passwordTextState.value = newValue
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_password_icon),
+                contentDescription = "",
+                modifier = Modifier.size(19.dp)
+            )
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        trailingIcon = {
+            IconButton(
+                onClick = { passwordVisibleState.value = !passwordVisibleState.value },
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = if (passwordVisibleState.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
+                    ),
+                    contentDescription = "",
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+        },
+        visualTransformation = if (passwordVisibleState.value) VisualTransformation.None else PasswordVisualTransformation()
+    )
+}
+
+@Composable
+fun SkipRow() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(id = R.string.login_later),
+            style = MaterialTheme.typography.subtitle1.copy(
+                color = MaterialTheme.colors.onBackground,
+            ),
+        )
+        Spacer(modifier = Modifier.width(1.dp))
+        TextButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.width(45.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.skip),
+                style = MaterialTheme.typography.subtitle1.copy(
+                    color = MaterialTheme.colors.primary,
+                ),
+            )
+        }
+    }
+}
+
+@Composable
+fun WelcomeColumn() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_app_logo),
+            contentDescription = "",
+            modifier = Modifier
+                .height(174.067.dp)
+                .width(158.8.dp),
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.welcome_to_ataa),
+            style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.onBackground),
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.welcome_on_board_again),
+            style = MaterialTheme.typography.body2.copy(MaterialTheme.colors.onBackground),
+            textAlign = TextAlign.Center
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(id = R.string.to_your_account),
+                style = MaterialTheme.typography.body2.copy(MaterialTheme.colors.onBackground),
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.width(1.dp))
+            TextButton(
+                onClick = { /*TODO*/ },
+            ) {
+                Text(
+                    text = stringResource(id = R.string.create_new_account),
+                    style = MaterialTheme.typography.body2.copy(
+                        color = MaterialTheme.colors.primary,
+                    ),
+                )
+            }
         }
     }
 }
