@@ -15,6 +15,7 @@ private val LightColorPalette = lightColors(
     onSecondary = White800,
     onSurface = Black600,
     primaryVariant = Gray600,
+    error = Red800
 )
 
 @Composable

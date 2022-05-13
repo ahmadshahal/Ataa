@@ -23,7 +23,7 @@ val Typography = Typography(
     body2 = TextStyle(
         fontFamily = NotoSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 13.6.sp
     ),
     h1 = TextStyle(
         fontFamily = NotoSans,
