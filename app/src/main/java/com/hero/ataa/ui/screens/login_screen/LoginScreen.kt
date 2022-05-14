@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,13 +29,13 @@ import kotlinx.coroutines.flow.collect
 fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
     val scaffoldState: ScaffoldState = rememberScaffoldState()
-
+    val context = LocalContext.current
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { uiEvent ->
             when(uiEvent) {
                 is UiEvent.ShowSnackBar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = uiEvent.message,
+                        message = uiEvent.message.asString(context),
                     )
                 }
                 is UiEvent.Navigate -> {

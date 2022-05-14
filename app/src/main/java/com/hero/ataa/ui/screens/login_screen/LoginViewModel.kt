@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         val validatePasswordResult = validatePassword()
         if (validateEmailResult && validatePasswordResult) {
             viewModelScope.launch {
-                loginUseCase.execute(emailFieldText.value, passwordFieldText.value)
+                loginUseCase(emailFieldText.value, passwordFieldText.value)
                     .collect { dataState ->
                         when (dataState) {
                             is DataState.Loading -> {
@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                             }
                             is DataState.Success -> {
                                 _uiState.value = LoginUiState.Initial
-                                // _uiEvent.send(UiEvent.Navigate())
+                                // TODO: Navigate
                             }
                             else -> Unit
                         }

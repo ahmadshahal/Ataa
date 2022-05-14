@@ -13,4 +13,5 @@
     <string name="to_your_account">حسابك أو</string>
     <string name="cant_be_empty">هذا الحقل لا يمكن أن يكون فارغاً</string>
     <string name="invalid_email">خطأ في إدخال البريد الإلكتروني</string>
+    <string name="something_went_wrong">حدث خطأ ما</string>
 </resources>

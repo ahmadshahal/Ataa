@@ -12,4 +12,5 @@
     <string name="to_your_account">to your account</string>
     <string name="cant_be_empty">This field can\'t be empty</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
