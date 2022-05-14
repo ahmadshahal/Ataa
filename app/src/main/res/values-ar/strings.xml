@@ -11,4 +11,6 @@
     <string name="skip">تخطي</string>
     <string name="create_new_account">قم بإنشاء حساب جديد</string>
     <string name="to_your_account">حسابك أو</string>
+    <string name="cant_be_empty">هذا الحقل لا يمكن أن يكون فارغاً</string>
+    <string name="invalid_email">خطأ في إدخال البريد الإلكتروني</string>
 </resources>

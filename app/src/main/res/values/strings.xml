@@ -10,4 +10,6 @@
     <string name="skip">Skip</string>
     <string name="create_new_account">create a new account</string>
     <string name="to_your_account">to your account</string>
+    <string name="cant_be_empty">This field can\'t be empty</string>
+    <string name="invalid_email">Invalid Email</string>
 </resources>

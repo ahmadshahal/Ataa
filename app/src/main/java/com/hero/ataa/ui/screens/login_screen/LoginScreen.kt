@@ -59,10 +59,10 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
 @Composable
 fun EmailTextField(viewModel: LoginViewModel) {
     LinedTextField(
-        value = viewModel.emailTextState.value,
+        value = viewModel.emailFieldText.value,
         hint = stringResource(id = R.string.email),
         onValueChanged = { newValue ->
-            viewModel.emailTextState.value = newValue
+            viewModel.emailFieldText.value = newValue
         },
         leadingIcon = {
             Icon(
@@ -72,7 +72,7 @@ fun EmailTextField(viewModel: LoginViewModel) {
             )
         },
         isError = viewModel.isErrorEmailField.value,
-        errorMessage = viewModel.emailFieldErrorMsg.value,
+        errorMessage = viewModel.emailFieldErrorMsg.value.asString(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
@@ -82,10 +82,10 @@ fun PasswordTextField(
     viewModel: LoginViewModel,
 ) {
     LinedTextField(
-        value = viewModel.passwordTextState.value,
+        value = viewModel.passwordFieldText.value,
         hint = stringResource(id = R.string.password),
         onValueChanged = { newValue ->
-            viewModel.passwordTextState.value = newValue
+            viewModel.passwordFieldText.value = newValue
         },
         leadingIcon = {
             Icon(
@@ -98,12 +98,12 @@ fun PasswordTextField(
         trailingIcon = {
             IconButton(
                 onClick = {
-                    viewModel.passwordVisibleState.value = !viewModel.passwordVisibleState.value
+                    viewModel.passwordVisible.value = !viewModel.passwordVisible.value
                 },
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (viewModel.passwordVisibleState.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
+                        id = if (viewModel.passwordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
                     ),
                     contentDescription = "",
                     modifier = Modifier.size(19.dp),
@@ -111,8 +111,8 @@ fun PasswordTextField(
             }
         },
         isError = viewModel.isErrorPasswordField.value,
-        errorMessage = viewModel.passwordFieldErrorMsg.value,
-        visualTransformation = if (viewModel.passwordVisibleState.value) VisualTransformation.None else PasswordVisualTransformation()
+        errorMessage = viewModel.passwordFieldErrorMsg.value.asString(),
+        visualTransformation = if (viewModel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
     )
 }
 
