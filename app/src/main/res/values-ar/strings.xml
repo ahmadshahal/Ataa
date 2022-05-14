@@ -9,9 +9,16 @@
     <string name="forgot_password">نسيت كلمة المرور؟</string>
     <string name="login_later">تسجيل الدخول لاحقاً؟</string>
     <string name="skip">تخطي</string>
-    <string name="create_new_account">قم بإنشاء حساب جديد</string>
+    <string name="do_create_new_account">قم بإنشاء حساب جديد</string>
     <string name="to_your_account">حسابك أو</string>
     <string name="cant_be_empty">هذا الحقل لا يمكن أن يكون فارغاً</string>
     <string name="invalid_email">خطأ في إدخال البريد الإلكتروني</string>
     <string name="something_went_wrong">حدث خطأ ما</string>
+    <string name="create_new_account">إنشاء حساب جديد</string>
+    <string name="already_have_an_account">لديك حساب بالفعل؟</string>
+    <string name="do_log_in">قم بتسجيل الدخول</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="next">التالي</string>
 </resources>

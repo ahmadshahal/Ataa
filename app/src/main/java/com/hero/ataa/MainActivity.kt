@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
+import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AtaaTheme {
-                LoginScreen()
+                RegisterScreen()
             }
         }
     }

@@ -8,9 +8,16 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="login_later">Login later?</string>
     <string name="skip">Skip</string>
-    <string name="create_new_account">create a new account</string>
+    <string name="do_create_new_account">create a new account</string>
     <string name="to_your_account">to your account</string>
     <string name="cant_be_empty">This field can\'t be empty</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="do_log_in">Login</string>
+    <string name="full_name">Full Name</string>
+    <string name="confirm_password">Confrim Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="next">Next</string>
 </resources>
