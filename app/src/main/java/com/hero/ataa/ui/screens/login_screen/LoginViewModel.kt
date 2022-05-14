@@ -6,17 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hero.ataa.domain.use_cases.LoginUseCase
 import com.hero.ataa.shared.DataState
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val _uiState = mutableStateOf<LoginUiState>(LoginUiState.Initial)
-    val uiState: State<LoginUiState> = _uiState
+    val uiState: State<LoginUiState>
+        get() = _uiState
+
+    private val _uiEvent: Channel<UiEvent> = Channel()
+    val uiEvent: Flow<UiEvent>
+        get() = _uiEvent.receiveAsFlow()
 
     val emailFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
@@ -38,20 +47,27 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         val validatePasswordResult = validatePassword()
         if (validateEmailResult && validatePasswordResult) {
             viewModelScope.launch {
-                loginUseCase.execute(emailFieldText.value, passwordFieldText.value).collect { dataState ->
-                    when(dataState) {
-                        is DataState.Loading -> {
-                            _uiState.value = LoginUiState.Loading
+                loginUseCase.execute(emailFieldText.value, passwordFieldText.value)
+                    .collect { dataState ->
+                        when (dataState) {
+                            is DataState.Loading -> {
+                                _uiState.value = LoginUiState.Loading
+                            }
+                            is DataState.Error -> {
+                                _uiState.value = LoginUiState.Initial
+                                _uiEvent.send(
+                                    UiEvent.ShowSnackBar(
+                                        message = dataState.message,
+                                    )
+                                )
+                            }
+                            is DataState.Success -> {
+                                _uiState.value = LoginUiState.Initial
+                                // _uiEvent.send(UiEvent.Navigate())
+                            }
+                            else -> Unit
                         }
-                        is DataState.Error -> {
-                            _uiState.value = LoginUiState.Initial
-                        }
-                        is DataState.Success -> {
-                            _uiState.value = LoginUiState.Initial
-                        }
-                        else -> Unit
                     }
-                }
             }
         }
     }

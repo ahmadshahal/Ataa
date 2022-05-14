@@ -14,7 +14,8 @@ class LoginUseCase @Inject constructor() {
             val token = "123"
             emit(DataState.Success(token))
         } catch (ex: Exception) {
-            emit(DataState.Error("Message"))
+            // TODO: Fix hardcoded strings.
+            emit(DataState.Error(ex.message ?: "حدث خطأ ما"))
         }
     }
 }

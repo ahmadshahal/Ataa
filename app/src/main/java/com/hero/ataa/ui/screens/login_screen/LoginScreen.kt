@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,14 +19,44 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when(uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message,
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    // TODO.
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
-        backgroundColor = MaterialTheme.colors.background
+        scaffoldState = scaffoldState,
+        backgroundColor = MaterialTheme.colors.background,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
     ) {
         Column(
             modifier = Modifier
