@@ -1,7 +1,9 @@
 package com.hero.ataa
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class AtaaApplication : Application() {
     /*
     override fun attachBaseContext(base: Context) {

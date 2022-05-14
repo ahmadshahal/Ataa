@@ -7,9 +7,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,23 +16,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
 
 @Composable
-fun LoginScreen() {
-    val emailTextState = remember {
-        mutableStateOf("")
-    }
-    val passwordTextState = remember {
-        mutableStateOf("")
-    }
-    val passwordVisibleState = remember {
-        mutableStateOf(false)
-    }
+fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
-
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
@@ -49,16 +37,15 @@ fun LoginScreen() {
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             WelcomeColumn()
-            EmailTextField(emailTextState = emailTextState)
+            EmailTextField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(5.dp))
             PasswordTextField(
-                passwordTextState = passwordTextState,
-                passwordVisibleState = passwordVisibleState
+                viewModel = viewModel,
             )
             Spacer(modifier = Modifier.height(25.dp))
             MaterialButton(
                 text = stringResource(id = R.string.login),
-                onClicked = { /*TODO*/ },
+                onClicked = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
             )
@@ -70,12 +57,12 @@ fun LoginScreen() {
 }
 
 @Composable
-fun EmailTextField(emailTextState: MutableState<String>) {
+fun EmailTextField(viewModel: LoginViewModel) {
     LinedTextField(
-        value = emailTextState.value,
+        value = viewModel.emailTextState.value,
         hint = stringResource(id = R.string.email),
         onValueChanged = { newValue ->
-            emailTextState.value = newValue
+            viewModel.emailTextState.value = newValue
         },
         leadingIcon = {
             Icon(
@@ -84,20 +71,21 @@ fun EmailTextField(emailTextState: MutableState<String>) {
                 modifier = Modifier.size(18.dp)
             )
         },
+        isError = viewModel.isErrorEmailField.value,
+        errorMessage = viewModel.emailFieldErrorMsg.value,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
 
 @Composable
 fun PasswordTextField(
-    passwordTextState: MutableState<String>,
-    passwordVisibleState: MutableState<Boolean>
+    viewModel: LoginViewModel,
 ) {
     LinedTextField(
-        value = passwordTextState.value,
+        value = viewModel.passwordTextState.value,
         hint = stringResource(id = R.string.password),
         onValueChanged = { newValue ->
-            passwordTextState.value = newValue
+            viewModel.passwordTextState.value = newValue
         },
         leadingIcon = {
             Icon(
@@ -109,18 +97,22 @@ fun PasswordTextField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             IconButton(
-                onClick = { passwordVisibleState.value = !passwordVisibleState.value },
+                onClick = {
+                    viewModel.passwordVisibleState.value = !viewModel.passwordVisibleState.value
+                },
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (passwordVisibleState.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
+                        id = if (viewModel.passwordVisibleState.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
                     ),
                     contentDescription = "",
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(19.dp),
                 )
             }
         },
-        visualTransformation = if (passwordVisibleState.value) VisualTransformation.None else PasswordVisualTransformation()
+        isError = viewModel.isErrorPasswordField.value,
+        errorMessage = viewModel.passwordFieldErrorMsg.value,
+        visualTransformation = if (viewModel.passwordVisibleState.value) VisualTransformation.None else PasswordVisualTransformation()
     )
 }
 
