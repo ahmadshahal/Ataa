@@ -1,14 +1,23 @@
 package com.hero.ataa.ui.screens.login_screen
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.hero.ataa.domain.use_cases.LoginUseCase
+import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
+    private val _uiState = mutableStateOf<LoginUiState>(LoginUiState.Initial)
+    val uiState: State<LoginUiState> = _uiState
+
     val emailFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
 
@@ -20,11 +29,30 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     val emailFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val passwordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
+    fun onDestroy() {
+        viewModelScope.cancel()
+    }
+
     fun onSubmit() {
         val validateEmailResult = validateEmail()
         val validatePasswordResult = validatePassword()
         if (validateEmailResult && validatePasswordResult) {
-            // TODO: GO
+            viewModelScope.launch {
+                loginUseCase.execute(emailFieldText.value, passwordFieldText.value).collect { dataState ->
+                    when(dataState) {
+                        is DataState.Loading -> {
+                            _uiState.value = LoginUiState.Loading
+                        }
+                        is DataState.Error -> {
+                            _uiState.value = LoginUiState.Initial
+                        }
+                        is DataState.Success -> {
+                            _uiState.value = LoginUiState.Initial
+                        }
+                        else -> Unit
+                    }
+                }
+            }
         }
     }
 

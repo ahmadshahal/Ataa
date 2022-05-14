@@ -45,14 +45,23 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(25.dp))
             MaterialButton(
                 content = {
-                    Text(
-                        text = stringResource(id = R.string.login),
-                        style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
-                    )
+                    if (viewModel.uiState.value is LoginUiState.Initial) {
+                        Text(
+                            text = stringResource(id = R.string.login),
+                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp
+                        )
+                    }
                 },
                 onClicked = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
+                enabled = viewModel.uiState.value is LoginUiState.Initial
             )
             Spacer(modifier = Modifier.height(5.dp))
             SkipRow()
