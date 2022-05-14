@@ -18,7 +18,8 @@ fun MaterialButton(
     content: @Composable () -> Unit,
     onClicked: () -> Unit,
     backgroundColor: Color,
-    contentColor: Color
+    contentColor: Color,
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClicked,
@@ -29,7 +30,10 @@ fun MaterialButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
             contentColor = contentColor,
-        )
+            disabledBackgroundColor = backgroundColor,
+            disabledContentColor = contentColor,
+        ),
+        enabled = enabled,
     ) {
         content()
     }
