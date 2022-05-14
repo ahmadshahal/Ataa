@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MaterialButton(
-    text: String,
+    content: @Composable () -> Unit,
     onClicked: () -> Unit,
     backgroundColor: Color,
     contentColor: Color
@@ -31,9 +31,6 @@ fun MaterialButton(
             contentColor = contentColor,
         )
     ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.button
-        )
+        content()
     }
 }

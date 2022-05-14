@@ -44,7 +44,12 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
             )
             Spacer(modifier = Modifier.height(25.dp))
             MaterialButton(
-                text = stringResource(id = R.string.login),
+                content = {
+                    Text(
+                        text = stringResource(id = R.string.login),
+                        style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                    )
+                },
                 onClicked = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
