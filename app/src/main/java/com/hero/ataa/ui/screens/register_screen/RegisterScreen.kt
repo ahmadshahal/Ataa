@@ -66,7 +66,7 @@ fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
                         style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
                     )
                 },
-                onClicked = { /*TODO*/ },
+                onClicked = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
             )

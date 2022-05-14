@@ -21,4 +21,8 @@
     <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="next">التالي</string>
+    <string name="password_too_short">كلمة المرور قصيرة جداً</string>
+    <string name="password_so_long">كلمة المرور طويلة جداً</string>
+    <string name="passwords_not_identical">كلمة المرور وتأكيد كلمة المرور غير متطابقين</string>
+    <string name="invalid_phone_number">خطأ في إدخال رقم الهاتف</string>
 </resources>
