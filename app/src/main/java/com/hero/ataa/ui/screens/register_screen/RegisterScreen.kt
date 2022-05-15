@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -380,7 +379,8 @@ private fun SelectCountryDialog(viewModel: RegisterViewModel) {
     ) {
         Box(
             modifier = Modifier
-                .fillMaxSize(0.9F)
+                .fillMaxWidth(0.95F)
+                .fillMaxHeight(0.8F)
                 .clip(RoundedCornerShape(7.dp))
                 .background(MaterialTheme.colors.background)
         ) {
@@ -414,11 +414,18 @@ private fun CountryItem(viewModel: RegisterViewModel, country: Country) {
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            modifier = Modifier.weight(1F),
             text = country.fullName,
             style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = "|",
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = "${country.code}+",
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
         )
     }
 
