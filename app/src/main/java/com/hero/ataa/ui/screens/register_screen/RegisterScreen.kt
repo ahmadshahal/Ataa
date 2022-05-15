@@ -325,7 +325,7 @@ private fun PhoneNumberTextField(viewModel: RegisterViewModel) {
         trailingIcon = {
             IconButton(onClick = { viewModel.showDialog.value = true }) {
                 Text(
-                    text = Country.getFlagEmojiFor(viewModel.chosenCountry.value.nameCode),
+                    text = Country.getFlagEmojiFor(viewModel.selectedCountry.value.nameCode),
                     style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
                 )
             }
@@ -402,7 +402,7 @@ private fun CountryItem(viewModel: RegisterViewModel, country: Country) {
             .fillMaxWidth()
             .height(50.dp)
             .clickable {
-                viewModel.chosenCountry.value = country
+                viewModel.selectedCountry.value = country
                 viewModel.showDialog.value = false
             }
             .padding(horizontal = 18.dp),

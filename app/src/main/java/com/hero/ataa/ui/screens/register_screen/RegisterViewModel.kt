@@ -50,7 +50,7 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
     val phoneNumberFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
     val showDialog = mutableStateOf(false)
-    val chosenCountry = mutableStateOf(Country("sy", "963", "Syrian Arab Republic"))
+    val selectedCountry = mutableStateOf(Country("sy", "963", "Syrian Arab Republic"))
 
     fun onSubmit() {
         val validateEmailResult = validateEmail()
@@ -66,7 +66,7 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
                     email = emailFieldText.value,
                     fullName = nameFieldText.value,
                     password = passwordFieldText.value,
-                    phoneNumber = phoneNumberFieldText.value
+                    phoneNumber = "+${selectedCountry.value.code}${phoneNumberFieldText.value}"
                 ).collect { dataState ->
                     when (dataState) {
                         is DataState.Loading -> {
@@ -167,7 +167,7 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
 
     private fun validatePhoneNumber(): Boolean {
         return when (val phoneNumberResId: Int? =
-            Validation.validatePhoneNumber(phoneNumberFieldText.value)
+            Validation.validatePhoneNumber("+${selectedCountry.value.code}${phoneNumberFieldText.value}")
         ) {
             null -> {
                 isErrorPhoneNumberField.value = false

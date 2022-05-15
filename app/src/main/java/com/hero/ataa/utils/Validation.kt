@@ -4,6 +4,8 @@ import android.util.Patterns
 import com.hero.ataa.R
 
 object Validation {
+    private const val PHONE_NUMBER_REGEX = "^[+]?[0-9]{10,13}$"
+
     fun validateEmail(email: String): Int? {
         if (email.isEmpty()) {
             return R.string.cant_be_empty
@@ -52,7 +54,7 @@ object Validation {
         if (phoneNumber.isEmpty()) {
             return R.string.cant_be_empty
         }
-        if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+        if (!PHONE_NUMBER_REGEX.toRegex().matches(phoneNumber)) {
             return R.string.invalid_phone_number
         }
         return null
