@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -27,6 +28,7 @@ fun LinedTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     errorMessage: String = "",
+    keyboardActions: KeyboardActions = KeyboardActions()
 ) {
     Column {
         TextField(
@@ -55,6 +57,7 @@ fun LinedTextField(
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
             singleLine = true,
+            keyboardActions = keyboardActions,
         )
         if (isError) {
             Spacer(modifier = Modifier.height(5.dp))

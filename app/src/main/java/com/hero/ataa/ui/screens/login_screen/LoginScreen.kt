@@ -3,6 +3,7 @@ package com.hero.ataa.ui.screens.login_screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -10,9 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -32,7 +36,7 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { uiEvent ->
-            when(uiEvent) {
+            when (uiEvent) {
                 is UiEvent.ShowSnackBar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = uiEvent.message.asString(context),
@@ -102,6 +106,7 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
 
 @Composable
 private fun EmailTextField(viewModel: LoginViewModel) {
+    val focusManager = LocalFocusManager.current
     LinedTextField(
         value = viewModel.emailFieldText.value,
         hint = stringResource(id = R.string.email),
@@ -117,7 +122,13 @@ private fun EmailTextField(viewModel: LoginViewModel) {
         },
         isError = viewModel.isErrorEmailField.value,
         errorMessage = viewModel.emailFieldErrorMsg.value.asString(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(onNext = {
+            focusManager.moveFocus(FocusDirection.Down)
+        })
     )
 }
 
@@ -125,6 +136,7 @@ private fun EmailTextField(viewModel: LoginViewModel) {
 private fun PasswordTextField(
     viewModel: LoginViewModel,
 ) {
+    val focusManager = LocalFocusManager.current
     LinedTextField(
         value = viewModel.passwordFieldText.value,
         hint = stringResource(id = R.string.password),
@@ -138,7 +150,10 @@ private fun PasswordTextField(
                 modifier = Modifier.size(19.dp)
             )
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done
+        ),
         trailingIcon = {
             IconButton(
                 onClick = {
@@ -156,7 +171,10 @@ private fun PasswordTextField(
         },
         isError = viewModel.isErrorPasswordField.value,
         errorMessage = viewModel.passwordFieldErrorMsg.value.asString(),
-        visualTransformation = if (viewModel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+        visualTransformation = if (viewModel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardActions = KeyboardActions(onDone = {
+            focusManager.clearFocus()
+        })
     )
 }
 
