@@ -1,15 +1,32 @@
 package com.hero.ataa.ui.screens.register_screen
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hero.ataa.R
+import com.hero.ataa.domain.use_cases.RegisterUseCase
+import com.hero.ataa.shared.DataState
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : ViewModel() {
+class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase) : ViewModel() {
+    private val _uiState = mutableStateOf<RegisterUiState>(RegisterUiState.Initial)
+    val uiState: State<RegisterUiState>
+        get() = _uiState
+
+    private val _uiEvent: Channel<UiEvent> = Channel()
+    val uiEvent: Flow<UiEvent>
+        get() = _uiEvent.receiveAsFlow()
+
     val emailFieldText = mutableStateOf("")
     val nameFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
@@ -40,7 +57,33 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         if (validateEmailResult && validateFullNameResult
             && validatePasswordResult && validateConfirmPasswordResult && validatePhoneNumberResult
         ) {
-            // TODO: GO
+            viewModelScope.launch {
+                registerUseCase(
+                    email = emailFieldText.value,
+                    fullName = nameFieldText.value,
+                    password = passwordFieldText.value,
+                    phoneNumber = phoneNumberFieldText.value
+                ).collect { dataState ->
+                    when (dataState) {
+                        is DataState.Loading -> {
+                            _uiState.value = RegisterUiState.Loading
+                        }
+                        is DataState.Error -> {
+                            _uiState.value = RegisterUiState.Initial
+                            _uiEvent.send(
+                                UiEvent.ShowSnackBar(
+                                    message = dataState.message,
+                                )
+                            )
+                        }
+                        is DataState.Success -> {
+                            _uiState.value = RegisterUiState.Initial
+                            // TODO: Navigate
+                        }
+                        else -> Unit
+                    }
+                }
+            }
         }
     }
 

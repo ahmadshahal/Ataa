@@ -6,8 +6,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
 
@@ -25,6 +28,23 @@ import com.hero.ataa.ui.components.MaterialButton
 fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when(uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    // TODO.
+                }
+                else -> Unit
+            }
+        }
+    }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -49,6 +69,7 @@ fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
         ) {
             Spacer(modifier = Modifier.height(18.dp))
             TitleColumn()
+            Spacer(modifier = Modifier.height(5.dp))
             EmailTextField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(5.dp))
             NameTextField(viewModel = viewModel)
@@ -61,14 +82,23 @@ fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(25.dp))
             MaterialButton(
                 content = {
-                    Text(
-                        text = stringResource(id = R.string.next),
-                        style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
-                    )
+                    if (viewModel.uiState.value is RegisterUiState.Initial) {
+                        Text(
+                            text = stringResource(id = R.string.next),
+                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp,
+                        )
+                    }
                 },
                 onClicked = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
+                enabled = viewModel.uiState.value is RegisterUiState.Initial
             )
             Spacer(modifier = Modifier.height(5.dp))
             SkipRow()

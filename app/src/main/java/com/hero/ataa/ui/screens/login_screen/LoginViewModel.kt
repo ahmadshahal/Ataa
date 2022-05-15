@@ -47,27 +47,29 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         val validatePasswordResult = validatePassword()
         if (validateEmailResult && validatePasswordResult) {
             viewModelScope.launch {
-                loginUseCase(emailFieldText.value, passwordFieldText.value)
-                    .collect { dataState ->
-                        when (dataState) {
-                            is DataState.Loading -> {
-                                _uiState.value = LoginUiState.Loading
-                            }
-                            is DataState.Error -> {
-                                _uiState.value = LoginUiState.Initial
-                                _uiEvent.send(
-                                    UiEvent.ShowSnackBar(
-                                        message = dataState.message,
-                                    )
-                                )
-                            }
-                            is DataState.Success -> {
-                                _uiState.value = LoginUiState.Initial
-                                // TODO: Navigate
-                            }
-                            else -> Unit
+                loginUseCase(
+                    email = emailFieldText.value,
+                    password = passwordFieldText.value
+                ).collect { dataState ->
+                    when (dataState) {
+                        is DataState.Loading -> {
+                            _uiState.value = LoginUiState.Loading
                         }
+                        is DataState.Error -> {
+                            _uiState.value = LoginUiState.Initial
+                            _uiEvent.send(
+                                UiEvent.ShowSnackBar(
+                                    message = dataState.message,
+                                )
+                            )
+                        }
+                        is DataState.Success -> {
+                            _uiState.value = LoginUiState.Initial
+                            // TODO: Navigate
+                        }
+                        else -> Unit
                     }
+                }
             }
         }
     }
