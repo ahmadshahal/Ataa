@@ -1,7 +1,12 @@
 package com.hero.ataa.ui.screens.register_screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -10,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -17,7 +23,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
@@ -25,6 +33,7 @@ import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.navigation.Screen
+import com.hero.ataa.utils.Country
 
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = hiltViewModel()) {
@@ -61,6 +70,9 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = 
             }
         },
     ) {
+        if (viewModel.showDialog.value) {
+            SelectCountryDialog(viewModel = viewModel)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -311,6 +323,14 @@ private fun PhoneNumberTextField(viewModel: RegisterViewModel) {
                 modifier = Modifier.size(20.5.dp)
             )
         },
+        trailingIcon = {
+            IconButton(onClick = { viewModel.showDialog.value = true }) {
+                Text(
+                    text = Country.getFlagEmojiFor(viewModel.chosenCountry.value.nameCode),
+                    style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
+                )
+            }
+        },
         isError = viewModel.isErrorPhoneNumberField.value,
         errorMessage = viewModel.phoneNumberFieldErrorMsg.value.asString(),
         keyboardOptions = KeyboardOptions(
@@ -349,4 +369,57 @@ private fun SkipRow() {
             )
         }
     }
+}
+
+@Composable
+private fun SelectCountryDialog(viewModel: RegisterViewModel) {
+    Dialog(
+        onDismissRequest = {
+            viewModel.showDialog.value = false
+        },
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(0.9F)
+                .clip(RoundedCornerShape(7.dp))
+                .background(MaterialTheme.colors.background)
+        ) {
+            LazyColumn(
+                modifier = Modifier,
+            ) {
+                items(Country.getCountriesList()) { country ->
+                    CountryItem(viewModel = viewModel, country = country)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CountryItem(viewModel: RegisterViewModel, country: Country) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .clickable {
+                viewModel.chosenCountry.value = country
+                viewModel.showDialog.value = false
+            }
+            .padding(horizontal = 18.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = Country.getFlagEmojiFor(countryCode = country.nameCode),
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            modifier = Modifier.weight(1F),
+            text = country.fullName,
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+
 }
