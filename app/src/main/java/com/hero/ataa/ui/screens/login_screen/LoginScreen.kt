@@ -23,13 +23,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
+import com.hero.ataa.ui.navigation.Screen
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val context = LocalContext.current
@@ -72,7 +74,7 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(18.dp))
-            TitleColumn()
+            TitleColumn(navController = navController)
             EmailTextField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(5.dp))
             PasswordTextField(viewModel = viewModel)
@@ -207,7 +209,7 @@ private fun SkipRow() {
 }
 
 @Composable
-private fun TitleColumn() {
+private fun TitleColumn(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -244,7 +246,13 @@ private fun TitleColumn() {
             )
             Spacer(modifier = Modifier.width(1.dp))
             TextButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(Screen.RegisterScreen.route) {
+                        popUpTo(route = Screen.LoginScreen.route) {
+                            this.inclusive = true
+                        }
+                    }
+                },
             ) {
                 Text(
                     text = stringResource(id = R.string.do_create_new_account),

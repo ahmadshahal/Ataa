@@ -19,13 +19,15 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
+import com.hero.ataa.ui.navigation.Screen
 
 @Composable
-fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
+fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = hiltViewModel()) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -68,7 +70,7 @@ fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(18.dp))
-            TitleColumn()
+            TitleColumn(navController = navController)
             Spacer(modifier = Modifier.height(5.dp))
             EmailTextField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(5.dp))
@@ -108,7 +110,7 @@ fun RegisterScreen(viewModel: RegisterViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun TitleColumn() {
+private fun TitleColumn(navController: NavController) {
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(id = R.string.create_new_account),
@@ -126,7 +128,13 @@ private fun TitleColumn() {
         )
         Spacer(modifier = Modifier.width(1.dp))
         TextButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                navController.navigate(Screen.LoginScreen.route) {
+                    popUpTo(route = Screen.RegisterScreen.route) {
+                        this.inclusive = true
+                    }
+                }
+            },
         ) {
             Text(
                 text = stringResource(id = R.string.do_log_in),
