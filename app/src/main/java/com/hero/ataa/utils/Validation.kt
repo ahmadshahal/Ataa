@@ -50,11 +50,11 @@ object Validation {
         return null
     }
 
-    fun validatePhoneNumber(phoneNumber: String): Int? {
+    fun validatePhoneNumber(phoneNumber: String, countryCode: String): Int? {
         if (phoneNumber.isEmpty()) {
             return R.string.cant_be_empty
         }
-        if (!PHONE_NUMBER_REGEX.toRegex().matches(phoneNumber)) {
+        if (!PHONE_NUMBER_REGEX.toRegex().matches("+$countryCode$phoneNumber")) {
             return R.string.invalid_phone_number
         }
         return null

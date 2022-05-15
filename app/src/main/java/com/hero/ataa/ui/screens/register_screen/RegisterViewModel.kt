@@ -167,7 +167,10 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
 
     private fun validatePhoneNumber(): Boolean {
         return when (val phoneNumberResId: Int? =
-            Validation.validatePhoneNumber("+${selectedCountry.value.code}${phoneNumberFieldText.value}")
+            Validation.validatePhoneNumber(
+                phoneNumber = phoneNumberFieldText.value,
+                countryCode = selectedCountry.value.code
+            )
         ) {
             null -> {
                 isErrorPhoneNumberField.value = false
