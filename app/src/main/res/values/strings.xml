@@ -31,4 +31,9 @@
     <string name="language">Language</string>
     <string name="about_us">About Us</string>
     <string name="log_out">Logout</string>
+    <string name="welcome_to_ataa_for_charity_projects">Welcome to Ataa for charity projects</string>
+    <string name="trending_donations">Trending Donations</string>
+    <string name="ramadan_projects">Ramadan Projects</string>
+    <string name="kafalat_yateem">Kafalat Yateem</string>
+    <string name="ekhraj_zakat">Ekhraj Zakat</string>
 </resources>

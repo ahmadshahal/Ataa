@@ -32,4 +32,9 @@
     <string name="language">اللغة</string>
     <string name="about_us">من نحن</string>
     <string name="log_out">تسجيل الخروج</string>
+    <string name="welcome_to_ataa_for_charity_projects">مرحباً بكم في جمعية عَطاء للأعمال الخيرية</string>
+    <string name="trending_donations">أهم التبرعات</string>
+    <string name="ramadan_projects">مشاريع رمضان</string>
+    <string name="kafalat_yateem">كفالة يتيم</string>
+    <string name="ekhraj_zakat">إخراج زكاة</string>
 </resources>

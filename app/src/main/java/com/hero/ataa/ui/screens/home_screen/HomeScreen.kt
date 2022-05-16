@@ -1,24 +1,25 @@
 package com.hero.ataa.ui.screens.home_screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ fun HomeScreen(
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,
@@ -43,7 +45,28 @@ fun HomeScreen(
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
-
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(16.dp)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
+                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            AdItem()
+            Spacer(modifier = Modifier.height(30.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(id = R.string.trending_donations),
+                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            MostImportantRow()
+        }
     }
 }
 
@@ -150,5 +173,80 @@ private fun DrawerButton(
             text = text,
             style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
         )
+    }
+}
+
+@Composable
+private fun AdItem() {
+    Box(
+        modifier = Modifier
+            .height(190.dp)
+            .width(380.dp)
+            .clip(RoundedCornerShape((7.dp)))
+            .background(MaterialTheme.colors.surface)
+    )
+}
+
+@Composable
+fun MostImportantRow() {
+    // !: FlowRow doesn't support RTL.
+    // TODO: Find a solution.
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        mainAxisSpacing = 9.dp,
+        crossAxisSpacing = 9.dp,
+        mainAxisAlignment = FlowMainAxisAlignment.End
+    ) {
+        CategoryItem(
+            name = stringResource(id = R.string.ekhraj_zakat),
+            icon = painterResource(id = R.drawable.ic_zakat_icon)
+        ) {}
+        CategoryItem(
+            name = stringResource(id = R.string.kafalat_yateem),
+            icon = painterResource(id = R.drawable.ic_yateem_icon)
+        ) {}
+        CategoryItem(
+            name = stringResource(id = R.string.ramadan_projects),
+            icon = painterResource(id = R.drawable.ic_moon_icon)
+        ) {}
+    }
+}
+
+@Composable
+private fun CategoryItem(name: String, icon: Painter, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .height(103.dp)
+            .width(103.dp)
+            .clip(RoundedCornerShape((7.dp)))
+            .background(MaterialTheme.colors.surface)
+            .border(
+                width = 0.1.dp,
+                color = MaterialTheme.colors.secondaryVariant,
+                shape = RoundedCornerShape(7.dp)
+            )
+            .clickable(onClick = onClick)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = "",
+                modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colors.primary
+            )
+            Spacer(modifier = Modifier.height(7.dp))
+            Text(
+                text = name,
+                style = MaterialTheme.typography.caption.copy(color = MaterialTheme.colors.onBackground),
+                textAlign = TextAlign.Center,
+                lineHeight = 18.sp
+            )
+        }
     }
 }
