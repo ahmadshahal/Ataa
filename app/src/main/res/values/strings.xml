@@ -36,4 +36,9 @@
     <string name="ramadan_projects">Ramadan Projects</string>
     <string name="kafalat_yateem">Kafalat Yateem</string>
     <string name="ekhraj_zakat">Ekhraj Zakat</string>
+    <string name="education">Education</string>
+    <string name="health">Health</string>
+    <string name="mosques">Mosques</string>
+    <string name="poor_houses">Poor Houses</string>
+    <string name="contribute_with_us">Contribute With Us</string>
 </resources>

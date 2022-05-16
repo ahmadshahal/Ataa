@@ -66,6 +66,14 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             MostImportantRow()
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(id = R.string.contribute_with_us),
+                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            ContributeWithUsRow()
         }
     }
 }
@@ -188,7 +196,7 @@ private fun AdItem() {
 }
 
 @Composable
-fun MostImportantRow() {
+private fun MostImportantRow() {
     // !: FlowRow doesn't support RTL.
     // TODO: Find a solution.
     FlowRow(
@@ -213,7 +221,40 @@ fun MostImportantRow() {
 }
 
 @Composable
-private fun CategoryItem(name: String, icon: Painter, categoryArg: String = "") {
+private fun ContributeWithUsRow() {
+    // !: FlowRow doesn't support RTL.
+    // TODO: Find a solution.
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        mainAxisSpacing = 9.dp,
+        crossAxisSpacing = 9.dp,
+        mainAxisAlignment = FlowMainAxisAlignment.End
+    ) {
+        CategoryItem(
+            name = stringResource(id = R.string.poor_houses),
+            icon = painterResource(id = R.drawable.ic_house_icon),
+            iconSize = 25.dp
+        )
+        CategoryItem(
+            name = stringResource(id = R.string.mosques),
+            icon = painterResource(id = R.drawable.ic_mosque_icon),
+            iconSize = 25.dp
+        )
+        CategoryItem(
+            name = stringResource(id = R.string.health),
+            icon = painterResource(id = R.drawable.ic_health_icon),
+            iconSize = 23.dp,
+        )
+        CategoryItem(
+            name = stringResource(id = R.string.education),
+            icon = painterResource(id = R.drawable.ic_education_icon),
+            iconSize = 27.dp
+        )
+    }
+}
+
+@Composable
+private fun CategoryItem(name: String, icon: Painter, iconSize: Dp = 24.dp, categoryArg: String = "") {
     Box(
         modifier = Modifier
             .height(103.dp)
@@ -239,7 +280,7 @@ private fun CategoryItem(name: String, icon: Painter, categoryArg: String = "") 
             Icon(
                 painter = icon,
                 contentDescription = "",
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(iconSize),
                 tint = MaterialTheme.colors.primary
             )
             Spacer(modifier = Modifier.height(7.dp))

@@ -37,4 +37,9 @@
     <string name="ramadan_projects">مشاريع رمضان</string>
     <string name="kafalat_yateem">كفالة يتيم</string>
     <string name="ekhraj_zakat">إخراج زكاة</string>
+    <string name="education">تعليم</string>
+    <string name="health">صحة</string>
+    <string name="mosques">مساجد</string>
+    <string name="poor_houses">بيوت فقراء</string>
+    <string name="contribute_with_us">ساهم معنا</string>
 </resources>
