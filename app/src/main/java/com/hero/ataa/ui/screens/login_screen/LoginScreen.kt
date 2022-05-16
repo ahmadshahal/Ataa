@@ -100,7 +100,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                 enabled = viewModel.uiState.value is LoginUiState.Initial
             )
             Spacer(modifier = Modifier.height(5.dp))
-            SkipRow()
+            SkipRow(navController = navController)
             Spacer(modifier = Modifier.height(18.dp))
         }
     }
@@ -181,7 +181,7 @@ private fun PasswordTextField(
 }
 
 @Composable
-private fun SkipRow() {
+private fun SkipRow(navController: NavController) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -195,7 +195,13 @@ private fun SkipRow() {
         )
         Spacer(modifier = Modifier.width(1.dp))
         TextButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(route = Screen.LoginScreen.route) {
+                        this.inclusive = true
+                    }
+                }
+            },
             modifier = Modifier.width(45.dp)
         ) {
             Text(

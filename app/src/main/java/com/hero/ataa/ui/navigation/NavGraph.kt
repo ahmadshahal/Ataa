@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 
@@ -16,6 +17,9 @@ fun NavGraph() {
         }
         composable(route = Screen.RegisterScreen.route) {
             RegisterScreen(navController = navController)
+        }
+        composable(route = Screen.HomeScreen.route) {
+            HomeScreen(navController = navController)
         }
     }
 }
