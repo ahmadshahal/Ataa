@@ -45,7 +45,11 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                     )
                 }
                 is UiEvent.Navigate -> {
-                    // TODO.
+                    navController.navigate(uiEvent.route) {
+                        popUpTo(route = Screen.LoginScreen.route) {
+                            this.inclusive = true
+                        }
+                    }
                 }
                 else -> Unit
             }

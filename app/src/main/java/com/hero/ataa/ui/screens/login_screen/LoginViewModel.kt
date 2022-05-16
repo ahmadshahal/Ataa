@@ -8,6 +8,7 @@ import com.hero.ataa.domain.use_cases.LoginUseCase
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -65,7 +66,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                         }
                         is DataState.Success -> {
                             _uiState.value = LoginUiState.Initial
-                            // TODO: Navigate
+                            _uiEvent.send(UiEvent.Navigate(route = Screen.HomeScreen.route))
                         }
                         else -> Unit
                     }

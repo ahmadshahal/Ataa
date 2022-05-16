@@ -9,6 +9,7 @@ import com.hero.ataa.domain.use_cases.RegisterUseCase
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.Country
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -82,7 +83,7 @@ class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase
                         }
                         is DataState.Success -> {
                             _uiState.value = RegisterUiState.Initial
-                            // TODO: Navigate
+                            _uiEvent.send(UiEvent.Navigate(route = Screen.HomeScreen.route))
                         }
                         else -> Unit
                     }
