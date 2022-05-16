@@ -72,7 +72,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 18.dp)
+                .padding(horizontal = 16.dp)
                 .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
