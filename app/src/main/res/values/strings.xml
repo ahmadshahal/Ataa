@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ataa</string>
     <string name="welcome_to_ataa">Welcome to Ataa</string>
-    <string name="welcome_on_board_again">Welcome onboard again, sign in</string>
+    <string name="welcome_on_board_again">Welcome onboard again, sign in to your</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -9,7 +9,7 @@
     <string name="login_later">Login later?</string>
     <string name="skip">Skip</string>
     <string name="do_create_new_account">create a new account</string>
-    <string name="to_your_account">to your account</string>
+    <string name="to_your_account">account or</string>
     <string name="cant_be_empty">This field can\'t be empty</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="something_went_wrong">Something went wrong</string>
