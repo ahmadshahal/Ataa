@@ -24,4 +24,11 @@
     <string name="password_so_long">Password is so long</string>
     <string name="passwords_not_identical">Password isn\'t identical with Confirm Password</string>
     <string name="invalid_phone_number">Invalid Phone Number</string>
+    <string name="home">Home</string>
+    <string name="my_account">My Account</string>
+    <string name="volunteering_application">Volunteering Application</string>
+    <string name="beneficiary_application">Beneficiary Application</string>
+    <string name="language">Language</string>
+    <string name="about_us">About Us</string>
+    <string name="log_out">Logout</string>
 </resources>

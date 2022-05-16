@@ -25,4 +25,11 @@
     <string name="password_so_long">كلمة المرور طويلة جداً</string>
     <string name="passwords_not_identical">كلمة المرور وتأكيد كلمة المرور غير متطابقين</string>
     <string name="invalid_phone_number">خطأ في إدخال رقم الهاتف</string>
+    <string name="home">الرئيسية</string>
+    <string name="my_account">حسابي</string>
+    <string name="volunteering_application">تسجيل استمارة متطوع</string>
+    <string name="beneficiary_application">تسجيل استمارة مستفيد</string>
+    <string name="language">اللغة</string>
+    <string name="about_us">من نحن</string>
+    <string name="log_out">تسجيل الخروج</string>
 </resources>
