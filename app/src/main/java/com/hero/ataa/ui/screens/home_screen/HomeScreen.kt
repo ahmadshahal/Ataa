@@ -200,20 +200,20 @@ fun MostImportantRow() {
         CategoryItem(
             name = stringResource(id = R.string.ekhraj_zakat),
             icon = painterResource(id = R.drawable.ic_zakat_icon)
-        ) {}
+        )
         CategoryItem(
             name = stringResource(id = R.string.kafalat_yateem),
             icon = painterResource(id = R.drawable.ic_yateem_icon)
-        ) {}
+        )
         CategoryItem(
             name = stringResource(id = R.string.ramadan_projects),
             icon = painterResource(id = R.drawable.ic_moon_icon)
-        ) {}
+        )
     }
 }
 
 @Composable
-private fun CategoryItem(name: String, icon: Painter, onClick: () -> Unit) {
+private fun CategoryItem(name: String, icon: Painter, categoryArg: String = "") {
     Box(
         modifier = Modifier
             .height(103.dp)
@@ -225,7 +225,9 @@ private fun CategoryItem(name: String, icon: Painter, onClick: () -> Unit) {
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
-            .clickable(onClick = onClick)
+            .clickable(onClick = {
+                // TODO: Navigate to Projects screen with categoryArg
+            })
     ) {
         Column(
             modifier = Modifier
