@@ -2,6 +2,10 @@ package com.hero.ataa.ui.screens.home_screen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -34,6 +38,8 @@ fun HomeScreen(
 ) {
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
+    val adsLazyRowState = rememberLazyListState()
+
     Scaffold(
         scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
@@ -52,18 +58,23 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
-                .padding(16.dp)
+                .padding(vertical = 16.dp)
+            // Vertical Padding, all other Composables have 16 horizontal padding, except AdsRow.
         ) {
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
                 style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
             )
             Spacer(modifier = Modifier.height(10.dp))
-            AdItem()
+            AdsLazyRow(viewModel = viewModel, lazyRowState = adsLazyRowState)
             Spacer(modifier = Modifier.height(30.dp))
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 text = stringResource(id = R.string.trending_donations),
                 style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
             )
@@ -71,7 +82,9 @@ fun HomeScreen(
             MostImportantRow()
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 text = stringResource(id = R.string.contribute_with_us),
                 style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
             )
@@ -188,12 +201,22 @@ private fun DrawerButton(
 }
 
 @Composable
-private fun AdItem(
-    ad: Ad = Ad(
-        text = "مبادرة لا للجوع بالتعاون مع جمعية الأيادي البيضاء",
-        url = "https://i.ibb.co/1d7Th9Z/charity.png"
-    )
-) {
+private fun AdsLazyRow(viewModel: HomeViewModel, lazyRowState: LazyListState) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        state = lazyRowState,
+        verticalAlignment = Alignment.CenterVertically,
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(11.dp),
+    ) {
+        items(viewModel.adsList) { ad ->
+            AdItem(ad = ad)
+        }
+    }
+}
+
+@Composable
+private fun AdItem(ad: Ad) {
     Box(
         modifier = Modifier
             .height(180.dp)
@@ -224,7 +247,9 @@ private fun MostImportantRow() {
     // !: FlowRow doesn't support RTL.
     // TODO: Find a solution.
     FlowRow(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End
@@ -249,7 +274,9 @@ private fun ContributeWithUsRow() {
     // !: FlowRow doesn't support RTL.
     // TODO: Find a solution.
     FlowRow(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End
