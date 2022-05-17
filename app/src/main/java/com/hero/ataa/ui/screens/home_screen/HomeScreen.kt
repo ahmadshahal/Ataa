@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -21,7 +22,9 @@ import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
+import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.ui.components.AppBar
+import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
 
 @Composable
@@ -185,15 +188,34 @@ private fun DrawerButton(
 }
 
 @Composable
-private fun AdItem() {
+private fun AdItem(
+    ad: Ad = Ad(
+        text = "مبادرة لا للجوع بالتعاون مع جمعية الأيادي البيضاء",
+        url = "https://i.ibb.co/1d7Th9Z/charity.png"
+    )
+) {
     Box(
         modifier = Modifier
-            .height(190.dp)
-            .width(380.dp)
+            .height(180.dp)
+            .width(330.dp)
             .clip(RoundedCornerShape((7.dp)))
             .background(MaterialTheme.colors.surface)
     ) {
-
+        CoilImage(
+            modifier = Modifier.fillMaxSize(),
+            imageModel = ad.url,
+            contentScale = ContentScale.Crop,
+        )
+        // TODO: Add Shadow.
+        Text(
+            text = ad.text,
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onPrimary),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(10.dp),
+            lineHeight = 20.sp,
+        )
     }
 }
 
@@ -256,7 +278,12 @@ private fun ContributeWithUsRow() {
 }
 
 @Composable
-private fun CategoryItem(name: String, icon: Painter, iconSize: Dp = 24.dp, categoryArg: String = "") {
+private fun CategoryItem(
+    name: String,
+    icon: Painter,
+    iconSize: Dp = 24.dp,
+    categoryArg: String = ""
+) {
     Box(
         modifier = Modifier
             .height(103.dp)
