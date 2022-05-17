@@ -43,7 +43,7 @@ val Typography = Typography(
     h4 = TextStyle(
         fontFamily = NotoSans,
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
+        fontSize = 15.sp
     ),
     h5 = TextStyle(
         fontFamily = NotoSans,
@@ -58,7 +58,7 @@ val Typography = Typography(
     caption = TextStyle(
         fontFamily = NotoSans,
         fontWeight = FontWeight.Bold,
-        fontSize = 12.sp
+        fontSize = 11.5.sp
     ),
     overline = TextStyle(
         fontFamily = NotoSans,

@@ -192,7 +192,9 @@ private fun AdItem() {
             .width(380.dp)
             .clip(RoundedCornerShape((7.dp)))
             .background(MaterialTheme.colors.surface)
-    )
+    ) {
+
+    }
 }
 
 @Composable
@@ -243,12 +245,12 @@ private fun ContributeWithUsRow() {
         CategoryItem(
             name = stringResource(id = R.string.health),
             icon = painterResource(id = R.drawable.ic_health_icon),
-            iconSize = 23.dp,
+            iconSize = 22.dp,
         )
         CategoryItem(
             name = stringResource(id = R.string.education),
             icon = painterResource(id = R.drawable.ic_education_icon),
-            iconSize = 27.dp
+            iconSize = 28.dp
         )
     }
 }
