@@ -70,7 +70,9 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             AdsLazyRow(viewModel = viewModel, lazyRowState = adsLazyRowState)
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+            AdsBulletsList(viewModel = viewModel, lazyRowState = adsLazyRowState)
+            Spacer(modifier = Modifier.height(15.dp))
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -211,6 +213,31 @@ private fun AdsLazyRow(viewModel: HomeViewModel, lazyRowState: LazyListState) {
     ) {
         items(viewModel.adsList) { ad ->
             AdItem(ad = ad)
+        }
+    }
+}
+
+@Composable
+private fun AdsBulletsList(viewModel: HomeViewModel, lazyRowState: LazyListState) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        for (index in viewModel.adsList.indices) {
+            Box(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .size(5.dp)
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(
+                        // TODO: Fix Bug here, try landscape mode.
+                        if (index == lazyRowState.firstVisibleItemIndex)
+                            MaterialTheme.colors.onBackground
+                        else
+                            MaterialTheme.colors.secondaryVariant
+                    )
+            )
         }
     }
 }
