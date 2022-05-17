@@ -179,26 +179,28 @@ private fun DrawerButton(
     iconSize: Dp = 23.dp,
     onClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
+    TextButton(
+        onClick = onClick,
+        modifier = Modifier.padding(horizontal = 10.dp)
     ) {
-        Icon(
-            painter = iconPainter,
-            contentDescription = "",
-            modifier = Modifier.size(iconSize),
-            tint = MaterialTheme.colors.primary
-        )
-        Spacer(modifier = Modifier.width(20.dp))
-        Text(
-            modifier = Modifier.weight(1F),
-            text = text,
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                painter = iconPainter,
+                contentDescription = "",
+                modifier = Modifier.size(iconSize),
+                tint = MaterialTheme.colors.primary
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(
+                modifier = Modifier.weight(1F),
+                text = text,
+                style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
+            )
+        }
     }
 }
 
