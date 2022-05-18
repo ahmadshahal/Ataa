@@ -1,6 +1,7 @@
 package com.hero.ataa.ui.screens.home_screen
 
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,6 +10,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +33,7 @@ import com.hero.ataa.ui.components.AppBar
 import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
@@ -54,46 +57,51 @@ fun HomeScreen(
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-            // All Composables have 16 horizontal padding, except AdsRow.
+        // Used to remove over scroll effect.
+        CompositionLocalProvider(
+            LocalOverScrollConfiguration provides null,
         ) {
-            SearchButton()
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            AdsLazyRow(viewModel = viewModel, lazyRowState = adsLazyRowState)
-            Spacer(modifier = Modifier.height(10.dp))
-            AdsBulletsList(viewModel = viewModel, lazyRowState = adsLazyRowState)
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                text = stringResource(id = R.string.trending_donations),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            MostImportantRow()
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                text = stringResource(id = R.string.contribute_with_us),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            ContributeWithUsRow()
-            Spacer(modifier = Modifier.height(16.dp))
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                // All Composables have 16 horizontal padding, except AdsRow.
+            ) {
+                SearchButton()
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
+                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                AdsLazyRow(viewModel = viewModel, lazyRowState = adsLazyRowState)
+                Spacer(modifier = Modifier.height(10.dp))
+                AdsBulletsList(viewModel = viewModel, lazyRowState = adsLazyRowState)
+                Spacer(modifier = Modifier.height(15.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    text = stringResource(id = R.string.trending_donations),
+                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                MostImportantRow()
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    text = stringResource(id = R.string.contribute_with_us),
+                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                ContributeWithUsRow()
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }
@@ -112,6 +120,9 @@ private fun SearchButton() {
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
+            .clickable {
+                // TODO.
+            }
     ) {
         Row(
             modifier = Modifier
@@ -278,7 +289,7 @@ private fun AdsBulletsList(viewModel: HomeViewModel, lazyRowState: LazyListState
                         if (index == lazyRowState.firstVisibleItemIndex)
                             MaterialTheme.colors.onBackground
                         else
-                            MaterialTheme.colors.secondaryVariant
+                            MaterialTheme.colors.onBackground.copy(alpha = 0.2F)
                     )
             )
         }
