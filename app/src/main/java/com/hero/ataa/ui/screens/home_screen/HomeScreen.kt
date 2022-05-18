@@ -58,9 +58,10 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
-                .padding(vertical = 16.dp)
-            // Vertical Padding, all other Composables have 16 horizontal padding, except AdsRow.
+            // All Composables have 16 horizontal padding, except AdsRow.
         ) {
+            SearchButton()
+            Spacer(modifier = Modifier.height(15.dp))
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,6 +93,46 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             ContributeWithUsRow()
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+private fun SearchButton() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .padding(horizontal = 16.dp)
+            .clip(shape = RoundedCornerShape(7.dp))
+            .background(MaterialTheme.colors.surface)
+            .border(
+                width = 0.1.dp,
+                color = MaterialTheme.colors.secondaryVariant,
+                shape = RoundedCornerShape(7.dp)
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_search_icon),
+                contentDescription = "",
+                modifier = Modifier.size(14.dp),
+                tint = MaterialTheme.colors.primary
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1F),
+                text = stringResource(id = R.string.search_for_a_project),
+                style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primaryVariant),
+            )
         }
     }
 }
