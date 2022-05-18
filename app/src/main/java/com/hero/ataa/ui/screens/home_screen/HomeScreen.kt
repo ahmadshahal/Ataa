@@ -135,40 +135,40 @@ private fun AppDrawer() {
                 .height(180.dp)
                 .background(MaterialTheme.colors.primary)
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
             iconPainter = painterResource(id = R.drawable.ic_profile_icon_2)
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.volunteering_application),
             iconPainter = painterResource(id = R.drawable.ic_document1_icon)
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),
             iconPainter = painterResource(id = R.drawable.ic_document2_icon),
             iconSize = 22.dp
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.language),
             iconPainter = painterResource(id = R.drawable.ic_language_icon)
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.about_us),
             iconPainter = painterResource(id = R.drawable.ic_about_icon),
             iconSize = 22.dp
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
             iconPainter = painterResource(id = R.drawable.ic_logout_icon),
             iconSize = 20.dp
         ) {}
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
