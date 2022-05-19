@@ -70,4 +70,9 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
+    subtitle2 = TextStyle(
+        fontFamily = NotoSans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.5.sp
+    ),
 )
