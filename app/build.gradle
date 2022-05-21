@@ -64,6 +64,7 @@ dependencies {
     // Compose Extras
     implementation "com.google.accompanist:accompanist-flowlayout:0.24.8-beta"
     implementation "com.github.skydoves:landscapist-coil:1.5.2"
+    implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.2'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'

@@ -30,7 +30,9 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.ui.components.AppBar
+import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
+import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -297,18 +299,49 @@ private fun AdsBulletsList(viewModel: HomeViewModel, lazyRowState: LazyListState
 }
 
 @Composable
+private fun AdsLoadingLazyRow(lazyRowState: LazyListState) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        state = lazyRowState,
+        verticalAlignment = Alignment.CenterVertically,
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(11.dp),
+    ) {
+        items(3) {
+            AdLoadingItem()
+        }
+    }
+}
+
+@Composable
+fun AdLoadingItem() {
+    Box(
+        modifier = Modifier
+            .height(180.dp)
+            .width(330.dp)
+            .clip(RoundedCornerShape((7.dp)))
+            .shimmer()
+            .background(MaterialTheme.colors.onBackground.copy(0.2F))
+    )
+}
+
+@Composable
 private fun AdItem(ad: Ad) {
     Box(
         modifier = Modifier
             .height(180.dp)
             .width(330.dp)
             .clip(RoundedCornerShape((7.dp)))
-            .background(MaterialTheme.colors.surface)
     ) {
         CoilImage(
             modifier = Modifier.fillMaxSize(),
             imageModel = ad.url,
             contentScale = ContentScale.Crop,
+            shimmerParams = ShimmerParams(
+                // TODO: Reconsider.
+                highlightColor = MaterialTheme.colors.onPrimary,
+                baseColor = MaterialTheme.colors.secondaryVariant,
+            ),
         )
         // TODO: Add Shadow.
         Text(
