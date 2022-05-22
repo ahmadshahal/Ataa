@@ -327,7 +327,7 @@ private fun AdsBulletsList(length: Int, lazyRowState: LazyListState) {
                         if (index == lazyRowState.firstVisibleItemIndex)
                             MaterialTheme.colors.onBackground
                         else
-                            MaterialTheme.colors.onBackground.copy(alpha = 0.2F)
+                            MaterialTheme.colors.onBackground.copy(alpha = 0.15F)
                     )
             )
         }
