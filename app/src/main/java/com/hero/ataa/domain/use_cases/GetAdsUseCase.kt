@@ -12,7 +12,7 @@ class GetAdsUseCase @Inject constructor() {
     operator fun invoke() = flow<DataState<List<Ad>>> {
         emit(DataState.Loading())
         try {
-            delay(6000)
+            delay(20000)
             val adsList = listOf<Ad>(
                 Ad(
                     text = "مبادرة لا للجوع بالتعاون مع جمعية الأيادي البيضاء",

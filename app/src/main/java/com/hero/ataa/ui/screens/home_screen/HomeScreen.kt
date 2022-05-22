@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -230,35 +233,32 @@ private fun AppDrawer() {
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
-            iconPainter = painterResource(id = R.drawable.ic_profile_icon_2)
+            icon = Icons.Outlined.AccountCircle,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
-            text = stringResource(id = R.string.volunteering_application),
-            iconPainter = painterResource(id = R.drawable.ic_document1_icon)
+            text = stringResource(id = R.string.volunteer_with_us),
+            icon = Icons.Outlined.VolunteerActivism,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),
-            iconPainter = painterResource(id = R.drawable.ic_document2_icon),
-            iconSize = 22.dp
+            icon = Icons.Outlined.Article,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.language),
-            iconPainter = painterResource(id = R.drawable.ic_language_icon)
+            icon = Icons.Outlined.Translate,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.about_us),
-            iconPainter = painterResource(id = R.drawable.ic_about_icon),
-            iconSize = 25.dp
+            icon = Icons.Outlined.Info,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
-            iconPainter = painterResource(id = R.drawable.ic_logout_icon),
-            iconSize = 20.dp
+            icon = Icons.Outlined.Logout,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
     }
@@ -267,8 +267,7 @@ private fun AppDrawer() {
 @Composable
 private fun DrawerButton(
     text: String,
-    iconPainter: Painter,
-    iconSize: Dp = 23.dp,
+    icon: ImageVector,
     onClick: () -> Unit
 ) {
     TextButton(
@@ -281,9 +280,8 @@ private fun DrawerButton(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = iconPainter,
+                imageVector = icon,
                 contentDescription = "",
-                modifier = Modifier.size(iconSize),
                 tint = MaterialTheme.colors.primary
             )
             Spacer(modifier = Modifier.width(20.dp))
@@ -370,7 +368,7 @@ private fun AdItem(ad: Ad) {
             .height(180.dp)
             .width(330.dp)
             .clip(RoundedCornerShape((7.dp)))
-            .background(MaterialTheme.colors.onBackground.copy(0.2F))
+            .background(MaterialTheme.colors.onBackground.copy(0.1F))
     ) {
         CoilImage(
             modifier = Modifier.fillMaxSize(),
