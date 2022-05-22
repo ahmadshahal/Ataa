@@ -42,4 +42,6 @@
     <string name="poor_houses">Poor Houses</string>
     <string name="contribute_with_us">Contribute With Us</string>
     <string name="search_for_a_project">Search for a project</string>
+    <string name="goal">Goal:</string>
+    <string name="currency">S.P</string>
 </resources>

@@ -43,4 +43,6 @@
     <string name="poor_houses">بيوت فقراء</string>
     <string name="contribute_with_us">ساهم معنا</string>
     <string name="search_for_a_project">بحث عن مشروع</string>
+    <string name="goal">الهدف:</string>
+    <string name="currency">ل.س</string>
 </resources>

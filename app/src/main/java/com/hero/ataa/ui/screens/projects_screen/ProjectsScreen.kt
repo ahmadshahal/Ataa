@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,10 @@ import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.ProgressBar
+import com.hero.ataa.ui.components.Tag
 import com.skydoves.landscapist.coil.CoilImage
+import java.util.*
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -97,7 +101,7 @@ private fun ProjectsAppBar(navController: NavController) {
 }
 
 @Composable
-fun ProjectItem(project: Project) {
+private fun ProjectItem(project: Project) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,13 +121,16 @@ fun ProjectItem(project: Project) {
             CoilImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp)
+                    .height(140.dp)
                     .clip(RoundedCornerShape(7.dp)),
                 imageModel = project.imageUrl,
                 contentScale = ContentScale.Crop,
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom
+            ) {
                 Text(
                     text = project.title,
                     style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground),
@@ -132,15 +139,37 @@ fun ProjectItem(project: Project) {
                     overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.width(5.dp))
-                // TODO: Tag
+                Tag(title = project.location)
             }
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = project.description,
-                style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
+                style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primaryVariant),
                 maxLines = 4,
                 overflow = TextOverflow.Ellipsis,
             )
+            Spacer(modifier = Modifier.height(10.dp))
+            ProgressBar(progress = project.progress, height = 5.dp)
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "${stringResource(R.string.goal)} ${
+                        "%,d".format(
+                            Locale.US,
+                            project.raisingGoal
+                        )
+                    } ${stringResource(R.string.currency)}",
+                    style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primary),
+                )
+                Text(
+                    text = project.progress.toString() + "%",
+                    style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primary),
+                )
+            }
         }
     }
 }
