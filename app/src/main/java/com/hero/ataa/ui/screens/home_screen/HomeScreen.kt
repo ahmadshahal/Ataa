@@ -36,6 +36,7 @@ import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
@@ -132,7 +133,7 @@ fun HomeScreen(
                     style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                MostImportantRow()
+                MostImportantRow(navController)
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     modifier = Modifier
@@ -142,7 +143,7 @@ fun HomeScreen(
                     style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                ContributeWithUsRow()
+                ContributeWithUsRow(navController)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -389,7 +390,7 @@ private fun AdItem(ad: Ad) {
 }
 
 @Composable
-private fun MostImportantRow() {
+private fun MostImportantRow(navController: NavController) {
     // !: FlowRow doesn't support RTL.
     // TODO: Find a solution.
     FlowRow(
@@ -402,21 +403,23 @@ private fun MostImportantRow() {
     ) {
         CategoryItem(
             name = stringResource(id = R.string.ekhraj_zakat),
-            icon = painterResource(id = R.drawable.ic_zakat_icon)
+            icon = painterResource(id = R.drawable.ic_zakat_icon),
+            navController = navController
         )
         CategoryItem(
             name = stringResource(id = R.string.kafalat_yateem),
-            icon = painterResource(id = R.drawable.ic_yateem_icon)
+            icon = painterResource(id = R.drawable.ic_yateem_icon), navController = navController
         )
         CategoryItem(
             name = stringResource(id = R.string.ramadan_projects),
-            icon = painterResource(id = R.drawable.ic_moon_icon)
+            icon = painterResource(id = R.drawable.ic_moon_icon),
+            navController = navController
         )
     }
 }
 
 @Composable
-private fun ContributeWithUsRow() {
+private fun ContributeWithUsRow(navController: NavController) {
     // !: FlowRow doesn't support RTL.
     // TODO: Find a solution.
     FlowRow(
@@ -430,22 +433,26 @@ private fun ContributeWithUsRow() {
         CategoryItem(
             name = stringResource(id = R.string.poor_houses),
             icon = painterResource(id = R.drawable.ic_house_icon),
-            iconSize = 25.dp
+            iconSize = 25.dp,
+            navController = navController,
         )
         CategoryItem(
             name = stringResource(id = R.string.mosques),
             icon = painterResource(id = R.drawable.ic_mosque_icon),
-            iconSize = 25.dp
+            iconSize = 25.dp,
+            navController = navController,
         )
         CategoryItem(
             name = stringResource(id = R.string.health),
             icon = painterResource(id = R.drawable.ic_health_icon),
             iconSize = 22.dp,
+            navController = navController,
         )
         CategoryItem(
             name = stringResource(id = R.string.education),
             icon = painterResource(id = R.drawable.ic_education_icon),
-            iconSize = 28.dp
+            iconSize = 28.dp,
+            navController = navController,
         )
     }
 }
@@ -454,8 +461,9 @@ private fun ContributeWithUsRow() {
 private fun CategoryItem(
     name: String,
     icon: Painter,
+    navController: NavController,
     iconSize: Dp = 24.dp,
-    categoryArg: String = ""
+    categoryArg: String = "",
 ) {
     Box(
         modifier = Modifier
@@ -468,9 +476,10 @@ private fun CategoryItem(
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
-            .clickable(onClick = {
+            .clickable() {
                 // TODO: Navigate to Projects screen with categoryArg
-            })
+                navController.navigate(Screen.ProjectsScreen.route)
+            }
     ) {
         Column(
             modifier = Modifier
