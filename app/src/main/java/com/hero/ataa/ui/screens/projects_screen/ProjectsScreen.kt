@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
@@ -34,41 +35,45 @@ import java.util.*
 @Composable
 fun ProjectsScreen(
     navController: NavController,
+    viewModel: ProjectsViewModel = hiltViewModel()
 ) {
-    val scaffoldState = rememberScaffoldState()
-
     Scaffold(
-        scaffoldState = scaffoldState,
-        snackbarHost = { state ->
-            SnackbarHost(state) { data ->
-                Snackbar(
-                    backgroundColor = MaterialTheme.colors.secondary,
-                    contentColor = MaterialTheme.colors.onSecondary,
-                    snackbarData = data,
-                )
-            }
-        },
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             ProjectsAppBar(navController = navController)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
-        CompositionLocalProvider(
-            LocalOverScrollConfiguration provides null,
-        ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(13.dp)
-            ) {
-                items(
-                    listOf(Project(), Project(), Project(), Project())
-                ) { project ->
-                    ProjectItem(project = project)
+        when (val uiState = viewModel.uiState.value) {
+            is ProjectsUiState.Success -> {
+                CompositionLocalProvider(
+                    LocalOverScrollConfiguration provides null,
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(13.dp)
+                    ) {
+                        items(
+                            uiState.projects
+                        ) { project ->
+                            ProjectItem(project = project)
+                        }
+                    }
                 }
             }
+            is ProjectsUiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(33.dp),
+                        color = MaterialTheme.colors.primary,
+                    )
+                }
+            }
+            else -> Unit
         }
     }
 }
