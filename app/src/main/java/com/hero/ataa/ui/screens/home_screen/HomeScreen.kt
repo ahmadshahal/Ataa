@@ -11,12 +11,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -29,8 +31,8 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
-import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
@@ -45,8 +47,32 @@ fun HomeScreen(
     val scaffoldState = rememberScaffoldState()
     val adsLazyRowState = rememberLazyListState()
 
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
         scaffoldState = scaffoldState,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             HomeAppBar(scaffoldState = scaffoldState)
@@ -79,9 +105,21 @@ fun HomeScreen(
                     style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                AdsLazyRow(viewModel = viewModel, lazyRowState = adsLazyRowState)
-                Spacer(modifier = Modifier.height(10.dp))
-                AdsBulletsList(viewModel = viewModel, lazyRowState = adsLazyRowState)
+                when (val adsUiState = viewModel.adsUiState.value) {
+                    is AdsUiState.Success -> {
+                        AdsLazyRow(adsList = adsUiState.adsList, lazyRowState = adsLazyRowState)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        AdsBulletsList(
+                            length = adsUiState.adsList.size,
+                            lazyRowState = adsLazyRowState
+                        )
+                    }
+                    else -> {
+                        AdsLoadingLazyRow(lazyRowState = adsLazyRowState)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        AdsBulletsList(length = 3, lazyRowState = adsLazyRowState)
+                    }
+                }
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
                     modifier = Modifier
@@ -259,7 +297,7 @@ private fun DrawerButton(
 }
 
 @Composable
-private fun AdsLazyRow(viewModel: HomeViewModel, lazyRowState: LazyListState) {
+private fun AdsLazyRow(adsList: List<Ad>, lazyRowState: LazyListState) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         state = lazyRowState,
@@ -267,20 +305,20 @@ private fun AdsLazyRow(viewModel: HomeViewModel, lazyRowState: LazyListState) {
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(11.dp),
     ) {
-        items(viewModel.adsList) { ad ->
+        items(adsList) { ad ->
             AdItem(ad = ad)
         }
     }
 }
 
 @Composable
-private fun AdsBulletsList(viewModel: HomeViewModel, lazyRowState: LazyListState) {
+private fun AdsBulletsList(length: Int, lazyRowState: LazyListState) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        for (index in viewModel.adsList.indices) {
+        for (index in 0 until length) {
             Box(
                 modifier = Modifier
                     .padding(2.dp)
@@ -332,16 +370,12 @@ private fun AdItem(ad: Ad) {
             .height(180.dp)
             .width(330.dp)
             .clip(RoundedCornerShape((7.dp)))
+            .background(MaterialTheme.colors.onBackground.copy(0.2F))
     ) {
         CoilImage(
             modifier = Modifier.fillMaxSize(),
             imageModel = ad.url,
             contentScale = ContentScale.Crop,
-            shimmerParams = ShimmerParams(
-                // TODO: Reconsider.
-                highlightColor = MaterialTheme.colors.onPrimary,
-                baseColor = MaterialTheme.colors.secondaryVariant,
-            ),
         )
         // TODO: Add Shadow.
         Text(
