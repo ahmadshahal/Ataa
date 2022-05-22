@@ -9,9 +9,9 @@ import androidx.compose.ui.unit.sp
 import com.hero.ataa.R
 
 val NotoSans = FontFamily(
-    Font(R.font.noto_sans_arabic_regular, FontWeight.Normal),
-    Font(R.font.noto_sans_arabic_bold, FontWeight.Bold),
-    Font(R.font.noto_sans_arabic_light, FontWeight.Light)
+    Font(R.font.ataa_regular, FontWeight.Normal),
+    Font(R.font.ataa_bold, FontWeight.Bold),
+    Font(R.font.ataa_light, FontWeight.Light)
 )
 
 val Typography = Typography(
