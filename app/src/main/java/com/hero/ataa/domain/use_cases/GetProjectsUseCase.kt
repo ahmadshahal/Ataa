@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetProjectsUseCase @Inject constructor() {
-    operator fun invoke(categoryArg: String) = flow<DataState<List<Project>>> {
+    operator fun invoke(categoryApiKey: String) = flow<DataState<List<Project>>> {
         emit(DataState.Loading())
         try {
             delay(4000)

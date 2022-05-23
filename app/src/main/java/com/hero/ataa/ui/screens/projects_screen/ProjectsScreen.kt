@@ -35,12 +35,13 @@ import java.util.*
 @Composable
 fun ProjectsScreen(
     navController: NavController,
-    viewModel: ProjectsViewModel = hiltViewModel()
+    viewModel: ProjectsViewModel = hiltViewModel(),
+    category: String,
 ) {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            ProjectsAppBar(navController = navController)
+            ProjectsAppBar(navController = navController, category = category)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -79,11 +80,11 @@ fun ProjectsScreen(
 }
 
 @Composable
-private fun ProjectsAppBar(navController: NavController) {
+private fun ProjectsAppBar(navController: NavController, category: String) {
     AppBar(
         title = {
             Text(
-                text = "تعليم",
+                text = category,
                 style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
                 textAlign = TextAlign.Center,
             )

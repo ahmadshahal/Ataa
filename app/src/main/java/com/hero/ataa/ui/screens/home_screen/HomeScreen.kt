@@ -34,6 +34,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
+import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.navigation.Screen
@@ -404,16 +405,19 @@ private fun MostImportantRow(navController: NavController) {
         CategoryItem(
             name = stringResource(id = R.string.ekhraj_zakat),
             icon = painterResource(id = R.drawable.ic_zakat_icon),
-            navController = navController
+            navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.ZAKAT,
         )
         CategoryItem(
             name = stringResource(id = R.string.kafalat_yateem),
-            icon = painterResource(id = R.drawable.ic_yateem_icon), navController = navController
+            icon = painterResource(id = R.drawable.ic_yateem_icon), navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.YATEEM,
         )
         CategoryItem(
             name = stringResource(id = R.string.ramadan_projects),
             icon = painterResource(id = R.drawable.ic_moon_icon),
-            navController = navController
+            navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.RAMADAN,
         )
     }
 }
@@ -435,24 +439,28 @@ private fun ContributeWithUsRow(navController: NavController) {
             icon = painterResource(id = R.drawable.ic_house_icon),
             iconSize = 25.dp,
             navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.HOUSES,
         )
         CategoryItem(
             name = stringResource(id = R.string.mosques),
             icon = painterResource(id = R.drawable.ic_mosque_icon),
             iconSize = 25.dp,
             navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.MOSQUES,
         )
         CategoryItem(
             name = stringResource(id = R.string.health),
             icon = painterResource(id = R.drawable.ic_health_icon),
             iconSize = 22.dp,
             navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.HEALTH,
         )
         CategoryItem(
             name = stringResource(id = R.string.education),
             icon = painterResource(id = R.drawable.ic_education_icon),
             iconSize = 28.dp,
             navController = navController,
+            categoryApiKey = Constants.CategoryApiKey.EDUCATION,
         )
     }
 }
@@ -463,7 +471,7 @@ private fun CategoryItem(
     icon: Painter,
     navController: NavController,
     iconSize: Dp = 24.dp,
-    categoryArg: String = "",
+    categoryApiKey: String,
 ) {
     Box(
         modifier = Modifier
@@ -476,9 +484,8 @@ private fun CategoryItem(
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
-            .clickable() {
-                // TODO: Navigate to Projects screen with categoryArg
-                navController.navigate(Screen.ProjectsScreen.route)
+            .clickable {
+                navController.navigate(Screen.ProjectsScreen.route + "/$name/$categoryApiKey")
             }
     ) {
         Column(
