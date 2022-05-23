@@ -237,37 +237,37 @@ private fun AppDrawer() {
                 .height(180.dp)
                 .background(MaterialTheme.colors.primary)
         )
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
             icon = Icons.Rounded.AccountCircle,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.volunteer_with_us),
             icon = Icons.Outlined.VolunteerActivism,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),
             icon = Icons.Outlined.Article,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.language),
             icon = Icons.Rounded.Translate,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.about_us),
             icon = Icons.Outlined.Info,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
             icon = Icons.Rounded.Logout,
         ) {}
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 
