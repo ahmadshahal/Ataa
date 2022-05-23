@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val getAdsUseCase: GetAdsUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val getAdsUseCase: GetAdsUseCase) : ViewModel() {
     private val _adsUiState = mutableStateOf<AdsUiState>(AdsUiState.Loading)
     val adsUiState: State<AdsUiState>
         get() = _adsUiState

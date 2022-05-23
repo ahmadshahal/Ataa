@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(val registerUseCase: RegisterUseCase) : ViewModel() {
+class RegisterViewModel @Inject constructor(private val registerUseCase: RegisterUseCase) : ViewModel() {
     private val _uiState = mutableStateOf<RegisterUiState>(RegisterUiState.Initial)
     val uiState: State<RegisterUiState>
         get() = _uiState
