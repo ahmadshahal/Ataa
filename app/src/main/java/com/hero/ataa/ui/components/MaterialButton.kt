@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,6 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MaterialButton(
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
     onClicked: () -> Unit,
     backgroundColor: Color,
@@ -23,7 +22,7 @@ fun MaterialButton(
 ) {
     Button(
         onClick = onClicked,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(45.dp)
             .clip(RoundedCornerShape(7.dp)),
