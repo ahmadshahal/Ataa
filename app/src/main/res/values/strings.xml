@@ -44,4 +44,8 @@
     <string name="search_for_a_project">Search for a project</string>
     <string name="goal">Goal:</string>
     <string name="currency">S.P</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="raised">Raised:</string>
+    <string name="project_description">Project Description</string>
+    <string name="project_goals">Project Goals</string>
 </resources>

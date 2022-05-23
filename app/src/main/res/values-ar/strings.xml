@@ -45,4 +45,8 @@
     <string name="search_for_a_project">بحث عن مشروع</string>
     <string name="goal">الهدف:</string>
     <string name="currency">ل.س</string>
+    <string name="donate_now">تبرع الآن</string>
+    <string name="raised">تم جمع:</string>
+    <string name="project_description">وصف المشروع</string>
+    <string name="project_goals">أهداف المشروع</string>
 </resources>

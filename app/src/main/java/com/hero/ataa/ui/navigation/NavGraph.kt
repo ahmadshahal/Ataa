@@ -6,9 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
+import com.hero.ataa.ui.screens.project_screen.ProjectScreen
 import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 
@@ -42,6 +44,9 @@ fun NavGraph() {
                 navController = navController,
                 category = navBackStack.arguments!!.getString(Constants.NavArgs.CATEGORY_KEY)!!
             )
+        }
+        composable(route = Screen.ProjectScreen.route) {
+            ProjectScreen(project = Project(), navController = navController)
         }
     }
 }

@@ -28,6 +28,7 @@ import com.hero.ataa.domain.models.Project
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.ProgressBar
 import com.hero.ataa.ui.components.Tag
+import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import java.util.*
 
@@ -59,7 +60,7 @@ fun ProjectsScreen(
                         items(
                             uiState.projects
                         ) { project ->
-                            ProjectItem(project = project)
+                            ProjectItem(project = project, navController = navController)
                         }
                     }
                 }
@@ -107,7 +108,7 @@ private fun ProjectsAppBar(navController: NavController, category: String) {
 }
 
 @Composable
-private fun ProjectItem(project: Project) {
+private fun ProjectItem(project: Project, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,7 +120,7 @@ private fun ProjectItem(project: Project) {
                 shape = RoundedCornerShape(7.dp)
             )
             .clickable {
-                // TODO.
+                navController.navigate(Screen.ProjectScreen.route)
             }
             .padding(16.dp)
     ) {
