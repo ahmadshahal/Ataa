@@ -37,6 +37,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
@@ -56,6 +59,8 @@ fun HomeScreen(
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     val adsLazyRowState = rememberLazyListState()
+    val swipeRefreshState =
+        rememberSwipeRefreshState(isRefreshing = viewModel.adsUiState.value is AdsUiState.Loading)
 
     val context = LocalContext.current
 
@@ -95,62 +100,77 @@ fun HomeScreen(
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
-        // Used to remove over scroll effect.
-        CompositionLocalProvider(
-            LocalOverScrollConfiguration provides null,
+        SwipeRefresh(
+            state = swipeRefreshState,
+            onRefresh = { viewModel.getAds() },
+            modifier = Modifier,
+            indicator = { state, trigger ->
+                SwipeRefreshIndicator(
+                    state = state,
+                    refreshTriggerDistance = trigger,
+                    scale = true,
+                    contentColor = MaterialTheme.colors.primary,
+                    backgroundColor = MaterialTheme.colors.surface
+                )
+            }
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                // All Composables have 16 horizontal padding, except AdsRow.
+            // Used to remove over scroll effect.
+            CompositionLocalProvider(
+                LocalOverScrollConfiguration provides null,
             ) {
-                SearchButton()
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
-                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                when (val adsUiState = viewModel.adsUiState.value) {
-                    is AdsUiState.Success -> {
-                        AdsLazyRow(adsList = adsUiState.adsList, lazyRowState = adsLazyRowState)
-                        Spacer(modifier = Modifier.height(10.dp))
-                        AdsBulletsList(
-                            length = adsUiState.adsList.size,
-                            lazyRowState = adsLazyRowState
-                        )
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                    // All Composables have 16 horizontal padding, except AdsRow.
+                ) {
+                    SearchButton()
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        text = stringResource(id = R.string.welcome_to_ataa_for_charity_projects),
+                        style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    when (val adsUiState = viewModel.adsUiState.value) {
+                        is AdsUiState.Success -> {
+                            AdsLazyRow(adsList = adsUiState.adsList, lazyRowState = adsLazyRowState)
+                            Spacer(modifier = Modifier.height(10.dp))
+                            AdsBulletsList(
+                                length = adsUiState.adsList.size,
+                                lazyRowState = adsLazyRowState
+                            )
+                        }
+                        else -> {
+                            AdsLoadingLazyRow(lazyRowState = adsLazyRowState)
+                            Spacer(modifier = Modifier.height(10.dp))
+                            AdsBulletsList(length = 3, lazyRowState = adsLazyRowState)
+                        }
                     }
-                    else -> {
-                        AdsLoadingLazyRow(lazyRowState = adsLazyRowState)
-                        Spacer(modifier = Modifier.height(10.dp))
-                        AdsBulletsList(length = 3, lazyRowState = adsLazyRowState)
-                    }
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        text = stringResource(id = R.string.trending_donations),
+                        style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    MostImportantRow(navController)
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        text = stringResource(id = R.string.contribute_with_us),
+                        style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ContributeWithUsRow(navController)
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    text = stringResource(id = R.string.trending_donations),
-                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                MostImportantRow(navController)
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    text = stringResource(id = R.string.contribute_with_us),
-                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                ContributeWithUsRow(navController)
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -405,7 +425,7 @@ private fun MostImportantRow(navController: NavController) {
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = FlowMainAxisAlignment.End
+        mainAxisAlignment = FlowMainAxisAlignment.End,
     ) {
         CategoryItem(
             name = stringResource(id = R.string.ekhraj_zakat),

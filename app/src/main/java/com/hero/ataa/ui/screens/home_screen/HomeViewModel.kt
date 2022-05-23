@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(private val getAdsUseCase: GetAdsUseCase
         getAds()
     }
 
-    private fun getAds() {
+    fun getAds() {
         viewModelScope.launch {
             getAdsUseCase().collect { dataState ->
                 when (dataState) {

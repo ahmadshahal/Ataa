@@ -62,10 +62,11 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Compose Extras
-    implementation "com.google.accompanist:accompanist-flowlayout:0.24.8-beta"
+    implementation "com.google.accompanist:accompanist-flowlayout:0.20.3"
     implementation "com.github.skydoves:landscapist-coil:1.5.2"
     implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.2'
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.20.3"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
