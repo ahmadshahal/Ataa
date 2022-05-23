@@ -10,7 +10,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.Article
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.VolunteerActivism
+import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -235,7 +240,7 @@ private fun AppDrawer() {
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
-            icon = Icons.Outlined.AccountCircle,
+            icon = Icons.Rounded.AccountCircle,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
@@ -250,7 +255,7 @@ private fun AppDrawer() {
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.language),
-            icon = Icons.Outlined.Translate,
+            icon = Icons.Rounded.Translate,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
@@ -260,7 +265,7 @@ private fun AppDrawer() {
         Spacer(modifier = Modifier.height(15.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
-            icon = Icons.Outlined.Logout,
+            icon = Icons.Rounded.Logout,
         ) {}
         Spacer(modifier = Modifier.height(15.dp))
     }
