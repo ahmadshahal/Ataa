@@ -115,7 +115,6 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
-                // All Composables have 16 horizontal padding, except AdsRow.
             ) {
                 SearchButton()
                 Spacer(modifier = Modifier.height(20.dp))
@@ -136,8 +135,13 @@ fun HomeScreen(
                             lazyRowState = adsLazyRowState
                         )
                     }
-                    else -> {
+                    is AdsUiState.Loading -> {
                         AdsLoadingLazyRow(lazyRowState = adsLazyRowState)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        AdsBulletsList(length = 3, lazyRowState = adsLazyRowState)
+                    }
+                    else -> {
+                        AdsErrorLazyRow(lazyRowState = adsLazyRowState)
                         Spacer(modifier = Modifier.height(10.dp))
                         AdsBulletsList(length = 3, lazyRowState = adsLazyRowState)
                     }
@@ -369,6 +373,21 @@ private fun AdsLoadingLazyRow(lazyRowState: LazyListState) {
 }
 
 @Composable
+private fun AdsErrorLazyRow(lazyRowState: LazyListState) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        state = lazyRowState,
+        verticalAlignment = Alignment.CenterVertically,
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(11.dp),
+    ) {
+        items(3) {
+            AdErrorItem()
+        }
+    }
+}
+
+@Composable
 private fun AdLoadingItem() {
     Box(
         modifier = Modifier
@@ -377,6 +396,17 @@ private fun AdLoadingItem() {
             .clip(RoundedCornerShape((7.dp)))
             .shimmer()
             .background(MaterialTheme.colors.onBackground.copy(0.2F))
+    )
+}
+
+@Composable
+private fun AdErrorItem() {
+    Box(
+        modifier = Modifier
+            .height(180.dp)
+            .width(330.dp)
+            .clip(RoundedCornerShape((7.dp)))
+            .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
     )
 }
 

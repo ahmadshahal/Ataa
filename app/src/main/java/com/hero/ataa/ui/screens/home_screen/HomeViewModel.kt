@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(private val getAdsUseCase: GetAdsUseCase
                         _adsUiState.value = AdsUiState.Loading
                     }
                     is DataState.Error -> {
-                        _adsUiState.value = AdsUiState.Loading
+                        _adsUiState.value = AdsUiState.Error
                         _uiEvent.send(
                             UiEvent.ShowSnackBar(
                                 message = dataState.message,
