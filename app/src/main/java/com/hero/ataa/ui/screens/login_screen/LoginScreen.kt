@@ -1,8 +1,6 @@
 package com.hero.ataa.ui.screens.login_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -10,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +30,6 @@ import com.hero.ataa.ui.components.LinedTextField
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.navigation.Screen
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
@@ -73,48 +69,43 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             }
         },
     ) {
-        // Used to remove over scroll effect.
-        CompositionLocalProvider(
-            LocalOverScrollConfiguration provides null,
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Spacer(modifier = Modifier.height(18.dp))
-                TitleColumn(navController = navController)
-                EmailTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(5.dp))
-                PasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(25.dp))
-                MaterialButton(
-                    content = {
-                        if (viewModel.uiState.value is LoginUiState.Initial) {
-                            Text(
-                                text = stringResource(id = R.string.login),
-                                style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
-                            )
-                        } else {
-                            CircularProgressIndicator(
-                                color = MaterialTheme.colors.onPrimary,
-                                modifier = Modifier.size(18.dp),
-                                strokeWidth = 2.5.dp
-                            )
-                        }
-                    },
-                    onClicked = { viewModel.onSubmit() },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    enabled = viewModel.uiState.value is LoginUiState.Initial
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-                SkipRow(navController = navController)
-                Spacer(modifier = Modifier.height(18.dp))
-            }
+            Spacer(modifier = Modifier.height(18.dp))
+            TitleColumn(navController = navController)
+            EmailTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(5.dp))
+            PasswordTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(25.dp))
+            MaterialButton(
+                content = {
+                    if (viewModel.uiState.value is LoginUiState.Initial) {
+                        Text(
+                            text = stringResource(id = R.string.login),
+                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp
+                        )
+                    }
+                },
+                onClicked = { viewModel.onSubmit() },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+                enabled = viewModel.uiState.value is LoginUiState.Initial
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+            SkipRow(navController = navController)
+            Spacer(modifier = Modifier.height(18.dp))
         }
     }
 }

@@ -1,8 +1,11 @@
 package com.hero.ataa.ui.theme
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
 private val LightColorPalette = lightColors(
     primary = Green600,
@@ -18,13 +21,18 @@ private val LightColorPalette = lightColors(
     error = Red800
 )
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AtaaTheme(content: @Composable () -> Unit) {
     val colors = LightColorPalette
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalOverScrollConfiguration provides null,
+    ) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }

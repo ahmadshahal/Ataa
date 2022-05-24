@@ -1,15 +1,13 @@
 package com.hero.ataa.ui.screens.project_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -71,70 +69,71 @@ private fun ProjectAppBar(navController: NavController) {
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ContentColumn(scrollState: ScrollState, project: Project) {
-    CompositionLocalProvider(
-        LocalOverScrollConfiguration provides null,
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
+                .height(170.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(7.dp))
+                .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
+
         ) {
             CoilImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(170.dp)
-                    .clip(RoundedCornerShape(7.dp)),
+                modifier = Modifier.fillMaxSize(),
                 imageModel = project.imageUrl,
                 contentScale = ContentScale.Crop,
             )
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = project.title,
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                lineHeight = 25.sp
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            ProgressBar(progress = project.progress, height = 7.dp)
-            Spacer(modifier = Modifier.height(5.dp))
-            ProgressRow(project = project)
-            Text(
-                text = "${stringResource(R.string.raised)} ${
-                    "%,d".format(
-                        Locale.US,
-                        project.raised
-                    )
-                } ${stringResource(R.string.currency)}",
-                style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            TagsRow(project = project)
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = stringResource(id = R.string.project_description),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = project.description,
-                style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
-                lineHeight = 20.sp
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = stringResource(id = R.string.project_goals),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = project.goals,
-                style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
-                lineHeight = 20.sp
-            )
-            Spacer(modifier = Modifier.height(75.dp))
         }
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = project.title,
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            lineHeight = 25.sp
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        ProgressBar(progress = project.progress, height = 7.dp)
+        Spacer(modifier = Modifier.height(5.dp))
+        ProgressRow(project = project)
+        Text(
+            text = "${stringResource(R.string.raised)} ${
+                "%,d".format(
+                    Locale.US,
+                    project.raised
+                )
+            } ${stringResource(R.string.currency)}",
+            style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        TagsRow(project = project)
+        Spacer(modifier = Modifier.height(15.dp))
+        Text(
+            text = stringResource(id = R.string.project_description),
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = project.description,
+            style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
+            lineHeight = 20.sp
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(id = R.string.project_goals),
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = project.goals,
+            style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
+            lineHeight = 20.sp
+        )
+        Spacer(modifier = Modifier.height(75.dp))
     }
 }
 

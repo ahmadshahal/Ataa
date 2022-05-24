@@ -1,17 +1,14 @@
 package com.hero.ataa.ui.screens.projects_screen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +29,6 @@ import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import java.util.*
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProjectsScreen(
     navController: NavController,
@@ -48,20 +44,16 @@ fun ProjectsScreen(
     ) {
         when (val uiState = viewModel.uiState.value) {
             is ProjectsUiState.Success -> {
-                CompositionLocalProvider(
-                    LocalOverScrollConfiguration provides null,
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(13.dp)
                 ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(13.dp)
-                    ) {
-                        items(
-                            uiState.projects
-                        ) { project ->
-                            ProjectItem(project = project, navController = navController)
-                        }
+                    items(
+                        uiState.projects
+                    ) { project ->
+                        ProjectItem(project = project, navController = navController)
                     }
                 }
             }
@@ -125,14 +117,20 @@ private fun ProjectItem(project: Project, navController: NavController) {
             .padding(16.dp)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            CoilImage(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .height(140.dp)
-                    .clip(RoundedCornerShape(7.dp)),
-                imageModel = project.imageUrl,
-                contentScale = ContentScale.Crop,
-            )
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(7.dp))
+                    .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
+
+            ) {
+                CoilImage(
+                    modifier = Modifier.fillMaxSize(),
+                    imageModel = project.imageUrl,
+                    contentScale = ContentScale.Crop,
+                )
+            }
             Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),

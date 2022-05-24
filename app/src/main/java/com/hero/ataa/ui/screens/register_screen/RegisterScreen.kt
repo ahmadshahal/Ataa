@@ -1,16 +1,17 @@
 package com.hero.ataa.ui.screens.register_screen
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +34,6 @@ import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.Country
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = hiltViewModel()) {
     val scaffoldState = rememberScaffoldState()
@@ -76,55 +76,50 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = 
         if (viewModel.showDialog.value) {
             SelectCountryDialog(viewModel = viewModel)
         }
-        // Used to remove over scroll effect.
-        CompositionLocalProvider(
-            LocalOverScrollConfiguration provides null,
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Spacer(modifier = Modifier.height(18.dp))
-                TitleColumn(navController = navController)
-                Spacer(modifier = Modifier.height(5.dp))
-                EmailTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(5.dp))
-                NameTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(5.dp))
-                PasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(5.dp))
-                ConfirmPasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(5.dp))
-                PhoneNumberTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(25.dp))
-                MaterialButton(
-                    content = {
-                        if (viewModel.uiState.value is RegisterUiState.Initial) {
-                            Text(
-                                text = stringResource(id = R.string.next),
-                                style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
-                            )
-                        } else {
-                            CircularProgressIndicator(
-                                color = MaterialTheme.colors.onPrimary,
-                                modifier = Modifier.size(18.dp),
-                                strokeWidth = 2.5.dp,
-                            )
-                        }
-                    },
-                    onClicked = { viewModel.onSubmit() },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    enabled = viewModel.uiState.value is RegisterUiState.Initial
-                )
-                Spacer(modifier = Modifier.height(5.dp))
-                SkipRow(navController = navController)
-                Spacer(modifier = Modifier.height(18.dp))
-            }
+            Spacer(modifier = Modifier.height(18.dp))
+            TitleColumn(navController = navController)
+            Spacer(modifier = Modifier.height(5.dp))
+            EmailTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(5.dp))
+            NameTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(5.dp))
+            PasswordTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(5.dp))
+            ConfirmPasswordTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(5.dp))
+            PhoneNumberTextField(viewModel = viewModel)
+            Spacer(modifier = Modifier.height(25.dp))
+            MaterialButton(
+                content = {
+                    if (viewModel.uiState.value is RegisterUiState.Initial) {
+                        Text(
+                            text = stringResource(id = R.string.next),
+                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp,
+                        )
+                    }
+                },
+                onClicked = { viewModel.onSubmit() },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+                enabled = viewModel.uiState.value is RegisterUiState.Initial
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+            SkipRow(navController = navController)
+            Spacer(modifier = Modifier.height(18.dp))
         }
     }
 }
