@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.LoadingDots
 import com.hero.ataa.ui.components.ProgressBar
 import com.hero.ataa.ui.components.Tag
 import com.hero.ataa.ui.navigation.Screen
@@ -42,6 +43,7 @@ fun ProjectsScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
+
         when (val uiState = viewModel.uiState.value) {
             is ProjectsUiState.Success -> {
                 LazyColumn(
@@ -58,13 +60,25 @@ fun ProjectsScreen(
                 }
             }
             is ProjectsUiState.Loading -> {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .size(33.dp),
-                        color = MaterialTheme.colors.primary,
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    LoadingDots(
+                        circleColor = MaterialTheme.colors.primary,
+                        circleSize = 10.dp,
+                        spaceBetween = 8.dp,
+                        travelDistance = 10.dp
                     )
+                    /*
+                    CircularProgressIndicator()
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = stringResource(id = R.string.loading),
+                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
+                    )
+                     */
                 }
             }
             else -> Unit
