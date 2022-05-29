@@ -49,4 +49,8 @@
     <string name="project_description">Project Description</string>
     <string name="project_goals">Project Goals</string>
     <string name="loading">Loading..</string>
+    <string name="we_rise_by_lifting_others">We Rise By Lifting Others</string>
+    <string name="volunteer_now">Volunteer Now</string>
+    <string name="check_our_projects">Check Our Work</string>
+    <string name="why_do_we_volunteer">Why do we volunteer?</string>
 </resources>

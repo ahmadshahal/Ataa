@@ -50,4 +50,8 @@
     <string name="project_description">وصف المشروع</string>
     <string name="project_goals">أهداف المشروع</string>
     <string name="loading">جاري التحميل..</string>
+    <string name="we_rise_by_lifting_others">نرتقي بمساعدة الآخرين</string>
+    <string name="volunteer_now">تطوع الآن</string>
+    <string name="check_our_projects">تفقد أعمالنا</string>
+    <string name="why_do_we_volunteer">لماذا نتطوع؟</string>
 </resources>

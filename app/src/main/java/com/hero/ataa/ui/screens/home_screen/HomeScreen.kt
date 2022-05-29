@@ -93,7 +93,7 @@ fun HomeScreen(
         drawerBackgroundColor = MaterialTheme.colors.background,
         contentColor = MaterialTheme.colors.onBackground,
         drawerContent = {
-            AppDrawer()
+            AppDrawer(navController = navController)
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
@@ -244,7 +244,7 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 }
 
 @Composable
-private fun AppDrawer() {
+private fun AppDrawer(navController: NavController) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
@@ -262,7 +262,9 @@ private fun AppDrawer() {
         DrawerButton(
             text = stringResource(id = R.string.volunteer_with_us),
             icon = Icons.Outlined.VolunteerActivism,
-        ) {}
+        ) {
+            navController.navigate(Screen.VolunteerScreen.route)
+        }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),

@@ -13,6 +13,7 @@ import com.hero.ataa.ui.screens.login_screen.LoginScreen
 import com.hero.ataa.ui.screens.project_screen.ProjectScreen
 import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
+import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 
 @Composable
 fun NavGraph() {
@@ -50,6 +51,9 @@ fun NavGraph() {
             project?.let { it ->
                 ProjectScreen(project = it, navController = navController)
             }
+        }
+        composable(route = Screen.VolunteerScreen.route) {
+            VolunteerScreen(navController = navController)
         }
     }
 }
