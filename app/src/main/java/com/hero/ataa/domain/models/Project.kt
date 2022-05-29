@@ -1,5 +1,9 @@
 package com.hero.ataa.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Project(
     val id: Int = 0,
     val title: String = "بناء وتأثيث مدرسة ابتدائية بمساحة 5500 م2 لتعليم ذوي الاحتياجات الخاصة",
@@ -11,4 +15,4 @@ data class Project(
     val raised: Long = 750000000,
     val location: String = "دمشق",
     val imageUrl: String = "https://www.rtlnieuws.nl/sites/default/files/content/images/2019/08/22/android10.png?itok=85RlBYaw&width=2048&height=1152&impolicy=semi_dynamic"
-)
+) : Parcelable

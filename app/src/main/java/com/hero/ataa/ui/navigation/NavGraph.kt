@@ -45,8 +45,11 @@ fun NavGraph() {
                 category = navBackStack.arguments!!.getString(Constants.NavArgs.CATEGORY_KEY)!!
             )
         }
-        composable(route = Screen.ProjectScreen.route) {
-            ProjectScreen(project = Project(), navController = navController)
+        composable(route = Screen.ProjectScreen.route) { _ ->
+            val project: Project? = navController.previousBackStackEntry?.savedStateHandle?.get<Project>(Constants.NavArgs.PROJECT_KEY)
+            project?.let { it ->
+                ProjectScreen(project = it, navController = navController)
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
+import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.LoadingDots
 import com.hero.ataa.ui.components.ProgressBar
@@ -69,7 +70,7 @@ fun ProjectsScreen(
                         circleColor = MaterialTheme.colors.primary,
                         circleSize = 10.dp,
                         spaceBetween = 8.dp,
-                        travelDistance = 10.dp
+                        travelDistance = 7.dp
                     )
                     /*
                     CircularProgressIndicator()
@@ -126,6 +127,7 @@ private fun ProjectItem(project: Project, navController: NavController) {
                 shape = RoundedCornerShape(7.dp)
             )
             .clickable {
+                navController.currentBackStackEntry?.savedStateHandle?.set<Project>(Constants.NavArgs.PROJECT_KEY, project)
                 navController.navigate(Screen.ProjectScreen.route)
             }
             .padding(16.dp)
