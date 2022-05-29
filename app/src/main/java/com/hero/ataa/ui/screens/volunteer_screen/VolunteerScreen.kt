@@ -46,8 +46,7 @@ fun VolunteerScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "التعليم هو المحرك الأساسي لبناء المجتمعات ونشأة الحضارات، ومن أهم العوامل التي تساعد على التطور. وبالتعليم أيضاً احتلت دول الصدارة في التنمية وفي مختلف مناحي الحياة. والأهم من ذلك كله هو أن التعليم حق من حقوق الإنسان الأساسية وهو الهدف الرابع من الأهداف الإنمائية للألفية التي وضعتها الأمم المتحدة واتفقت عليها بلدان العالم لتلبية احتياجات الفئات الأكثر هشاشة في جميع أنحاء العالم.\n" +
-                        "التعليم هو المحرك الأساسي لبناء المجتمعات ونشأة الحضارات، ومن أهم العوامل التي تساعد على التطور. وبالتعليم أيضاً احتلت دول الصدارة في التنمية وفي مختلف مناحي الحياة. والأهم من ذلك كله هو أن التعليم حق من حقوق الإنسان الأساسية وهو الهدف الرابع من الأهداف الإنمائية للألفية التي وضعتها الأمم المتحدة واتفقت عليها بلدان العالم لتلبية احتياجات الفئات الأكثر هشاشة في جميع أنحاء العالم.\n",
+                text = stringResource(id = R.string.why_we_volunteer_text),
                 style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
                 lineHeight = 20.sp
             )
@@ -106,7 +105,9 @@ private fun TitleRow() {
 @Composable
 private fun ButtonsRow() {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 9.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 9.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         MaterialButton(
