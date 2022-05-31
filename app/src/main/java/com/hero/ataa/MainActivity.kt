@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AtaaTheme {
-                NavGraph()
+                NavGraph(mainViewModel = mainViewModel)
             }
         }
     }

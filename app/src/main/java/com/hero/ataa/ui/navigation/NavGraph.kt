@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.hero.ataa.MainViewModel
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.screens.home_screen.HomeScreen
@@ -17,7 +18,7 @@ import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 
 @Composable
-fun NavGraph() {
+fun NavGraph(mainViewModel: MainViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
         composable(route = Screen.LoginScreen.route) {
@@ -57,7 +58,7 @@ fun NavGraph() {
             VolunteerScreen(navController = navController)
         }
         composable(route = Screen.LanguageScreen.route) {
-            LanguageScreen(navController = navController)
+            LanguageScreen(navController = navController, mainViewModel = mainViewModel)
         }
     }
 }

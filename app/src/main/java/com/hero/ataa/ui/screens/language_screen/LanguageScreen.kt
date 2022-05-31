@@ -8,21 +8,28 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.AtaaRadioButton
 import com.hero.ataa.ui.components.MaterialButton
+import com.hero.ataa.utils.findActivity
 
 @Composable
 fun LanguageScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: LanguageViewModel = viewModel(),
+    mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
@@ -35,7 +42,7 @@ fun LanguageScreen(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
         ) {
-            ContentColumn(scrollState = scrollState)
+            ContentColumn(scrollState = scrollState, viewModel = viewModel)
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -48,7 +55,13 @@ fun LanguageScreen(
                             style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
                         )
                     },
-                    onClicked = {},
+                    onClicked = {
+                        if(mainViewModel.isArabic != viewModel.isArabic.value) {
+                            mainViewModel.isArabic = viewModel.isArabic.value
+                            context.findActivity()?.recreate()
+                        }
+                        navController.popBackStack()
+                    },
                     backgroundColor = MaterialTheme.colors.primary,
                     contentColor = MaterialTheme.colors.onPrimary,
                 )
@@ -85,7 +98,7 @@ private fun LanguageAppBar(navController: NavController) {
 }
 
 @Composable
-private fun ContentColumn(scrollState: ScrollState) {
+private fun ContentColumn(scrollState: ScrollState, viewModel: LanguageViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,18 +108,18 @@ private fun ContentColumn(scrollState: ScrollState) {
         Spacer(modifier = Modifier.height(16.dp))
         AtaaRadioButton(
             text = stringResource(id = R.string.english),
-            painter = painterResource(id = R.drawable.ic_flag_of_syria),
-            isSelected = true
+            painter = painterResource(id = R.drawable.ic_united_states_flag),
+            isSelected = !viewModel.isArabic.value
         ) {
-
+            viewModel.isArabic.value = false
         }
         Spacer(modifier = Modifier.height(20.dp))
         AtaaRadioButton(
             text = stringResource(id = R.string.arabic),
-            painter = painterResource(id = R.drawable.ic_flag_of_syria),
-            isSelected = false
+            painter = painterResource(id = R.drawable.syria_flag),
+            isSelected = viewModel.isArabic.value
         ) {
-
+            viewModel.isArabic.value = true
         }
         Spacer(modifier = Modifier.height(75.dp))
     }
