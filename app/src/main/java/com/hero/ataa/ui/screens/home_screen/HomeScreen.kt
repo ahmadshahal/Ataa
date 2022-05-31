@@ -274,7 +274,9 @@ private fun AppDrawer(navController: NavController) {
         DrawerButton(
             text = stringResource(id = R.string.language),
             icon = Icons.Rounded.Translate,
-        ) {}
+        ) {
+            navController.navigate(Screen.LanguageScreen.route)
+        }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(
             text = stringResource(id = R.string.about_us),
