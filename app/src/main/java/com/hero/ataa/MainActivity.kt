@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import com.hero.ataa.ui.navigation.NavGraph
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -11,6 +12,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,9 +27,13 @@ class MainActivity : ComponentActivity() {
         metrics.scaledDensity = configuration.fontScale * metrics.density
         baseContext.resources.updateConfiguration(configuration, metrics)
 
-        // Forcing Arabic as main Locale.
+        // Changing Locale.
         val config = resources.configuration
-        val locale = Locale("ar")
+        val locale =
+            if (mainViewModel.isArabic)
+                Locale("ar")
+            else
+                Locale("en")
         Locale.setDefault(locale)
         config.setLocale(locale)
         createConfigurationContext(config)
