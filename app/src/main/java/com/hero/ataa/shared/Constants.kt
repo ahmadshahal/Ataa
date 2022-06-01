@@ -14,5 +14,6 @@ object Constants {
         const val CATEGORY_KEY = "category"
         const val CATEGORY_API_KEY_KEY = "category_api_key"
         const val PROJECT_KEY = "project"
+        const val IS_ARABIC_KEY = "is_arabic"
     }
 }

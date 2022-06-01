@@ -38,6 +38,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
@@ -51,7 +52,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: HomeViewModel = hiltViewModel()
+    mainViewModel: MainViewModel,
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
@@ -93,7 +95,7 @@ fun HomeScreen(
         drawerBackgroundColor = MaterialTheme.colors.background,
         contentColor = MaterialTheme.colors.onBackground,
         drawerContent = {
-            AppDrawer(navController = navController)
+            AppDrawer(navController = navController, mainViewModel = mainViewModel)
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
@@ -244,7 +246,7 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 }
 
 @Composable
-private fun AppDrawer(navController: NavController) {
+private fun AppDrawer(navController: NavController, mainViewModel: MainViewModel) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
@@ -275,7 +277,7 @@ private fun AppDrawer(navController: NavController) {
             text = stringResource(id = R.string.language),
             icon = Icons.Rounded.Translate,
         ) {
-            navController.navigate(Screen.LanguageScreen.route)
+            navController.navigate(Screen.LanguageScreen.route + "/${mainViewModel.isArabic}")
         }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(

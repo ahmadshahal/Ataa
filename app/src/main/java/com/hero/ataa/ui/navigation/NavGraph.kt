@@ -28,7 +28,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
             RegisterScreen(navController = navController)
         }
         composable(route = Screen.HomeScreen.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(
             route = Screen.ProjectsScreen.route + "/{${Constants.NavArgs.CATEGORY_KEY}}/{${Constants.NavArgs.CATEGORY_API_KEY_KEY}}",
@@ -49,7 +49,8 @@ fun NavGraph(mainViewModel: MainViewModel) {
             )
         }
         composable(route = Screen.ProjectScreen.route) { _ ->
-            val project: Project? = navController.previousBackStackEntry?.savedStateHandle?.get<Project>(Constants.NavArgs.PROJECT_KEY)
+            val project: Project? =
+                navController.previousBackStackEntry?.savedStateHandle?.get<Project>(Constants.NavArgs.PROJECT_KEY)
             project?.let { it ->
                 ProjectScreen(project = it, navController = navController)
             }
@@ -57,7 +58,15 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(route = Screen.VolunteerScreen.route) {
             VolunteerScreen(navController = navController)
         }
-        composable(route = Screen.LanguageScreen.route) {
+        composable(
+            route = Screen.LanguageScreen.route + "/{${Constants.NavArgs.IS_ARABIC_KEY}}",
+            arguments = listOf(
+                navArgument(name = Constants.NavArgs.IS_ARABIC_KEY) {
+                    type = NavType.BoolType
+                    nullable = false
+                }
+            )
+        ) {
             LanguageScreen(navController = navController, mainViewModel = mainViewModel)
         }
     }
