@@ -95,7 +95,7 @@ fun HomeScreen(
         drawerBackgroundColor = MaterialTheme.colors.background,
         contentColor = MaterialTheme.colors.onBackground,
         drawerContent = {
-            AppDrawer(navController = navController, mainViewModel = mainViewModel)
+            AppDrawer(navController = navController, mainViewModel = mainViewModel, viewModel = viewModel)
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
@@ -246,13 +246,16 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 }
 
 @Composable
-private fun AppDrawer(navController: NavController, mainViewModel: MainViewModel) {
+private fun AppDrawer(viewModel: HomeViewModel, navController: NavController, mainViewModel: MainViewModel) {
     val scrollState = rememberScrollState()
+    if(viewModel.logOutPopUpDialogState.value) {
+        LogoutAlertDialog(viewModel = viewModel, navController = navController)
+    }
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp)
+                .height(195.dp)
                 .background(MaterialTheme.colors.primary)
         )
         Spacer(modifier = Modifier.height(13.dp))
@@ -288,7 +291,9 @@ private fun AppDrawer(navController: NavController, mainViewModel: MainViewModel
         DrawerButton(
             text = stringResource(id = R.string.log_out),
             icon = Icons.Rounded.Logout,
-        ) {}
+        ) {
+            viewModel.logOutPopUpDialogState.value = true
+        }
         Spacer(modifier = Modifier.height(13.dp))
     }
 }
@@ -563,4 +568,42 @@ private fun CategoryItem(
             )
         }
     }
+}
+
+@Composable
+private fun LogoutAlertDialog(viewModel: HomeViewModel, navController: NavController) {
+    AlertDialog(
+        onDismissRequest = { viewModel.logOutPopUpDialogState.value = false },
+        title = {
+            Text(
+                text = stringResource(id = R.string.log_out_question),
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground)
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                // TODO: LogOut.
+                navController.navigate(Screen.LoginScreen.route) {
+                    popUpTo(Screen.HomeScreen.route) {
+                        inclusive = true
+                    }
+                }
+            }) {
+                Text(
+                    text = stringResource(id = R.string.yes),
+                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primary),
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { viewModel.logOutPopUpDialogState.value = false }) {
+                Text(
+                    text = stringResource(id = R.string.cancel),
+                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primary),
+                )
+            }
+        },
+        shape = RoundedCornerShape(7.dp),
+    )
 }

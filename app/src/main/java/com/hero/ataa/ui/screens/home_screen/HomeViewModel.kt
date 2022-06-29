@@ -24,6 +24,8 @@ class HomeViewModel @Inject constructor(private val getAdsUseCase: GetAdsUseCase
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
 
+    val logOutPopUpDialogState = mutableStateOf<Boolean>(false)
+
     init {
         getAds()
     }

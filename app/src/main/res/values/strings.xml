@@ -57,4 +57,7 @@
     <string name="save">Save</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="log_out_question">Do you want to logout?</string>
 </resources>
