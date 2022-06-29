@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AtaaRadioButton(
+fun RectangularRadioButton(
     modifier: Modifier = Modifier,
     text: String,
     painter: Painter,

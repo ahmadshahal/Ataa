@@ -18,8 +18,8 @@ import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.AtaaRadioButton
 import com.hero.ataa.ui.components.MaterialButton
+import com.hero.ataa.ui.components.RectangularRadioButton
 import com.hero.ataa.utils.findActivity
 
 @Composable
@@ -106,7 +106,7 @@ private fun ContentColumn(scrollState: ScrollState, viewModel: LanguageViewModel
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        AtaaRadioButton(
+        RectangularRadioButton(
             text = stringResource(id = R.string.english),
             painter = painterResource(id = R.drawable.ic_united_states_flag),
             isSelected = !viewModel.isArabic.value
@@ -114,7 +114,7 @@ private fun ContentColumn(scrollState: ScrollState, viewModel: LanguageViewModel
             viewModel.isArabic.value = false
         }
         Spacer(modifier = Modifier.height(20.dp))
-        AtaaRadioButton(
+        RectangularRadioButton(
             text = stringResource(id = R.string.arabic),
             painter = painterResource(id = R.drawable.syria_flag),
             isSelected = viewModel.isArabic.value
