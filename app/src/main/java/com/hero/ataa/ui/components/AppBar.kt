@@ -30,10 +30,9 @@ fun AppBar(
             Box(modifier = Modifier.align(Alignment.CenterEnd)) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    actions()
-                }
+                    horizontalArrangement = Arrangement.End,
+                    content = actions
+                )
             }
         }
     }

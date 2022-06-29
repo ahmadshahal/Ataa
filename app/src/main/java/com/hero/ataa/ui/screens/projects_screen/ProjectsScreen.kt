@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
@@ -168,6 +169,7 @@ private fun ProjectItem(project: Project, navController: NavController) {
                 style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primaryVariant),
                 maxLines = 4,
                 overflow = TextOverflow.Ellipsis,
+                lineHeight = 18.sp,
             )
             Spacer(modifier = Modifier.height(10.dp))
             ProgressBar(progress = project.progress, height = 5.dp)

@@ -16,20 +16,19 @@ class GetAdsUseCase @Inject constructor() {
             val adsList = listOf<Ad>(
                 Ad(
                     text = "",
-                    url = "https://1.bp.blogspot.com/-b6bxqJmHSBQ/YCF7iAb1e8I/AAAAAAAAQD4/bjVGymoEwg4HKkjQI04cj9LyYnHS4LhdQCLcBGAsYHQ/s0/new-curriculum-for-android-educators-social-v4.png"
-                ),
-                Ad(
-                    text = "",
                     url = "https://lh5.googleusercontent.com/XDdAsraMMs0efpmGpsO8onzoHORvkJH2YTFBBQPdy3EEL4kzJqNafyYyl4fSPRObqDrI9kXHJ2ydOqt68pCEVXzq07X8flEbjtBkLdcDEtgqlIxgfJSfepbbKZfH2JCN5znZSyFgaA=w1200-h630-p-k-no-nu"
                 ),
                 Ad(
                     text = "",
-                    url = "https://1.bp.blogspot.com/-IoW_neqnD9E/YZ6t6ijCy_I/AAAAAAAARMY/Ltbtxm_0fQc_Vc1PLyC8dQgypnp6e9ufwCLcBGAsYHQ/s0/Android-devrel-hiring-social%2B%25281%2529.png"
+                    url = "https://1.bp.blogspot.com/-b6bxqJmHSBQ/YCF7iAb1e8I/AAAAAAAAQD4/bjVGymoEwg4HKkjQI04cj9LyYnHS4LhdQCLcBGAsYHQ/s0/new-curriculum-for-android-educators-social-v4.png"
+                ),
+                Ad(
+                    text = "مبادرة لا للجوع بالتعاون مع جمعية الأيادي البيضاء",
+                    url = "https://i.postimg.cc/5tWkvKx8/charity.png",
                 ),
             )
             emit(DataState.Success(adsList))
-        }
-        catch (ex: Exception) {
+        } catch (ex: Exception) {
             emit(
                 DataState.Error(
                     if (ex.message != null)
