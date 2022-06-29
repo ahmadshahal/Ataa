@@ -48,7 +48,7 @@ fun VolunteerScreen(navController: NavController) {
             Text(
                 text = stringResource(id = R.string.why_we_volunteer_text),
                 style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
-                lineHeight = 20.sp
+                lineHeight = 21.sp
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
