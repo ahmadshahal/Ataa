@@ -12,7 +12,7 @@ class GetProjectsUseCase @Inject constructor() {
     operator fun invoke(categoryApiKey: String) = flow<DataState<List<Project>>> {
         emit(DataState.Loading())
         try {
-            delay(4000)
+            delay(1000)
             val list = listOf(
                 Project(
                     imageUrl = "https://1.bp.blogspot.com/-4G4zVhAxueg/YKLth6HiL_I/AAAAAAAAQhM/JiTsOudkdXgb94qpNYI66jEGlauS0CETQCLcBGAsYHQ/s0/android-whats-new-in-jetpack-v2.png",

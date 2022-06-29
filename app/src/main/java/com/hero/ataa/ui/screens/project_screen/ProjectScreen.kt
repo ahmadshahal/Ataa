@@ -8,6 +8,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,26 +20,38 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
-import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.MaterialButton
-import com.hero.ataa.ui.components.ProgressBar
-import com.hero.ataa.ui.components.Tag
+import com.hero.ataa.ui.components.*
 import com.skydoves.landscapist.coil.CoilImage
+import kotlinx.coroutines.launch
 import java.util.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProjectScreen(project: Project, navController: NavController) {
     val scrollState = rememberScrollState()
-    Scaffold(
+    val bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = bottomSheetState
+    )
+    BottomSheetScaffold(
+        sheetBackgroundColor = MaterialTheme.colors.background,
+        sheetShape = RoundedCornerShape(25.dp),
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             ProjectAppBar(navController = navController)
         },
         contentColor = MaterialTheme.colors.onBackground,
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 0.0.dp,
+        sheetElevation = 8.dp,
+        sheetContent = {
+            BottomSheetContent()
+        }
     ) {
         Box(
             modifier = Modifier
@@ -44,7 +59,10 @@ fun ProjectScreen(project: Project, navController: NavController) {
                 .padding(horizontal = 16.dp)
         ) {
             ContentColumn(project = project, scrollState = scrollState)
-            DonateButton(modifier = Modifier.align(Alignment.BottomCenter))
+            DonateButton(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                sheetState = bottomSheetState
+            )
         }
     }
 }
@@ -137,11 +155,19 @@ private fun ContentColumn(scrollState: ScrollState, project: Project) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun DonateButton(modifier: Modifier = Modifier) {
+private fun DonateButton(modifier: Modifier = Modifier, sheetState: BottomSheetState) {
+
+    val scope = rememberCoroutineScope()
+
     Box(modifier = modifier.padding(bottom = 16.dp)) {
         MaterialButton(
-            onClicked = { /*TODO*/ },
+            onClicked = {
+                scope.launch {
+                    sheetState.expand()
+                }
+            },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
             content = {
@@ -178,7 +204,7 @@ private fun ProgressRow(project: Project) {
 }
 
 @Composable
-fun TagsRow(project: Project) {
+private fun TagsRow(project: Project) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth(),
@@ -190,5 +216,87 @@ fun TagsRow(project: Project) {
             Tag(title = tag)
         }
         Tag(title = project.location)
+    }
+}
+
+@Composable
+private fun BottomSheetContent() {
+    val chosenAmountIdx = remember {
+        mutableStateOf(0)
+    }
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = stringResource(id = R.string.choose_the_amount_you_want_to_donate),
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            mainAxisSpacing = 10.dp,
+            crossAxisSpacing = 15.dp,
+            mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween,
+            crossAxisAlignment = FlowCrossAxisAlignment.Center
+        ) {
+            SquaredRadioButton(
+                text = stringResource(id = R.string._10k),
+                isSelected = chosenAmountIdx.value == 0,
+                onClick = {
+                    chosenAmountIdx.value = 0
+                }
+            )
+            SquaredRadioButton(
+                text = stringResource(id = R.string._25k),
+                isSelected = chosenAmountIdx.value == 1,
+                onClick = {
+                    chosenAmountIdx.value = 1
+                }
+            )
+            SquaredRadioButton(
+                text = stringResource(id = R.string._50k),
+                isSelected = chosenAmountIdx.value == 2,
+                onClick = {
+                    chosenAmountIdx.value = 2
+                }
+            )
+            SquaredRadioButton(
+                text = stringResource(id = R.string._100k),
+                isSelected = chosenAmountIdx.value == 3,
+                onClick = {
+                    chosenAmountIdx.value = 3
+                }
+            )
+            SquaredRadioButton(
+                text = stringResource(id = R.string._250k),
+                isSelected = chosenAmountIdx.value == 4,
+                onClick = {
+                    chosenAmountIdx.value = 4
+                }
+            )
+            SquaredRadioButton(
+                text = stringResource(id = R.string._500k),
+                isSelected = chosenAmountIdx.value == 5,
+                onClick = {
+                    chosenAmountIdx.value = 5
+                }
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        MaterialButton(
+            onClicked = {
+                // TODO.
+            },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            content = {
+                Text(
+                    text = stringResource(id = R.string.next),
+                    style = MaterialTheme.typography.button
+                )
+            }
+        )
     }
 }

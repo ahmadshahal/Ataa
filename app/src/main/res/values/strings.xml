@@ -60,4 +60,11 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="log_out_question">Do you want to logout?</string>
+    <string name="choose_the_amount_you_want_to_donate">Choose the amount you want to donate</string>
+    <string name="_10k">10K</string>
+    <string name="_25k">25K</string>
+    <string name="_50k">50K</string>
+    <string name="_100k">100K</string>
+    <string name="_250k">250K</string>
+    <string name="_500k">500K</string>
 </resources>
