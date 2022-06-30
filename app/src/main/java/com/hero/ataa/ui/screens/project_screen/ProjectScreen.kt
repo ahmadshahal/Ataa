@@ -29,6 +29,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
+import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
 import com.hero.ataa.utils.MoneyTransformation
 import com.skydoves.landscapist.coil.CoilImage
@@ -245,8 +246,10 @@ private fun BottomSheetContent() {
         Spacer(modifier = Modifier.height(20.dp))
         TitledTextField(
             value = amount.value, onValueChanged = {
-                amount.value = it
-                chosenAmountIdx.value = -1
+                if(it.length <= Constants.MAX_MONEY_DONATION) {
+                    amount.value = it
+                    chosenAmountIdx.value = -1
+                }
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             keyboardActions = KeyboardActions(
