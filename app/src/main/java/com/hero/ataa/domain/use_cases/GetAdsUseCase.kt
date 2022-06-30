@@ -12,19 +12,19 @@ class GetAdsUseCase @Inject constructor() {
     operator fun invoke() = flow<DataState<List<Ad>>> {
         emit(DataState.Loading())
         try {
-            delay(5000)
+            delay(2000)
             val adsList = listOf<Ad>(
                 Ad(
                     text = "",
-                    url = "https://lh5.googleusercontent.com/XDdAsraMMs0efpmGpsO8onzoHORvkJH2YTFBBQPdy3EEL4kzJqNafyYyl4fSPRObqDrI9kXHJ2ydOqt68pCEVXzq07X8flEbjtBkLdcDEtgqlIxgfJSfepbbKZfH2JCN5znZSyFgaA=w1200-h630-p-k-no-nu"
+                    url = "https://1.bp.blogspot.com/-Zde9ioLE3SY/YWh7qiquXKI/AAAAAAAARCU/m6D-qJJe6QowYPcDWUtb3-YzFGn9xIaUwCLcBGAsYHQ/s0/Android-get-ready-to-sumbit-your-data-safety-secton-social.png",
                 ),
                 Ad(
                     text = "",
-                    url = "https://1.bp.blogspot.com/-b6bxqJmHSBQ/YCF7iAb1e8I/AAAAAAAAQD4/bjVGymoEwg4HKkjQI04cj9LyYnHS4LhdQCLcBGAsYHQ/s0/new-curriculum-for-android-educators-social-v4.png"
+                    url = "https://1.bp.blogspot.com/-4G4zVhAxueg/YKLth6HiL_I/AAAAAAAAQhM/JiTsOudkdXgb94qpNYI66jEGlauS0CETQCLcBGAsYHQ/s0/android-whats-new-in-jetpack-v2.png",
                 ),
                 Ad(
-                    text = "مبادرة لا للجوع بالتعاون مع جمعية الأيادي البيضاء",
-                    url = "https://i.postimg.cc/5tWkvKx8/charity.png",
+                    text = "",
+                    url = "https://1.bp.blogspot.com/-b1_n6tOHvWU/YKMssWEjo-I/AAAAAAAAQjk/vIJQsAPUpRQKxR44GoCbm3CtRgr8tVBKACLcBGAsYHQ/s0/Android_NewForDevelopers_1024x512_updated.png",
                 ),
             )
             emit(DataState.Success(adsList))
