@@ -30,7 +30,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.ui.components.*
-import com.hero.ataa.utils.SuffixTransformation
+import com.hero.ataa.utils.MoneyTransformation
 import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
 import java.util.*
@@ -254,7 +254,7 @@ private fun BottomSheetContent() {
                     focusManager.clearFocus()
                 }
             ),
-            visualTransformation = SuffixTransformation(suffix = " ${stringResource(id = R.string.syrian_pounds)}")
+            visualTransformation = MoneyTransformation(stringResource(id = R.string.syrian_pounds))
         )
         Spacer(modifier = Modifier.height(20.dp))
         FlowRow(
