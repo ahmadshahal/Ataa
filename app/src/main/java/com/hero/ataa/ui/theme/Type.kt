@@ -73,6 +73,6 @@ val Typography = Typography(
     subtitle2 = TextStyle(
         fontFamily = AtaaFont,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.5.sp
+        fontSize = 14.3.sp
     ),
 )

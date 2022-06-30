@@ -67,4 +67,6 @@
     <string name="_100k">100K</string>
     <string name="_250k">250K</string>
     <string name="_500k">500K</string>
+    <string name="optional_amount">Optional Amount</string>
+    <string name="syrian_pounds">S.P</string>
 </resources>

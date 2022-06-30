@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -15,8 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -26,6 +30,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.ui.components.*
+import com.hero.ataa.utils.SuffixTransformation
 import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
 import java.util.*
@@ -224,6 +229,10 @@ private fun BottomSheetContent() {
     val chosenAmountIdx = remember {
         mutableStateOf(0)
     }
+    val amount = remember {
+        mutableStateOf("10000")
+    }
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -232,6 +241,20 @@ private fun BottomSheetContent() {
         Text(
             text = stringResource(id = R.string.choose_the_amount_you_want_to_donate),
             style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TitledTextField(
+            value = amount.value, onValueChanged = {
+                amount.value = it
+                chosenAmountIdx.value = -1
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                }
+            ),
+            visualTransformation = SuffixTransformation(suffix = " ${stringResource(id = R.string.syrian_pounds)}")
         )
         Spacer(modifier = Modifier.height(20.dp))
         FlowRow(
@@ -246,6 +269,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 0,
                 onClick = {
                     chosenAmountIdx.value = 0
+                    amount.value = "10000"
                 }
             )
             SquaredRadioButton(
@@ -253,6 +277,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 1,
                 onClick = {
                     chosenAmountIdx.value = 1
+                    amount.value = "25000"
                 }
             )
             SquaredRadioButton(
@@ -260,6 +285,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 2,
                 onClick = {
                     chosenAmountIdx.value = 2
+                    amount.value = "50000"
                 }
             )
             SquaredRadioButton(
@@ -267,6 +293,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 3,
                 onClick = {
                     chosenAmountIdx.value = 3
+                    amount.value = "100000"
                 }
             )
             SquaredRadioButton(
@@ -274,6 +301,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 4,
                 onClick = {
                     chosenAmountIdx.value = 4
+                    amount.value = "2500000"
                 }
             )
             SquaredRadioButton(
@@ -281,6 +309,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 5,
                 onClick = {
                     chosenAmountIdx.value = 5
+                    amount.value = "5000000"
                 }
             )
         }

@@ -68,4 +68,6 @@
     <string name="_100k">100 ألف</string>
     <string name="_250k">250 ألف</string>
     <string name="_500k">500 ألف</string>
+    <string name="optional_amount">مبلغ اختياري</string>
+    <string name="syrian_pounds">ل.س</string>
 </resources>
