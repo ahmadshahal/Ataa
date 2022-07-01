@@ -39,36 +39,34 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProjectScreen(project: Project, navController: NavController) {
+
     val scrollState = rememberScrollState()
-    val bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = bottomSheetState
-    )
-    BottomSheetScaffold(
+    val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+
+    ModalBottomSheetLayout(
+        sheetContent = { BottomSheetContent() },
+        sheetState = modalBottomSheetState,
+        sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp),
         sheetBackgroundColor = MaterialTheme.colors.background,
-        sheetShape = RoundedCornerShape(25.dp),
-        backgroundColor = MaterialTheme.colors.background,
-        topBar = {
-            ProjectAppBar(navController = navController)
-        },
-        contentColor = MaterialTheme.colors.onBackground,
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = 0.0.dp,
-        sheetElevation = 8.dp,
-        sheetContent = {
-            BottomSheetContent()
-        }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
+        Scaffold(
+            backgroundColor = MaterialTheme.colors.background,
+            topBar = {
+                ProjectAppBar(navController = navController)
+            },
+            contentColor = MaterialTheme.colors.onBackground,
         ) {
-            ContentColumn(project = project, scrollState = scrollState)
-            DonateButton(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                sheetState = bottomSheetState
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+            ) {
+                ContentColumn(project = project, scrollState = scrollState)
+                DonateButton(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    modalBottomSheetState = modalBottomSheetState
+                )
+            }
         }
     }
 }
@@ -163,7 +161,7 @@ private fun ContentColumn(scrollState: ScrollState, project: Project) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun DonateButton(modifier: Modifier = Modifier, sheetState: BottomSheetState) {
+private fun DonateButton(modifier: Modifier = Modifier, modalBottomSheetState: ModalBottomSheetState) {
 
     val scope = rememberCoroutineScope()
 
@@ -171,7 +169,7 @@ private fun DonateButton(modifier: Modifier = Modifier, sheetState: BottomSheetS
         MaterialButton(
             onClicked = {
                 scope.launch {
-                    sheetState.expand()
+                    modalBottomSheetState.show()
                 }
             },
             backgroundColor = MaterialTheme.colors.primary,
@@ -246,7 +244,7 @@ private fun BottomSheetContent() {
         Spacer(modifier = Modifier.height(20.dp))
         TitledTextField(
             value = amount.value, onValueChanged = {
-                if(it.length <= Constants.MAX_MONEY_DONATION) {
+                if (it.length <= Constants.MAX_MONEY_DONATION) {
                     amount.value = it
                     chosenAmountIdx.value = -1
                 }
