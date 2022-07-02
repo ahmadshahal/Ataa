@@ -14,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun SquaredRadioButton(
@@ -45,7 +47,9 @@ fun SquaredRadioButton(
             text = text,
             style = MaterialTheme.typography.h5.copy(
                 color = if (isSelected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSurface
-            )
+            ),
+            textAlign = TextAlign.Center,
+            lineHeight = 18.sp
         )
     }
 }
