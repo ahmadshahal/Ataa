@@ -56,12 +56,6 @@ fun SadakaProjectScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                modifier = Modifier.padding(vertical = 16.dp),
-                text = stringResource(id = R.string.sadaka_quote),
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                textAlign = TextAlign.Center,
-            )
             ContentColumn(chosenAmountIdx = chosenAmountIdx, amount = amount)
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
@@ -115,6 +109,13 @@ private fun ContentColumn(chosenAmountIdx: MutableState<Int>, amount: MutableSta
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(id = R.string.sadaka_quote),
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            textAlign = TextAlign.Center,
+        )
+        Spacer(modifier = Modifier.height(30.dp))
         TitledTextField(
             title = stringResource(id = R.string.optional_amount),
             value = amount.value,
