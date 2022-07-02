@@ -1,6 +1,5 @@
 package com.hero.ataa.ui.screens.language_screen
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -37,35 +36,33 @@ fun LanguageScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp)
+                .verticalScroll(scrollState)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            ContentColumn(scrollState = scrollState, viewModel = viewModel)
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp)
-            ) {
-                MaterialButton(
-                    content = {
-                        Text(
-                            text = stringResource(id = R.string.save),
-                            style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
-                        )
-                    },
-                    onClicked = {
-                        if(mainViewModel.isArabic != viewModel.isArabic.value) {
-                            mainViewModel.isArabic = viewModel.isArabic.value
-                            context.findActivity()?.recreate()
-                        }
-                        navController.popBackStack()
-                    },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    contentColor = MaterialTheme.colors.onPrimary,
-                )
-            }
+            ContentColumn(viewModel = viewModel)
+            MaterialButton(
+                modifier = Modifier.padding(vertical = 16.dp),
+                content = {
+                    Text(
+                        text = stringResource(id = R.string.save),
+                        style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
+                    )
+                },
+                onClicked = {
+                    if (mainViewModel.isArabic != viewModel.isArabic.value) {
+                        mainViewModel.isArabic = viewModel.isArabic.value
+                        context.findActivity()?.recreate()
+                    }
+                    navController.popBackStack()
+                },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+            )
         }
     }
 }
@@ -98,11 +95,8 @@ private fun LanguageAppBar(navController: NavController) {
 }
 
 @Composable
-private fun ContentColumn(scrollState: ScrollState, viewModel: LanguageViewModel) {
+private fun ContentColumn(viewModel: LanguageViewModel) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(16.dp))
@@ -121,6 +115,5 @@ private fun ContentColumn(scrollState: ScrollState, viewModel: LanguageViewModel
         ) {
             viewModel.isArabic.value = true
         }
-        Spacer(modifier = Modifier.height(75.dp))
     }
 }
