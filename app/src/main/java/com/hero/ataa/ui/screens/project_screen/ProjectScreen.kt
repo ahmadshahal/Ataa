@@ -243,6 +243,7 @@ private fun BottomSheetContent() {
         )
         Spacer(modifier = Modifier.height(20.dp))
         TitledTextField(
+            title = stringResource(id = R.string.optional_amount),
             value = amount.value, onValueChanged = {
                 if (it.length <= Constants.MAX_MONEY_DONATION) {
                     amount.value = it

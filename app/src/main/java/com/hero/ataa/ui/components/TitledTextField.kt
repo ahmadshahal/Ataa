@@ -13,13 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.hero.ataa.R
 
 @Composable
 fun TitledTextField(
+    title: String,
     value: String,
     onValueChanged: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
@@ -44,7 +43,7 @@ fun TitledTextField(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.optional_amount),
+                text = title,
                 style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground),
             )
             Spacer(modifier = Modifier.height(5.dp))
