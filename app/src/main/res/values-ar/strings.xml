@@ -35,12 +35,11 @@
     <string name="welcome_to_ataa_for_charity_projects">مرحباً بكم في جمعية عَطاء للأعمال الخيرية</string>
     <string name="trending_donations">أهم التبرعات</string>
     <string name="ramadan_projects">مشاريع رمضان</string>
-    <string name="kafalat_yateem">كفالة يتيم</string>
-    <string name="ekhraj_zakat">إخراج زكاة</string>
+    <string name="orphan_assist">كفالة يتيم</string>
+    <string name="paying_zakat">إخراج زكاة</string>
     <string name="education">تعليم</string>
     <string name="health">صحة</string>
     <string name="mosques">مساجد</string>
-    <string name="poor_houses">بيوت فقراء</string>
     <string name="contribute_with_us">ساهم معنا</string>
     <string name="search_for_a_project">بحث عن مشروع</string>
     <string name="goal">الهدف:</string>
@@ -70,4 +69,14 @@
     <string name="_500k">500 ألف</string>
     <string name="optional_amount">مبلغ اختياري</string>
     <string name="syrian_pounds">ل.س</string>
+    <string name="donate">تصدَّق</string>
+    <string name="sadaka">صدقة</string>
+    <string name="poor_feed">إطعام مسكين</string>
+    <string name="sacrifice">أضحية</string>
+    <string name="food">غِذاء</string>
+    <string name="housing">إسكان</string>
+    <string name="dressing">كسوة</string>
+    <string name="special_needs">ذوي الهمم</string>
+    <string name="assistance">إغاثة</string>
+    <string name="atonement">كفارات</string>
 </resources>

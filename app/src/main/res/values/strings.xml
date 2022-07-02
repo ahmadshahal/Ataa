@@ -34,12 +34,11 @@
     <string name="welcome_to_ataa_for_charity_projects">Welcome to Ataa for charity projects</string>
     <string name="trending_donations">Trending Donations</string>
     <string name="ramadan_projects">Ramadan Projects</string>
-    <string name="kafalat_yateem">Kafalat Yateem</string>
-    <string name="ekhraj_zakat">Ekhraj Zakat</string>
+    <string name="orphan_assist">Orphan Assistance</string>
+    <string name="paying_zakat">Paying Zakat</string>
     <string name="education">Education</string>
     <string name="health">Health</string>
     <string name="mosques">Mosques</string>
-    <string name="poor_houses">Poor Houses</string>
     <string name="contribute_with_us">Contribute With Us</string>
     <string name="search_for_a_project">Search for a project</string>
     <string name="goal">Goal:</string>
@@ -69,4 +68,15 @@
     <string name="_500k">500K</string>
     <string name="optional_amount">Optional Amount</string>
     <string name="syrian_pounds">S.P</string>
+    <string name="donate">Donate</string>
+    <string name="sadaka">Sadaka</string>
+    <string name="poor_feed">Poor Feeding</string>
+    <string name="sacrifice">Sacrifice</string>
+    <string name="food">Food</string>
+    <string name="housing">Housing</string>
+    <string name="dressing">Dressing</string>
+    <string name="special_needs">Special Needs</string>
+    <string name="assistance">Assistance</string>
+    <string name="atonement">Atonement</string>
+    <string name="sadaka_quote" translatable="false">قال رسول الله صلى الله عليه وسلم (كُلُّ امْرِئٍ في ظِلِّ صَدَقَتِهِ حَتَّى يُفْصَلَ بَيْنَ النَّاسِ) و قال أيضاً (ما مِن يَومٍ يُصْبِحُ العِبادُ فِيهِ، إلَّا مَلَكانِ يَنْزِلانِ، فيَقولُ أحَدُهُما: اللَّهُمَّ أعْطِ مُنْفِقًا خَلَفًا، ويقولُ الآخَرُ: اللَّهُمَّ أعْطِ مُمْسِكًا تَلَفًا) و أيضاً (مَن تَصدَّقَ بعَدْلِ تمرةٍ مِن كسْبٍ طيِّبٍ، ولا يَصعَدُ إلى اللهِ إلَّا طيِّبٌ؛ فإنَّ اللهَ يَقبَلُها بيَمِينه، ثمَّ يُربِّيها لِصاحِبِها، كما يُربِّي أحدُكم فَلُوَّه، حتى تَكونَ مثلَ الجبلِ)</string>
 </resources>
