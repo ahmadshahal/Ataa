@@ -38,29 +38,45 @@ fun MiskeenProjectScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            ContentColumn(viewModel = viewModel)
-            MaterialButton(
-                modifier = Modifier.padding(vertical = 16.dp),
-                content = {
-                    Text(
-                        text = stringResource(id = R.string.next),
-                        style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
+        when(val uiState = viewModel.uiState.value) {
+            is MiskeenUiState.Success -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                        .padding(horizontal = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    ContentColumn(viewModel = viewModel, miskeenValue = uiState.miskeenValue)
+                    MaterialButton(
+                        modifier = Modifier.padding(vertical = 16.dp),
+                        content = {
+                            Text(
+                                text = stringResource(id = R.string.next),
+                                style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
+                            )
+                        },
+                        onClick = {
+                            // TODO.
+                        },
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary,
                     )
-                },
-                onClick = {
-                    // TODO.
-                },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-            )
+                }
+            }
+            is MiskeenUiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    LoadingDots(
+                        modifier = Modifier.align(Alignment.Center),
+                        circleColor = MaterialTheme.colors.primary,
+                        circleSize = 10.dp,
+                        spaceBetween = 8.dp,
+                        travelDistance = 7.dp
+                    )
+                }
+            }
+            else -> Unit
         }
     }
 }
@@ -93,7 +109,7 @@ private fun MiskeenProjectAppBar(navController: NavController) {
 }
 
 @Composable
-private fun ContentColumn(viewModel: MiskeenViewModel) {
+private fun ContentColumn(viewModel: MiskeenViewModel, miskeenValue: Int) {
     val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -116,7 +132,7 @@ private fun ContentColumn(viewModel: MiskeenViewModel) {
                 }
             },
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
         )
         Spacer(modifier = Modifier.height(20.dp))
         FlowRow(
@@ -176,9 +192,8 @@ private fun ContentColumn(viewModel: MiskeenViewModel) {
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        val numberAsInt = if(viewModel.number.value.isEmpty()) 0 else viewModel.number.value.toInt()
         TotalBox(
-            total = (numberAsInt * 10000).toString(),
+            total = ((viewModel.number.value.toIntOrNull() ?: 0) * miskeenValue).toString(),
             currency = stringResource(id = R.string.currency)
         )
     }
