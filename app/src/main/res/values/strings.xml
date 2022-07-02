@@ -79,4 +79,13 @@
     <string name="assistance">Assistance</string>
     <string name="atonement">Atonement</string>
     <string name="sadaka_quote" translatable="false">قال رسول الله صلى الله عليه وسلم (كُلُّ امْرِئٍ في ظِلِّ صَدَقَتِهِ حَتَّى يُفْصَلَ بَيْنَ النَّاسِ) و قال أيضاً (ما مِن يَومٍ يُصْبِحُ العِبادُ فِيهِ، إلَّا مَلَكانِ يَنْزِلانِ، فيَقولُ أحَدُهُما: اللَّهُمَّ أعْطِ مُنْفِقًا خَلَفًا، ويقولُ الآخَرُ: اللَّهُمَّ أعْطِ مُمْسِكًا تَلَفًا) و أيضاً (مَن تَصدَّقَ بعَدْلِ تمرةٍ مِن كسْبٍ طيِّبٍ، ولا يَصعَدُ إلى اللهِ إلَّا طيِّبٌ؛ فإنَّ اللهَ يَقبَلُها بيَمِينه، ثمَّ يُربِّيها لِصاحِبِها، كما يُربِّي أحدُكم فَلُوَّه، حتى تَكونَ مثلَ الجبلِ)</string>
+    <string name="_1_person">1 Person</string>
+    <string name="_2_persons">2 Persons</string>
+    <string name="_8_persons">8 Persons</string>
+    <string name="_15_persons">15 Persons</string>
+    <string name="_25_persons">25 Persons</string>
+    <string name="_50_persons">50 Persons</string>
+    <string name="optional_number">Optional Number</string>
+    <string name="total">Total</string>
+    <string name="miskeen_quote" translatable="false">قال رسول الله صلى الله عليه وسلم (خِيَارُكُمْ مَنْ أَطْعَمَ الطَّعَامَ) وقال أيضاً (أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ سُرُورٌ تُدْخِلُهُ عَلَى مُسْلِمٍ ، أَوْ تَكْشِفُ عَنْهُ كُرْبَةً ، أَوْ تَطْرُدُ عَنْهُ جُوعًا ، أَوْ تَقْضِي عَنْهُ دَيْنًا) وأيضاً (َأَطْعِمُوا الطَّعَامَ، وَصِلُوا الْأَرْحَامَ، وَصَلُّوا بِاللَّيْلِ وَالنَّاسُ نِيَامٌ تَدْخُلُوا الْجَنَّةَ بِسَلَامٍ)</string>
 </resources>

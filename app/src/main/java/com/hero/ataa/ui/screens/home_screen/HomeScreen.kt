@@ -478,15 +478,17 @@ private fun MostImportantRow(navController: NavController) {
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End,
     ) {
-        val poorFeeding = stringResource(id = R.string.poor_feed)
+        val miskeen = stringResource(id = R.string.poor_feed)
         val orphan = stringResource(id = R.string.orphan_assist)
         val ramadan = stringResource(id = R.string.ramadan_projects)
 
         CategoryItem(
-            name = poorFeeding,
+            name = miskeen,
             icon = painterResource(id = R.drawable.ic_food_bag_icon),
             iconSize = 25.dp
-        ) {}
+        ) {
+            navController.navigate(Screen.MiskeenProjectScreen.route)
+        }
         CategoryItem(
             name = orphan,
             icon = painterResource(id = R.drawable.ic_yateem_icon),

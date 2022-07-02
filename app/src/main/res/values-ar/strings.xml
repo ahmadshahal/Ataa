@@ -79,4 +79,12 @@
     <string name="special_needs">ذوي الهمم</string>
     <string name="assistance">إغاثة</string>
     <string name="atonement">كفارات</string>
+    <string name="_1_person">شخص</string>
+    <string name="_2_persons">شخصين</string>
+    <string name="_8_persons">8 أشخاص</string>
+    <string name="_15_persons">15 شخص</string>
+    <string name="_25_persons">25 شخص</string>
+    <string name="_50_persons">50 شخص</string>
+    <string name="optional_number">عدد اختياري</string>
+    <string name="total">الإجمالي</string>
 </resources>

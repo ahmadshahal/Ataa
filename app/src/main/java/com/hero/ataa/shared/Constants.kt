@@ -29,4 +29,5 @@ object Constants {
         const val IS_ARABIC_KEY = "is_arabic"
     }
     const val MAX_MONEY_DONATION = 18
+    const val MAX_MISKEEN_PERSONS = 4
 }
