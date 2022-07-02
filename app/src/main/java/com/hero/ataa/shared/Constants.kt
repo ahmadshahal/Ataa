@@ -18,7 +18,7 @@ object Constants {
         // TODO: Update with the API.
         const val SADAKA = "sadaka"
         const val MISKEEN = "miskeen"
-        const val ADHYA = "adhya"
+        const val SACRIFICE = "sacrifice"
         const val KAFFARA = "kaffara"
         const val ZAKAT = "zakat"
     }

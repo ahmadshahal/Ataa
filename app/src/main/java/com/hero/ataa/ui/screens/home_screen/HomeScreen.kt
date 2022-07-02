@@ -595,13 +595,13 @@ private fun DonateRow(navController: NavController) {
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End
     ) {
-        val adhya = stringResource(id = R.string.sacrifice)
+        val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
         val zakat = stringResource(id = R.string.paying_zakat)
         val kaffara = stringResource(id = R.string.atonement)
 
         CategoryItem(
-            name = adhya,
+            name = sacrifice,
             icon = painterResource(id = R.drawable.ic_cow_icon),
             iconSize = 25.dp,
         ) {}
