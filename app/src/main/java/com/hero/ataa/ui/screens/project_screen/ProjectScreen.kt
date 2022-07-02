@@ -303,7 +303,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 4,
                 onClick = {
                     chosenAmountIdx.value = 4
-                    amount.value = "2500000"
+                    amount.value = "250000"
                 }
             )
             SquaredRadioButton(
@@ -311,7 +311,7 @@ private fun BottomSheetContent() {
                 isSelected = chosenAmountIdx.value == 5,
                 onClick = {
                     chosenAmountIdx.value = 5
-                    amount.value = "5000000"
+                    amount.value = "500000"
                 }
             )
         }
