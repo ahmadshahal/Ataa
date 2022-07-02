@@ -95,7 +95,11 @@ fun HomeScreen(
         drawerBackgroundColor = MaterialTheme.colors.background,
         contentColor = MaterialTheme.colors.onBackground,
         drawerContent = {
-            AppDrawer(navController = navController, mainViewModel = mainViewModel, viewModel = viewModel)
+            AppDrawer(
+                navController = navController,
+                mainViewModel = mainViewModel,
+                viewModel = viewModel
+            )
         },
         drawerContentColor = MaterialTheme.colors.onBackground
     ) {
@@ -168,6 +172,16 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 ContributeWithUsRow(navController)
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    text = stringResource(id = R.string.donate),
+                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                DonateRow(navController)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -246,9 +260,13 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 }
 
 @Composable
-private fun AppDrawer(viewModel: HomeViewModel, navController: NavController, mainViewModel: MainViewModel) {
+private fun AppDrawer(
+    viewModel: HomeViewModel,
+    navController: NavController,
+    mainViewModel: MainViewModel
+) {
     val scrollState = rememberScrollState()
-    if(viewModel.logOutPopUpDialogState.value) {
+    if (viewModel.logOutPopUpDialogState.value) {
         LogoutAlertDialog(viewModel = viewModel, navController = navController)
     }
     Column(modifier = Modifier.verticalScroll(scrollState)) {
@@ -460,23 +478,28 @@ private fun MostImportantRow(navController: NavController) {
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End,
     ) {
+        val poorFeeding = stringResource(id = R.string.poor_feed)
+        val orphan = stringResource(id = R.string.orphan_assist)
+        val ramadan = stringResource(id = R.string.ramadan_projects)
+
         CategoryItem(
-            name = stringResource(id = R.string.ekhraj_zakat),
-            icon = painterResource(id = R.drawable.ic_zakat_icon),
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.ZAKAT,
-        )
+            name = poorFeeding,
+            icon = painterResource(id = R.drawable.ic_food_bag_icon),
+            iconSize = 25.dp
+        ) {}
         CategoryItem(
-            name = stringResource(id = R.string.kafalat_yateem),
-            icon = painterResource(id = R.drawable.ic_yateem_icon), navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.YATEEM,
-        )
+            name = orphan,
+            icon = painterResource(id = R.drawable.ic_yateem_icon),
+            iconSize = 23.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${orphan}/${Constants.CategoryApiKey.ORPHAN}")
+        }
         CategoryItem(
-            name = stringResource(id = R.string.ramadan_projects),
+            name = ramadan,
             icon = painterResource(id = R.drawable.ic_moon_icon),
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.RAMADAN,
-        )
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${ramadan}/${Constants.CategoryApiKey.RAMADAN}")
+        }
     }
 }
 
@@ -492,34 +515,112 @@ private fun ContributeWithUsRow(navController: NavController) {
         crossAxisSpacing = 9.dp,
         mainAxisAlignment = FlowMainAxisAlignment.End
     ) {
+
+        val mosques = stringResource(id = R.string.mosques)
+        val health = stringResource(id = R.string.health)
+        val education = stringResource(id = R.string.education)
+        val food = stringResource(id = R.string.food)
+        val housing = stringResource(id = R.string.housing)
+        val dressing = stringResource(id = R.string.dressing)
+        val assistance = stringResource(id = R.string.assistance)
+        val specialNeeds = stringResource(id = R.string.special_needs)
+
         CategoryItem(
-            name = stringResource(id = R.string.poor_houses),
-            icon = painterResource(id = R.drawable.ic_house_icon),
-            iconSize = 25.dp,
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.HOUSES,
-        )
-        CategoryItem(
-            name = stringResource(id = R.string.mosques),
+            name = mosques,
             icon = painterResource(id = R.drawable.ic_mosque_icon),
             iconSize = 25.dp,
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.MOSQUES,
-        )
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${mosques}/${Constants.CategoryApiKey.MOSQUES}")
+        }
         CategoryItem(
-            name = stringResource(id = R.string.health),
+            name = health,
             icon = painterResource(id = R.drawable.ic_health_icon),
             iconSize = 22.dp,
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.HEALTH,
-        )
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${health}/${Constants.CategoryApiKey.HEALTH}")
+        }
         CategoryItem(
-            name = stringResource(id = R.string.education),
+            name = education,
             icon = painterResource(id = R.drawable.ic_education_icon),
             iconSize = 28.dp,
-            navController = navController,
-            categoryApiKey = Constants.CategoryApiKey.EDUCATION,
-        )
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${education}/${Constants.CategoryApiKey.EDUCATION}")
+        }
+        CategoryItem(
+            name = food,
+            icon = painterResource(id = R.drawable.ic_food_icon),
+            iconSize = 25.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${food}/${Constants.CategoryApiKey.FOOD}")
+        }
+        CategoryItem(
+            name = housing,
+            icon = painterResource(id = R.drawable.ic_housing_icon),
+            iconSize = 25.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${housing}/${Constants.CategoryApiKey.HOUSING}")
+        }
+        CategoryItem(
+            name = dressing,
+            icon = painterResource(id = R.drawable.ic_shirt_icon),
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${dressing}/${Constants.CategoryApiKey.DRESSING}")
+        }
+        CategoryItem(
+            name = assistance,
+            icon = painterResource(id = R.drawable.ic_helping_icon),
+            iconSize = 26.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${assistance}/${Constants.CategoryApiKey.ASSISTANCE}")
+        }
+        CategoryItem(
+            name = specialNeeds,
+            icon = painterResource(id = R.drawable.ic_wheel_chair_icon),
+            iconSize = 27.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${specialNeeds}/${Constants.CategoryApiKey.SPECIALNEEDS}")
+        }
+    }
+}
+
+@Composable
+private fun DonateRow(navController: NavController) {
+    // !: FlowRow doesn't support RTL.
+    // TODO: Find a solution.
+    FlowRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        mainAxisSpacing = 9.dp,
+        crossAxisSpacing = 9.dp,
+        mainAxisAlignment = FlowMainAxisAlignment.End
+    ) {
+        val adhya = stringResource(id = R.string.sacrifice)
+        val sadaka = stringResource(id = R.string.sadaka)
+        val zakat = stringResource(id = R.string.paying_zakat)
+        val kaffara = stringResource(id = R.string.atonement)
+
+        CategoryItem(
+            name = adhya,
+            icon = painterResource(id = R.drawable.ic_cow_icon),
+            iconSize = 25.dp,
+        ) {}
+        CategoryItem(
+            name = sadaka,
+            icon = painterResource(id = R.drawable.ic_money_bags_icon),
+            iconSize = 25.dp,
+        ) {
+            navController.navigate(Screen.SadakaProjectScreen.route)
+        }
+        CategoryItem(
+            name = zakat,
+            icon = painterResource(id = R.drawable.ic_zakat_icon),
+        ) {}
+        CategoryItem(
+            name = kaffara,
+            icon = painterResource(id = R.drawable.ic_prayer_icon),
+            iconSize = 25.dp
+        ) {}
     }
 }
 
@@ -527,9 +628,8 @@ private fun ContributeWithUsRow(navController: NavController) {
 private fun CategoryItem(
     name: String,
     icon: Painter,
-    navController: NavController,
     iconSize: Dp = 24.dp,
-    categoryApiKey: String,
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -542,9 +642,7 @@ private fun CategoryItem(
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
-            .clickable {
-                navController.navigate(Screen.ProjectsScreen.route + "/$name/$categoryApiKey")
-            }
+            .clickable(onClick = onClick)
     ) {
         Column(
             modifier = Modifier
