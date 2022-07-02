@@ -3,17 +3,21 @@ package com.hero.ataa.ui.screens.sadaka_project_screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
@@ -29,9 +33,14 @@ import com.hero.ataa.utils.MoneyTransformation
 @Composable
 fun SadakaProjectScreen(
     navController: NavController,
-    viewModel: SadakaProjectViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val chosenAmountIdx = remember {
+        mutableStateOf(0)
+    }
+    val amount = remember {
+        mutableStateOf("10000")
+    }
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
@@ -53,7 +62,7 @@ fun SadakaProjectScreen(
                 style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
                 textAlign = TextAlign.Center,
             )
-            ContentColumn(viewModel = viewModel)
+            ContentColumn(chosenAmountIdx = chosenAmountIdx, amount = amount)
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
                 content = {
@@ -100,7 +109,7 @@ private fun SadakaProjectAppBar(navController: NavController) {
 }
 
 @Composable
-private fun ContentColumn(viewModel: SadakaProjectViewModel) {
+private fun ContentColumn(chosenAmountIdx: MutableState<Int>, amount: MutableState<String>) {
     val focusManager = LocalFocusManager.current
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -108,15 +117,16 @@ private fun ContentColumn(viewModel: SadakaProjectViewModel) {
     ) {
         TitledTextField(
             title = stringResource(id = R.string.optional_amount),
-            value = viewModel.moneyFieldText.value,
+            value = amount.value,
             onValueChanged = {
                 if (it.length <= Constants.MAX_MONEY_DONATION) {
-                    viewModel.moneyFieldText.value = it
-                    viewModel.chosenAmountIdx.value = -1
+                    amount.value = it
+                    chosenAmountIdx.value = -1
                 }
             },
             visualTransformation = MoneyTransformation(currency = stringResource(id = R.string.currency)),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword)
         )
         Spacer(modifier = Modifier.height(20.dp))
         FlowRow(
@@ -128,50 +138,50 @@ private fun ContentColumn(viewModel: SadakaProjectViewModel) {
         ) {
             SquaredRadioButton(
                 text = stringResource(id = R.string._10k),
-                isSelected = viewModel.chosenAmountIdx.value == 0,
+                isSelected = chosenAmountIdx.value == 0,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 0
-                    viewModel.moneyFieldText.value = "10000"
+                    chosenAmountIdx.value = 0
+                    amount.value = "10000"
                 }
             )
             SquaredRadioButton(
                 text = stringResource(id = R.string._25k),
-                isSelected = viewModel.chosenAmountIdx.value == 1,
+                isSelected = chosenAmountIdx.value == 1,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 1
-                    viewModel.moneyFieldText.value = "25000"
+                    chosenAmountIdx.value = 1
+                    amount.value = "25000"
                 }
             )
             SquaredRadioButton(
                 text = stringResource(id = R.string._50k),
-                isSelected = viewModel.chosenAmountIdx.value == 2,
+                isSelected = chosenAmountIdx.value == 2,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 2
-                    viewModel.moneyFieldText.value = "50000"
+                    chosenAmountIdx.value = 2
+                    amount.value = "50000"
                 }
             )
             SquaredRadioButton(
                 text = stringResource(id = R.string._100k),
-                isSelected = viewModel.chosenAmountIdx.value == 3,
+                isSelected = chosenAmountIdx.value == 3,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 3
-                    viewModel.moneyFieldText.value = "100000"
+                    chosenAmountIdx.value = 3
+                    amount.value = "100000"
                 }
             )
             SquaredRadioButton(
                 text = stringResource(id = R.string._250k),
-                isSelected = viewModel.chosenAmountIdx.value == 4,
+                isSelected = chosenAmountIdx.value == 4,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 4
-                    viewModel.moneyFieldText.value = "250000"
+                    chosenAmountIdx.value = 4
+                    amount.value = "250000"
                 }
             )
             SquaredRadioButton(
                 text = stringResource(id = R.string._500k),
-                isSelected = viewModel.chosenAmountIdx.value == 5,
+                isSelected = chosenAmountIdx.value == 5,
                 onClick = {
-                    viewModel.chosenAmountIdx.value = 5
-                    viewModel.moneyFieldText.value = "500000"
+                    chosenAmountIdx.value = 5
+                    amount.value = "500000"
                 }
             )
         }
