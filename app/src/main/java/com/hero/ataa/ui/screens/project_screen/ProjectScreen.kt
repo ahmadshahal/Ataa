@@ -167,7 +167,7 @@ private fun DonateButton(modifier: Modifier = Modifier, modalBottomSheetState: M
 
     Box(modifier = modifier.padding(bottom = 16.dp)) {
         MaterialButton(
-            onClicked = {
+            onClick = {
                 scope.launch {
                     modalBottomSheetState.show()
                 }
@@ -317,7 +317,7 @@ private fun BottomSheetContent() {
         }
         Spacer(modifier = Modifier.height(20.dp))
         MaterialButton(
-            onClicked = {
+            onClick = {
                 // TODO.
             },
             backgroundColor = MaterialTheme.colors.primary,

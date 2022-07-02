@@ -118,7 +118,7 @@ private fun ButtonsRow() {
                     style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
                 )
             },
-            onClicked = { /*TODO*/ },
+            onClick = { /*TODO*/ },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary
         )

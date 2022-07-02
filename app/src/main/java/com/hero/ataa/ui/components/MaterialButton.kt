@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 fun MaterialButton(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
-    onClicked: () -> Unit,
+    onClick: () -> Unit,
     backgroundColor: Color,
     contentColor: Color,
     enabled: Boolean = true,
 ) {
     Button(
-        onClick = onClicked,
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .height(45.dp)

@@ -98,7 +98,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
                         )
                     }
                 },
-                onClicked = { viewModel.onSubmit() },
+                onClick = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 enabled = viewModel.uiState.value is LoginUiState.Initial

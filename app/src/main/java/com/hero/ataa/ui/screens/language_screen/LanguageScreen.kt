@@ -53,7 +53,7 @@ fun LanguageScreen(
                         style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
                     )
                 },
-                onClicked = {
+                onClick = {
                     if (mainViewModel.isArabic != viewModel.isArabic.value) {
                         mainViewModel.isArabic = viewModel.isArabic.value
                         context.findActivity()?.recreate()

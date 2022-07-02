@@ -62,7 +62,7 @@ fun SadakaProjectScreen(
                         style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
                     )
                 },
-                onClicked = {
+                onClick = {
                     // TODO.
                 },
                 backgroundColor = MaterialTheme.colors.primary,

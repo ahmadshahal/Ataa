@@ -112,7 +112,7 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = 
                         )
                     }
                 },
-                onClicked = { viewModel.onSubmit() },
+                onClick = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
                 enabled = viewModel.uiState.value is RegisterUiState.Initial
