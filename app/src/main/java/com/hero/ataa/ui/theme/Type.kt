@@ -11,6 +11,7 @@ import com.hero.ataa.R
 val AtaaFont = FontFamily(
     Font(R.font.ataa_regular, FontWeight.Normal),
     Font(R.font.ataa_bold, FontWeight.Bold),
+    Font(R.font.ataa_semi_bold, FontWeight.SemiBold),
 )
 
 val Typography = Typography(

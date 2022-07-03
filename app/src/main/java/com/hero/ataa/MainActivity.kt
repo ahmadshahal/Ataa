@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
 
         setContent {
-            AtaaTheme {
+            AtaaTheme(isDarkMode = mainViewModel.isDarkMode.value) {
                 NavGraph(mainViewModel = mainViewModel)
             }
         }

@@ -12,9 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.VolunteerActivism
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.Logout
-import androidx.compose.material.icons.rounded.Translate
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -277,7 +275,24 @@ private fun AppDrawer(
                 .fillMaxWidth()
                 .height(195.dp)
                 .background(MaterialTheme.colors.primary)
-        )
+        ) {
+            IconButton(
+                onClick = {
+                    // TODO: Interact with the Data Layer.
+                    mainViewModel.isDarkMode.value = !mainViewModel.isDarkMode.value
+                },
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(horizontal = 8.dp, vertical = 16.dp)
+            ) {
+                Icon(
+                    imageVector = if (mainViewModel.isDarkMode.value) Icons.Rounded.LightMode else Icons.Rounded.DarkMode,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.onPrimary,
+                    modifier = Modifier.size(25.dp)
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
@@ -478,7 +493,7 @@ private fun MostImportantRow(navController: NavController) {
             .padding(horizontal = 16.dp),
         mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val miskeen = stringResource(id = R.string.poor_feed)
         val orphan = stringResource(id = R.string.orphan_assist)
@@ -517,7 +532,7 @@ private fun ContributeWithUsRow(navController: NavController) {
             .padding(horizontal = 16.dp),
         mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val mosques = stringResource(id = R.string.mosques)
         val health = stringResource(id = R.string.health)
@@ -596,7 +611,7 @@ private fun DonateRow(navController: NavController) {
             .padding(horizontal = 16.dp),
         mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
