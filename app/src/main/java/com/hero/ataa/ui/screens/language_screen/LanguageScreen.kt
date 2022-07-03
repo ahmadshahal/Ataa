@@ -5,9 +5,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -15,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
@@ -26,13 +24,11 @@ import com.hero.ataa.utils.findActivity
 @Composable
 fun LanguageScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
+    viewModel: LanguageViewModel = viewModel(),
+    mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
-    val isArabicState = remember {
-        mutableStateOf(mainViewModel.isArabic)
-    }
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
@@ -48,7 +44,7 @@ fun LanguageScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            ContentColumn(isArabicState = isArabicState)
+            ContentColumn(viewModel = viewModel)
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
                 content = {
@@ -58,8 +54,8 @@ fun LanguageScreen(
                     )
                 },
                 onClick = {
-                    if (mainViewModel.isArabic != isArabicState.value) {
-                        mainViewModel.isArabic = isArabicState.value
+                    if (mainViewModel.isArabic != viewModel.isArabic.value) {
+                        mainViewModel.isArabic = viewModel.isArabic.value
                         context.findActivity()?.recreate()
                     }
                     navController.popBackStack()
@@ -99,7 +95,7 @@ private fun LanguageAppBar(navController: NavController) {
 }
 
 @Composable
-private fun ContentColumn(isArabicState: MutableState<Boolean>) {
+private fun ContentColumn(viewModel: LanguageViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -107,17 +103,17 @@ private fun ContentColumn(isArabicState: MutableState<Boolean>) {
         RectangularRadioButton(
             text = stringResource(id = R.string.english),
             painter = painterResource(id = R.drawable.ic_united_states_flag),
-            isSelected = !isArabicState.value
+            isSelected = !viewModel.isArabic.value
         ) {
-            isArabicState.value = false
+            viewModel.isArabic.value = false
         }
         Spacer(modifier = Modifier.height(20.dp))
         RectangularRadioButton(
             text = stringResource(id = R.string.arabic),
             painter = painterResource(id = R.drawable.syria_flag),
-            isSelected = isArabicState.value
+            isSelected = viewModel.isArabic.value
         ) {
-            isArabicState.value = true
+            viewModel.isArabic.value = true
         }
     }
 }
