@@ -1,4 +1,4 @@
-package com.hero.ataa.ui.screens.miskeen_screen
+package com.hero.ataa.ui.screens.miskeen_project_screen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

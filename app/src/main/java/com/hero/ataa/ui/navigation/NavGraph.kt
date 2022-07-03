@@ -12,7 +12,7 @@ import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.language_screen.LanguageScreen
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
-import com.hero.ataa.ui.screens.miskeen_screen.MiskeenProjectScreen
+import com.hero.ataa.ui.screens.miskeen_project_screen.MiskeenProjectScreen
 import com.hero.ataa.ui.screens.project_screen.ProjectScreen
 import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen

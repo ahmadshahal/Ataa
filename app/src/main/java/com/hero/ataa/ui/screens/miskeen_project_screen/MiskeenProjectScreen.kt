@@ -1,4 +1,4 @@
-package com.hero.ataa.ui.screens.miskeen_screen
+package com.hero.ataa.ui.screens.miskeen_project_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
