@@ -476,8 +476,8 @@ private fun MostImportantRow(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        mainAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
-        crossAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
+        mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
+        crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val miskeen = stringResource(id = R.string.poor_feed)
@@ -515,8 +515,8 @@ private fun ContributeWithUsRow(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        mainAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
-        crossAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
+        mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
+        crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val mosques = stringResource(id = R.string.mosques)
@@ -594,8 +594,8 @@ private fun DonateRow(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        mainAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
-        crossAxisSpacing = (localConfig.screenWidthDp * 2.5 / 100.0).dp,
+        mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
+        crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
         mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val sacrifice = stringResource(id = R.string.sacrifice)
