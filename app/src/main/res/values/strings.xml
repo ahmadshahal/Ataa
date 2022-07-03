@@ -88,4 +88,11 @@
     <string name="optional_number">Optional Number</string>
     <string name="total">Total</string>
     <string name="miskeen_quote" translatable="false">قال رسول الله صلى الله عليه وسلم (خِيَارُكُمْ مَنْ أَطْعَمَ الطَّعَامَ) وقال أيضاً (أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ سُرُورٌ تُدْخِلُهُ عَلَى مُسْلِمٍ ، أَوْ تَكْشِفُ عَنْهُ كُرْبَةً ، أَوْ تَطْرُدُ عَنْهُ جُوعًا ، أَوْ تَقْضِي عَنْهُ دَيْنًا) وأيضاً (َأَطْعِمُوا الطَّعَامَ، وَصِلُوا الْأَرْحَامَ، وَصَلُّوا بِاللَّيْلِ وَالنَّاسُ نِيَامٌ تَدْخُلُوا الْجَنَّةَ بِسَلَامٍ)</string>
+    <string name="_1_sacrifice">1 Sacrifice</string>
+    <string name="_2_sacrifices">2 Sacrifices</string>
+    <string name="_3_sacrifices">3 Sacrifices</string>
+    <string name="_4_sacrifices">4 Sacrifices</string>
+    <string name="_5_sacrifices">5 Sacrifices</string>
+    <string name="_6_sacrifices">6 Sacrifices</string>
+    <string name="sacrifice_quote" translatable="false">قال رسول الله صلى الله عليه وسلم (مَن ذبَحَ قبل الصَّلاةِ فإنَّما يذبحُ لنَفْسِه، ومَن ذَبَحَ بعد الصَّلاةِ فقد تَمَّ نسُكُه وأصاب سُنَّةَ المُسْلمينَ) إنّ هذه العبادةُ فيها إحياءٌ لذكرى إبراهيم وابنه إسماعيل -عليهما السلام-، فقد افتدى الله اسماعيل بكبشٍ عظيمٍ، ولهذا فإنّ ذبح الأضحية نسكٌ يُتقرَّبُ به إلى الله، وفيه تعظيمٌ لله بتقديم الذبيحةِ في سبيله ولنيل رضاه</string>
 </resources>

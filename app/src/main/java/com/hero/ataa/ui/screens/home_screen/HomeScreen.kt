@@ -604,7 +604,9 @@ private fun DonateRow(navController: NavController) {
             name = sacrifice,
             icon = painterResource(id = R.drawable.ic_cow_icon),
             iconSize = 25.dp,
-        ) {}
+        ) {
+            navController.navigate(Screen.SacrificeProjectScreen.route)
+        }
         CategoryItem(
             name = sadaka,
             icon = painterResource(id = R.drawable.ic_money_bags_icon),

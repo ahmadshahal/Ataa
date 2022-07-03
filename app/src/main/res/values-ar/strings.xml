@@ -87,4 +87,10 @@
     <string name="_50_persons">50 شخص</string>
     <string name="optional_number">عدد اختياري</string>
     <string name="total">الإجمالي</string>
+    <string name="_1_sacrifice">أضحية</string>
+    <string name="_2_sacrifices">أضحيتان</string>
+    <string name="_3_sacrifices">3 أضاحي</string>
+    <string name="_4_sacrifices">4 أضاحي</string>
+    <string name="_5_sacrifices">5 أضاحي</string>
+    <string name="_6_sacrifices">6 أضاحي</string>
 </resources>
