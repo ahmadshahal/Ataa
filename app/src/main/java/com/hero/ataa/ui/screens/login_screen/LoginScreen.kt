@@ -31,7 +31,11 @@ import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.navigation.Screen
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(
+    navController: NavController,
+    viewModel: LoginViewModel = hiltViewModel(),
+    isDarkMode: Boolean
+) {
     val scrollState = rememberScrollState()
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val context = LocalContext.current
@@ -78,7 +82,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(18.dp))
-            TitleColumn(navController = navController)
+            TitleColumn(navController = navController, isDarkMode = isDarkMode)
             EmailTextField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(5.dp))
             PasswordTextField(viewModel = viewModel)
@@ -219,13 +223,13 @@ private fun SkipRow(navController: NavController) {
 }
 
 @Composable
-private fun TitleColumn(navController: NavController) {
+private fun TitleColumn(navController: NavController, isDarkMode: Boolean) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_app_logo),
+            painter = painterResource(id = if(isDarkMode) R.drawable.ic_dark_logo else R.drawable.ic_app_logo),
             contentDescription = "",
             modifier = Modifier
                 .height(174.067.dp)
