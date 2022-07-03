@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -438,7 +439,7 @@ private fun AdLoadingItem() {
     Box(
         modifier = Modifier
             .height(180.dp)
-            .width(330.dp)
+            .width(LocalConfiguration.current.screenWidthDp.dp - 25.dp)
             .clip(RoundedCornerShape((7.dp)))
             .shimmer()
             .background(MaterialTheme.colors.onBackground.copy(0.2F))
@@ -450,7 +451,7 @@ private fun AdErrorItem() {
     Box(
         modifier = Modifier
             .height(180.dp)
-            .width(330.dp)
+            .width(LocalConfiguration.current.screenWidthDp.dp - 25.dp)
             .clip(RoundedCornerShape((7.dp)))
             .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
     )
@@ -461,7 +462,7 @@ private fun AdItem(ad: Ad) {
     Box(
         modifier = Modifier
             .height(180.dp)
-            .width(330.dp)
+            .width(LocalConfiguration.current.screenWidthDp.dp - 25.dp)
             .clip(RoundedCornerShape((7.dp)))
             .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
     ) {
@@ -491,8 +492,8 @@ private fun MostImportantRow(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
-        crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0).dp,
+        mainAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0F).dp,
+        crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0F).dp,
         mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val miskeen = stringResource(id = R.string.poor_feed)
@@ -651,10 +652,12 @@ private fun CategoryItem(
     iconSize: Dp = 24.dp,
     onClick: () -> Unit,
 ) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    val size = min(((screenWidth - 32) / 3.2F).dp, 110.dp)
     Box(
         modifier = Modifier
-            .height(103.dp)
-            .width(103.dp)
+            .height(size)
+            .width(size)
             .clip(RoundedCornerShape((7.dp)))
             .background(MaterialTheme.colors.surface)
             .border(
