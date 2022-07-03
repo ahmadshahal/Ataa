@@ -118,7 +118,7 @@ private fun ContentColumn(viewModel: SacrificeViewModel, sacrificeValue: Int) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.sacrifice_quote),
-            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground),
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(20.dp))

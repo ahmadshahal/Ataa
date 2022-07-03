@@ -112,7 +112,7 @@ private fun ContentColumn(chosenAmountIdx: MutableState<Int>, amount: MutableSta
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.sadaka_quote),
-            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+            style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground),
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(30.dp))
