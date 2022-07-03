@@ -33,8 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -48,7 +49,6 @@ import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
-import java.util.*
 
 @Composable
 fun HomeScreen(
@@ -469,32 +469,32 @@ private fun AdItem(ad: Ad) {
 
 @Composable
 private fun MostImportantRow(navController: NavController) {
-    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = MainAxisAlignment.SpaceBetween,
+        crossAxisAlignment = FlowCrossAxisAlignment.Center,
     ) {
         val miskeen = stringResource(id = R.string.poor_feed)
-        val orphan = stringResource(id = R.string.orphan_assist)
         val ramadan = stringResource(id = R.string.ramadan_projects)
+        val sacrifice = stringResource(id = R.string.sacrifice)
 
+        CategoryItem(
+            name = sacrifice,
+            icon = painterResource(id = R.drawable.ic_cow_icon),
+            iconSize = 25.dp,
+        ) {
+            navController.navigate(Screen.SacrificeProjectScreen.route)
+        }
         CategoryItem(
             name = miskeen,
             icon = painterResource(id = R.drawable.ic_food_bag_icon),
             iconSize = 25.dp
         ) {
             navController.navigate(Screen.MiskeenProjectScreen.route)
-        }
-        CategoryItem(
-            name = orphan,
-            icon = painterResource(id = R.drawable.ic_yateem_icon),
-            iconSize = 23.dp,
-        ) {
-            navController.navigate(Screen.ProjectsScreen.route + "/${orphan}/${Constants.CategoryApiKey.ORPHAN}")
         }
         CategoryItem(
             name = ramadan,
@@ -507,16 +507,15 @@ private fun MostImportantRow(navController: NavController) {
 
 @Composable
 private fun ContributeWithUsRow(navController: NavController) {
-    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = MainAxisAlignment.SpaceBetween,
+        crossAxisAlignment = FlowCrossAxisAlignment.Center,
     ) {
-
         val mosques = stringResource(id = R.string.mosques)
         val health = stringResource(id = R.string.health)
         val education = stringResource(id = R.string.education)
@@ -525,6 +524,7 @@ private fun ContributeWithUsRow(navController: NavController) {
         val dressing = stringResource(id = R.string.dressing)
         val assistance = stringResource(id = R.string.assistance)
         val specialNeeds = stringResource(id = R.string.special_needs)
+        val orphan = stringResource(id = R.string.orphan_assist)
 
         CategoryItem(
             name = mosques,
@@ -539,6 +539,13 @@ private fun ContributeWithUsRow(navController: NavController) {
             iconSize = 22.dp,
         ) {
             navController.navigate(Screen.ProjectsScreen.route + "/${health}/${Constants.CategoryApiKey.HEALTH}")
+        }
+        CategoryItem(
+            name = orphan,
+            icon = painterResource(id = R.drawable.ic_yateem_icon),
+            iconSize = 23.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${orphan}/${Constants.CategoryApiKey.ORPHAN}")
         }
         CategoryItem(
             name = education,
@@ -586,27 +593,28 @@ private fun ContributeWithUsRow(navController: NavController) {
 
 @Composable
 private fun DonateRow(navController: NavController) {
-    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+        mainAxisAlignment = MainAxisAlignment.SpaceBetween,
+        crossAxisAlignment = FlowCrossAxisAlignment.Center,
     ) {
-        val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
         val zakat = stringResource(id = R.string.paying_zakat)
         val kaffara = stringResource(id = R.string.atonement)
 
         CategoryItem(
-            name = sacrifice,
-            icon = painterResource(id = R.drawable.ic_cow_icon),
-            iconSize = 25.dp,
-        ) {
-            navController.navigate(Screen.SacrificeProjectScreen.route)
-        }
+            name = kaffara,
+            icon = painterResource(id = R.drawable.ic_prayer_icon),
+            iconSize = 25.dp
+        ) {}
+        CategoryItem(
+            name = zakat,
+            icon = painterResource(id = R.drawable.ic_zakat_icon),
+        ) {}
         CategoryItem(
             name = sadaka,
             icon = painterResource(id = R.drawable.ic_money_bags_icon),
@@ -614,15 +622,6 @@ private fun DonateRow(navController: NavController) {
         ) {
             navController.navigate(Screen.SadakaProjectScreen.route)
         }
-        CategoryItem(
-            name = zakat,
-            icon = painterResource(id = R.drawable.ic_zakat_icon),
-        ) {}
-        CategoryItem(
-            name = kaffara,
-            icon = painterResource(id = R.drawable.ic_prayer_icon),
-            iconSize = 25.dp
-        ) {}
     }
 }
 
