@@ -48,6 +48,7 @@ import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
+import java.util.*
 
 @Composable
 fun HomeScreen(
@@ -468,15 +469,14 @@ private fun AdItem(ad: Ad) {
 
 @Composable
 private fun MostImportantRow(navController: NavController) {
-    // !: FlowRow doesn't support RTL.
-    // TODO: Find a solution.
+    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = FlowMainAxisAlignment.End,
+        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val miskeen = stringResource(id = R.string.poor_feed)
         val orphan = stringResource(id = R.string.orphan_assist)
@@ -507,15 +507,14 @@ private fun MostImportantRow(navController: NavController) {
 
 @Composable
 private fun ContributeWithUsRow(navController: NavController) {
-    // !: FlowRow doesn't support RTL.
-    // TODO: Find a solution.
+    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = FlowMainAxisAlignment.End
+        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
 
         val mosques = stringResource(id = R.string.mosques)
@@ -587,15 +586,14 @@ private fun ContributeWithUsRow(navController: NavController) {
 
 @Composable
 private fun DonateRow(navController: NavController) {
-    // !: FlowRow doesn't support RTL.
-    // TODO: Find a solution.
+    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         mainAxisSpacing = 9.dp,
         crossAxisSpacing = 9.dp,
-        mainAxisAlignment = FlowMainAxisAlignment.End
+        mainAxisAlignment = if(language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
