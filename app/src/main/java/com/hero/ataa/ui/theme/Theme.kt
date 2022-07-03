@@ -8,7 +8,9 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorPalette = lightColors(
     primary = Green600,
@@ -42,6 +44,16 @@ private val DarkColorPalette = darkColors(
 @Composable
 fun AtaaTheme(isDarkMode: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if(isDarkMode) DarkColorPalette else LightColorPalette
+
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = if(isDarkMode) DarkColorPalette.background else LightColorPalette.background,
+            darkIcons = !isDarkMode
+        )
+    }
+
     CompositionLocalProvider(
         LocalOverScrollConfiguration provides null,
     ) {

@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.2'
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.20.3"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.20.3"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
