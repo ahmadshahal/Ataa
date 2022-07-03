@@ -39,7 +39,6 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
@@ -54,7 +53,6 @@ import java.util.*
 @Composable
 fun HomeScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
@@ -99,7 +97,6 @@ fun HomeScreen(
         drawerContent = {
             AppDrawer(
                 navController = navController,
-                mainViewModel = mainViewModel,
                 viewModel = viewModel
             )
         },
@@ -265,7 +262,6 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 private fun AppDrawer(
     viewModel: HomeViewModel,
     navController: NavController,
-    mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
     if (viewModel.logOutPopUpDialogState.value) {
@@ -300,7 +296,7 @@ private fun AppDrawer(
             text = stringResource(id = R.string.language),
             icon = Icons.Rounded.Translate,
         ) {
-            navController.navigate(Screen.LanguageScreen.route + "/${mainViewModel.isArabic}")
+            navController.navigate(Screen.LanguageScreen.route)
         }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(

@@ -31,7 +31,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
             RegisterScreen(navController = navController)
         }
         composable(route = Screen.HomeScreen.route) {
-            HomeScreen(navController = navController, mainViewModel = mainViewModel)
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.ProjectsScreen.route + "/{${Constants.NavArgs.CATEGORY_KEY}}/{${Constants.NavArgs.CATEGORY_API_KEY_KEY}}",
@@ -62,15 +62,12 @@ fun NavGraph(mainViewModel: MainViewModel) {
             VolunteerScreen(navController = navController)
         }
         composable(
-            route = Screen.LanguageScreen.route + "/{${Constants.NavArgs.IS_ARABIC_KEY}}",
-            arguments = listOf(
-                navArgument(name = Constants.NavArgs.IS_ARABIC_KEY) {
-                    type = NavType.BoolType
-                    nullable = false
-                }
-            )
+            route = Screen.LanguageScreen.route,
         ) {
-            LanguageScreen(navController = navController, mainViewModel = mainViewModel)
+            LanguageScreen(
+                navController = navController,
+                mainViewModel = mainViewModel,
+            )
         }
         composable(
             route = Screen.SadakaProjectScreen.route,
