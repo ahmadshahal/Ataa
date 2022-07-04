@@ -275,43 +275,43 @@ private fun AppDrawer(
                 .height(185.dp)
                 .background(MaterialTheme.colors.primary)
         )
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
             icon = Icons.Rounded.AccountCircle,
         ) {}
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.volunteer_with_us),
             icon = Icons.Outlined.VolunteerActivism,
         ) {
             navController.navigate(Screen.VolunteerScreen.route)
         }
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),
             icon = Icons.Outlined.Article,
         ) {}
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.settings),
             icon = Icons.Outlined.Settings,
         ) {
             navController.navigate(Screen.SettingsScreen.route)
         }
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.about_us),
             icon = Icons.Outlined.Info,
         ) {}
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
             icon = Icons.Rounded.Logout,
         ) {
             viewModel.logOutPopUpDialogState.value = true
         }
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 

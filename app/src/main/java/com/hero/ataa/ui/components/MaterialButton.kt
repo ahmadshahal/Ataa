@@ -32,6 +32,14 @@ fun MaterialButton(
             disabledBackgroundColor = backgroundColor,
             disabledContentColor = contentColor,
         ),
+        shape = RoundedCornerShape(7.dp),
+        elevation = ButtonDefaults.elevation(
+            pressedElevation = 0.dp,
+            disabledElevation = 0.dp,
+            defaultElevation = 0.dp,
+            focusedElevation = 0.dp,
+            hoveredElevation = 0.dp
+        ),
         enabled = enabled,
     ) {
         content()
