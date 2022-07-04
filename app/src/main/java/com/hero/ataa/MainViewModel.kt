@@ -8,5 +8,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     var isArabic: Boolean = true
-    var isDarkMode = mutableStateOf(false)
+    val isDarkMode = mutableStateOf(false)
+    val notificationsON = mutableStateOf(false)
 }

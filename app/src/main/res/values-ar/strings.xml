@@ -93,4 +93,7 @@
     <string name="_4_sacrifices">4 أضاحي</string>
     <string name="_5_sacrifices">5 أضاحي</string>
     <string name="_6_sacrifices">6 أضاحي</string>
+    <string name="settings">الإعدادات</string>
+    <string name="dark_mode">الوضع الليلي</string>
+    <string name="notifications">الإشعارات</string>
 </resources>

@@ -11,8 +11,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.VolunteerActivism
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -38,7 +40,6 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
@@ -53,7 +54,6 @@ import java.util.*
 @Composable
 fun HomeScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
@@ -98,7 +98,6 @@ fun HomeScreen(
         drawerContent = {
             AppDrawer(
                 navController = navController,
-                mainViewModel = mainViewModel,
                 viewModel = viewModel
             )
         },
@@ -264,7 +263,6 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
 private fun AppDrawer(
     viewModel: HomeViewModel,
     navController: NavController,
-    mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
     if (viewModel.logOutPopUpDialogState.value) {
@@ -276,24 +274,7 @@ private fun AppDrawer(
                 .fillMaxWidth()
                 .height(195.dp)
                 .background(MaterialTheme.colors.primary)
-        ) {
-            IconButton(
-                onClick = {
-                    // TODO: Interact with the Data Layer.
-                    mainViewModel.isDarkMode.value = !mainViewModel.isDarkMode.value
-                },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(horizontal = 8.dp, vertical = 16.dp)
-            ) {
-                Icon(
-                    imageVector = if (mainViewModel.isDarkMode.value) Icons.Rounded.LightMode else Icons.Rounded.DarkMode,
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.size(25.dp)
-                )
-            }
-        }
+        )
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(
             text = stringResource(id = R.string.my_account),
@@ -313,10 +294,10 @@ private fun AppDrawer(
         ) {}
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(
-            text = stringResource(id = R.string.language),
-            icon = Icons.Rounded.Translate,
+            text = stringResource(id = R.string.settings),
+            icon = Icons.Outlined.Settings,
         ) {
-            navController.navigate(Screen.LanguageScreen.route + "/${mainViewModel.isArabic}")
+            navController.navigate(Screen.SettingsScreen.route)
         }
         Spacer(modifier = Modifier.height(13.dp))
         DrawerButton(

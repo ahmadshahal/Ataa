@@ -18,6 +18,7 @@ import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.screens.sacrifice_project_screen.SacrificeProjectScreen
 import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
+import com.hero.ataa.ui.screens.settings_screen.SettingsScreen
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 
 @Composable
@@ -31,7 +32,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
             RegisterScreen(navController = navController)
         }
         composable(route = Screen.HomeScreen.route) {
-            HomeScreen(navController = navController, mainViewModel = mainViewModel)
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.ProjectsScreen.route + "/{${Constants.NavArgs.CATEGORY_KEY}}/{${Constants.NavArgs.CATEGORY_API_KEY_KEY}}",
@@ -86,6 +87,11 @@ fun NavGraph(mainViewModel: MainViewModel) {
             route = Screen.SacrificeProjectScreen.route,
         ) {
             SacrificeProjectScreen(navController = navController)
+        }
+        composable(
+            route = Screen.SettingsScreen.route,
+        ) {
+            SettingsScreen(navController = navController, mainViewModel = mainViewModel)
         }
     }
 }
