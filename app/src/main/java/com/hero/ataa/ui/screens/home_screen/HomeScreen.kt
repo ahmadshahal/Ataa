@@ -272,7 +272,7 @@ private fun AppDrawer(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(195.dp)
+                .height(185.dp)
                 .background(MaterialTheme.colors.primary)
         )
         Spacer(modifier = Modifier.height(13.dp))

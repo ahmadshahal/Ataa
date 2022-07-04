@@ -9,5 +9,5 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : ViewModel() {
     var isArabic: Boolean = true
     val isDarkMode = mutableStateOf(false)
-    val notificationsON = mutableStateOf(false)
+    val notificationsON = mutableStateOf(true)
 }
