@@ -3,4 +3,8 @@
 
     <style name="Theme.Ataa" parent="android:Theme.Material.Light.NoActionBar">
     </style>
+
+    <style name="Theme.Splash" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_layout</item>
+    </style>
 </resources>

@@ -16,8 +16,8 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Ataa)
         super.onCreate(savedInstanceState)
-
         // Preventing the System settings to change the font size.
         val configuration = resources.configuration
         configuration.fontScale = 1.0.toFloat()
