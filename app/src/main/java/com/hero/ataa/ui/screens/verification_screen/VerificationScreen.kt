@@ -229,6 +229,7 @@ private fun FieldsRow(viewModel: VerificationViewModel) {
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
         OneCharTextField(
+            hint = "5",
             value = viewModel.firstFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
@@ -251,6 +252,7 @@ private fun FieldsRow(viewModel: VerificationViewModel) {
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
+            hint = "7",
             value = viewModel.secondFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
@@ -273,6 +275,7 @@ private fun FieldsRow(viewModel: VerificationViewModel) {
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
+            hint = "3",
             value = viewModel.thirdFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
@@ -295,6 +298,7 @@ private fun FieldsRow(viewModel: VerificationViewModel) {
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
+            hint = "8",
             value = viewModel.fourthFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {

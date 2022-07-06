@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 fun OneCharTextField(
     value: String,
     onValueChanged: (String) -> Unit,
+    hint: String = "0",
 ) {
     Box(
         modifier = Modifier
@@ -54,5 +56,16 @@ fun OneCharTextField(
             ),
             cursorBrush = SolidColor(value = MaterialTheme.colors.onSurface),
         )
+        if(value.isEmpty()) {
+            Text(
+                text = hint,
+                modifier = Modifier.align(Alignment.Center),
+                style = MaterialTheme.typography.subtitle2.copy(
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F),
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
     }
 }
