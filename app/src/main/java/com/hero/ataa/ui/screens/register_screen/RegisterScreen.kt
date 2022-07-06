@@ -49,11 +49,7 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = 
                     )
                 }
                 is UiEvent.Navigate -> {
-                    navController.navigate(uiEvent.route) {
-                        popUpTo(route = Screen.RegisterScreen.route) {
-                            this.inclusive = true
-                        }
-                    }
+                    navController.navigate(uiEvent.route)
                 }
                 else -> Unit
             }

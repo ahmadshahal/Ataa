@@ -27,6 +27,8 @@ object Constants {
         const val CATEGORY_API_KEY_KEY = "category_api_key"
         const val PROJECT_KEY = "project"
         const val IS_ARABIC_KEY = "is_arabic"
+        const val EMAIL_KEY = "email"
+        const val VERIFY_CODE_KEY = "verify_code"
     }
     /**
      * Number of digits of the maximum value allowed.

@@ -19,6 +19,7 @@ import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.screens.sacrifice_project_screen.SacrificeProjectScreen
 import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
 import com.hero.ataa.ui.screens.settings_screen.SettingsScreen
+import com.hero.ataa.ui.screens.verification_screen.VerificationScreen
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 
 @Composable
@@ -92,6 +93,23 @@ fun NavGraph(mainViewModel: MainViewModel) {
             route = Screen.SettingsScreen.route,
         ) {
             SettingsScreen(navController = navController, mainViewModel = mainViewModel)
+        }
+        composable(
+            route = Screen.VerificationScreen.route + "/{${Constants.NavArgs.EMAIL_KEY}}/{${Constants.NavArgs.VERIFY_CODE_KEY}}",
+            arguments = listOf(
+                navArgument(Constants.NavArgs.EMAIL_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                },
+                navArgument(Constants.NavArgs.VERIFY_CODE_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                },
+            )
+            ) { navBackStack ->
+            val email = navBackStack.arguments!!.getString(Constants.NavArgs.EMAIL_KEY)!!
+            val verifyCode = navBackStack.arguments!!.getString(Constants.NavArgs.VERIFY_CODE_KEY)!!
+            VerificationScreen(navController = navController, email = email, verifyCode = verifyCode)
         }
     }
 }

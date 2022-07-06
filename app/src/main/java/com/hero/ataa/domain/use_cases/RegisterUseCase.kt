@@ -13,8 +13,8 @@ class RegisterUseCase @Inject constructor() {
             emit(DataState.Loading())
             try {
                 delay(3000)
-                val token = "123"
-                emit(DataState.Success(token))
+                val verificationCode = "1234"
+                emit(DataState.Success(verificationCode))
             } catch (ex: Exception) {
                 emit(
                     DataState.Error(

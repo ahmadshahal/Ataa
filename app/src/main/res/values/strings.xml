@@ -98,4 +98,7 @@
     <string name="settings">Settings</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="notifications">Notifications</string>
+    <string name="account_verification">Account Verification</string>
+    <string name="a_code_has_been_sent">A code has been sent to the following email to verify the account:</string>
+    <string name="resend_code">Resend Code</string>
 </resources>

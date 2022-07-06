@@ -96,4 +96,7 @@
     <string name="settings">الإعدادات</string>
     <string name="dark_mode">الوضع الليلي</string>
     <string name="notifications">الإشعارات</string>
+    <string name="account_verification">تفعيل الحساب</string>
+    <string name="a_code_has_been_sent">تم إرسال كود لتفعيل الحساب إلى البريد الإلكتروني الآتي:</string>
+    <string name="resend_code">إعادة إرسال الكود</string>
 </resources>
