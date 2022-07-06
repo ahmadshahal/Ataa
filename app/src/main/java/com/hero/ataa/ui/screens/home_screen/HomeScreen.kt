@@ -279,7 +279,9 @@ private fun AppDrawer(
         DrawerButton(
             text = stringResource(id = R.string.my_account),
             icon = Icons.Rounded.AccountCircle,
-        ) {}
+        ) {
+            navController.navigate(Screen.ProfileScreen.route)
+        }
         Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.volunteer_with_us),

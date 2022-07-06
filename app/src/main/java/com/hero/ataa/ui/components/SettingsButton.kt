@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -18,6 +19,7 @@ fun SettingsButton(
     modifier: Modifier = Modifier,
     prefix: @Composable () -> Unit,
     text: String,
+    height: Dp = 60.dp,
     suffix: @Composable () -> Unit = {},
     clickable: Boolean = false,
     onClick: () -> Unit = {}
@@ -25,7 +27,7 @@ fun SettingsButton(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(height)
             .clip(RoundedCornerShape(7.dp))
             .background(MaterialTheme.colors.surface)
             .border(
