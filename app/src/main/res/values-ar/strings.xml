@@ -99,4 +99,5 @@
     <string name="account_verification">تفعيل الحساب</string>
     <string name="a_code_has_been_sent">تم إرسال كود لتفعيل الحساب إلى البريد الإلكتروني الآتي:</string>
     <string name="resend_code">إعادة إرسال الكود</string>
+    <string name="entered_code_isnt_correct">الكود المدخل غير صحيح</string>
 </resources>

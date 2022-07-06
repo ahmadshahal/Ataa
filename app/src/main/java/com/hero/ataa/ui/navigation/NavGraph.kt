@@ -108,8 +108,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
             )
             ) { navBackStack ->
             val email = navBackStack.arguments!!.getString(Constants.NavArgs.EMAIL_KEY)!!
-            val verifyCode = navBackStack.arguments!!.getString(Constants.NavArgs.VERIFY_CODE_KEY)!!
-            VerificationScreen(navController = navController, email = email, verifyCode = verifyCode)
+            VerificationScreen(navController = navController, email = email)
         }
     }
 }

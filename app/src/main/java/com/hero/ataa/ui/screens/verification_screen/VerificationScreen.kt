@@ -6,11 +6,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -20,11 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.OneCharTextField
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaFont
 import java.util.*
 
@@ -32,15 +35,47 @@ import java.util.*
 fun VerificationScreen(
     navController: NavController,
     email: String,
-    verifyCode: String
+    viewModel: VerificationViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    navController.navigate(uiEvent.route) {
+                        popUpTo(route = Screen.RegisterScreen.route) {
+                            this.inclusive = true
+                        }
+                    }
+                }
+                else -> Unit
+            }
+        }
+    }
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             VerificationAppBar(navController = navController)
         },
+        scaffoldState = scaffoldState,
         contentColor = MaterialTheme.colors.onBackground,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
     ) {
         Column(
             modifier = Modifier
@@ -50,9 +85,9 @@ fun VerificationScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            ContentColumn(email = email)
+            ContentColumn(email = email, viewModel = viewModel)
             Spacer(modifier = Modifier.height(30.dp))
-            BottomColumn()
+            BottomColumn(viewModel = viewModel)
             Spacer(modifier = Modifier.height(40.dp))
         }
     }
@@ -79,45 +114,59 @@ private fun VerificationAppBar(navController: NavController) {
 }
 
 @Composable
-private fun BottomColumn() {
+private fun BottomColumn(viewModel: VerificationViewModel) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         MaterialButton(
-            onClick = {
-                // TODO.
+            content = {
+                if (viewModel.resendUiState.value is ResendUiState.Initial) {
+                    Text(
+                        text = stringResource(id = R.string.resend_code),
+                        style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                    )
+                } else {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.5.dp
+                    )
+                }
             },
+            onClick = { viewModel.onResend() },
             backgroundColor = MaterialTheme.colors.secondary,
             contentColor = MaterialTheme.colors.onSecondary,
-            content = {
-                Text(
-                    text = stringResource(id = R.string.resend_code),
-                    style = MaterialTheme.typography.button
-                )
-            }
+            enabled = viewModel.resendUiState.value is ResendUiState.Initial
         )
         Spacer(modifier = Modifier.height(15.dp))
         MaterialButton(
-            onClick = {
-                // TODO.
+            content = {
+                if (viewModel.verifyUiState.value is VerifyUiState.Initial) {
+                    Text(
+                        text = stringResource(id = R.string.next),
+                        style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                    )
+                } else {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colors.onPrimary,
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.5.dp
+                    )
+                }
             },
+            onClick = { viewModel.onSubmit() },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
-            content = {
-                Text(
-                    text = stringResource(id = R.string.next),
-                    style = MaterialTheme.typography.button
-                )
-            }
+            enabled = viewModel.verifyUiState.value is VerifyUiState.Initial
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
-private fun ContentColumn(email: String) {
+private fun ContentColumn(email: String, viewModel: VerificationViewModel) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -166,24 +215,12 @@ private fun ContentColumn(email: String) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(30.dp))
-        FieldsRow()
+        FieldsRow(viewModel = viewModel)
     }
 }
 
 @Composable
-private fun FieldsRow() {
-    val firstFieldText = remember {
-        mutableStateOf("")
-    }
-    val secondFieldText = remember {
-        mutableStateOf("")
-    }
-    val thirdFieldText = remember {
-        mutableStateOf("")
-    }
-    val fourthFieldText = remember {
-        mutableStateOf("")
-    }
+private fun FieldsRow(viewModel: VerificationViewModel) {
     val focusManager = LocalFocusManager.current
     val language = Locale.getDefault().language
     Row(
@@ -192,7 +229,7 @@ private fun FieldsRow() {
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
         OneCharTextField(
-            value = firstFieldText.value,
+            value = viewModel.firstFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
                     if(language == "ar") {
@@ -200,7 +237,7 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.clearFocus()
-                    firstFieldText.value = it
+                    viewModel.firstFieldText.value = it
                 }
                 else if (it.length == 1) {
                     if(language == "ar") {
@@ -208,13 +245,13 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Next)
-                    firstFieldText.value = it
+                    viewModel.firstFieldText.value = it
                 }
             },
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
-            value = secondFieldText.value,
+            value = viewModel.secondFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
                     if(language == "ar") {
@@ -222,7 +259,7 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Previous)
-                    secondFieldText.value = it
+                    viewModel.secondFieldText.value = it
                 }
                 else if (it.length == 1) {
                     if(language == "ar") {
@@ -230,13 +267,13 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Next)
-                    secondFieldText.value = it
+                    viewModel.secondFieldText.value = it
                 }
             },
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
-            value = thirdFieldText.value,
+            value = viewModel.thirdFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
                     if(language == "ar") {
@@ -244,7 +281,7 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Previous)
-                    thirdFieldText.value = it
+                    viewModel.thirdFieldText.value = it
                 }
                 else if (it.length == 1) {
                     if(language == "ar") {
@@ -252,13 +289,13 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Next)
-                    thirdFieldText.value = it
+                    viewModel.thirdFieldText.value = it
                 }
             },
         )
         Spacer(modifier = Modifier.width(2.dp))
         OneCharTextField(
-            value = fourthFieldText.value,
+            value = viewModel.fourthFieldText.value,
             onValueChanged = {
                 if(it.isEmpty()) {
                     if(language == "ar") {
@@ -266,7 +303,7 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.moveFocus(FocusDirection.Previous)
-                    fourthFieldText.value = it
+                    viewModel.fourthFieldText.value = it
                 }
                 else if (it.length == 1) {
                     if(language == "ar") {
@@ -274,7 +311,7 @@ private fun FieldsRow() {
                     }
                     else
                         focusManager.clearFocus()
-                    fourthFieldText.value = it
+                    viewModel.fourthFieldText.value = it
                 }
             },
         )

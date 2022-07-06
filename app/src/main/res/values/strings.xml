@@ -101,4 +101,5 @@
     <string name="account_verification">Account Verification</string>
     <string name="a_code_has_been_sent">A code has been sent to the following email to verify the account:</string>
     <string name="resend_code">Resend Code</string>
+    <string name="entered_code_isnt_correct">Entered code isn\'t correct</string>
 </resources>
