@@ -101,7 +101,7 @@ fun ProfileScreen(
                       navController.navigate(Screen.EditProfileScreen.route)
                 },
                 clickable = true,
-                height = 55.dp,
+                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
             SettingsButton(
@@ -116,7 +116,7 @@ fun ProfileScreen(
                 onClick = {
                 },
                 clickable = true,
-                height = 55.dp,
+                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
             SettingsButton(
@@ -131,7 +131,7 @@ fun ProfileScreen(
                 onClick = {
                 },
                 clickable = true,
-                height = 55.dp,
+                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
