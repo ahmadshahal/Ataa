@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
+import com.hero.ataa.ui.screens.edit_profile_screen.EditProfileScreen
 import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.language_screen.LanguageScreen
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
@@ -113,6 +114,12 @@ fun NavGraph(mainViewModel: MainViewModel) {
         }
         composable(route = Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController, mainViewModel = mainViewModel)
+        }
+        composable(route = Screen.EditProfileScreen.route) {
+            EditProfileScreen(
+                navController = navController,
+                mainViewModel = mainViewModel,
+            )
         }
     }
 }

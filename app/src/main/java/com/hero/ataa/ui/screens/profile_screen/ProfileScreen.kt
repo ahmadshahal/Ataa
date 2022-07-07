@@ -26,6 +26,7 @@ import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.SettingsButton
+import com.hero.ataa.ui.navigation.Screen
 
 @Composable
 fun ProfileScreen(
@@ -97,6 +98,7 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.edit_profile),
                 onClick = {
+                      navController.navigate(Screen.EditProfileScreen.route)
                 },
                 clickable = true,
                 height = 55.dp,
