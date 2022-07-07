@@ -61,7 +61,7 @@ fun OneCharTextField(
                 text = hint,
                 modifier = Modifier.align(Alignment.Center),
                 style = MaterialTheme.typography.subtitle2.copy(
-                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F),
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.2F),
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )

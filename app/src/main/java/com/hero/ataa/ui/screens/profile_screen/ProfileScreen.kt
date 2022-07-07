@@ -68,7 +68,7 @@ fun ProfileScreen(
                         .align(Alignment.Center)
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(18.dp))
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -86,7 +86,7 @@ fun ProfileScreen(
                 ),
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(25.dp))
             SettingsButton(
                 prefix = {
                     Icon(
