@@ -8,9 +8,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.AlternateEmail
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -90,12 +90,12 @@ fun ProfileScreen(
             SettingsButton(
                 prefix = {
                     Icon(
-                        Icons.Outlined.Article,
+                        Icons.Outlined.AccountCircle,
                         tint = MaterialTheme.colors.primary,
                         contentDescription = ""
                     )
                 },
-                text = stringResource(id = R.string.donations_receipts),
+                text = stringResource(id = R.string.edit_profile),
                 onClick = {
                 },
                 clickable = true,
@@ -105,12 +105,12 @@ fun ProfileScreen(
             SettingsButton(
                 prefix = {
                     Icon(
-                        Icons.Rounded.AlternateEmail,
+                        Icons.Outlined.Article,
                         tint = MaterialTheme.colors.primary,
                         contentDescription = ""
                     )
                 },
-                text = stringResource(id = R.string.edit_profile),
+                text = stringResource(id = R.string.donations_receipts),
                 onClick = {
                 },
                 clickable = true,
