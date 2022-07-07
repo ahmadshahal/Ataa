@@ -1,13 +1,12 @@
 package com.hero.ataa.ui.screens.edit_profile_screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
@@ -22,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
@@ -29,6 +29,7 @@ import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularTextField
+import com.hero.ataa.utils.Country
 
 @Composable
 fun EditProfileScreen(
@@ -44,6 +45,9 @@ fun EditProfileScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
+        if (viewModel.showDialog.value) {
+            SelectCountryDialog(viewModel = viewModel)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -252,7 +256,12 @@ private fun PhoneNumberTextField(viewModel: EditProfileViewModel) {
             viewModel.phoneNumberFieldText.value = it
         },
         trailingIcon = {
-
+            IconButton(onClick = { viewModel.showDialog.value = true }) {
+                Text(
+                    text = Country.getFlagEmojiFor(viewModel.selectedCountry.value.nameCode),
+                    style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
+                )
+            }
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Phone,
@@ -266,4 +275,65 @@ private fun PhoneNumberTextField(viewModel: EditProfileViewModel) {
         isError = viewModel.isErrorPhoneNumberField.value,
         errorMessage = viewModel.phoneNumberFieldErrorMsg.value.asString()
     )
+}
+
+@Composable
+private fun SelectCountryDialog(viewModel: EditProfileViewModel) {
+    Dialog(
+        onDismissRequest = {
+            viewModel.showDialog.value = false
+        },
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.95F)
+                .fillMaxHeight(0.8F)
+                .clip(RoundedCornerShape(7.dp))
+                .background(MaterialTheme.colors.background)
+        ) {
+            LazyColumn(
+                modifier = Modifier,
+            ) {
+                items(Country.getCountriesList()) { country ->
+                    CountryItem(viewModel = viewModel, country = country)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CountryItem(viewModel: EditProfileViewModel, country: Country) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .clickable {
+                viewModel.selectedCountry.value = country
+                viewModel.showDialog.value = false
+            }
+            .padding(horizontal = 18.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = Country.getFlagEmojiFor(countryCode = country.nameCode),
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = country.fullName,
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = "|",
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = "${country.code}+",
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
+        )
+    }
+
 }

@@ -3,6 +3,7 @@ package com.hero.ataa.ui.screens.edit_profile_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.hero.ataa.shared.UiText
+import com.hero.ataa.utils.Country
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,4 +26,8 @@ class EditProfileViewModel @Inject constructor() : ViewModel() {
     val passwordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val confirmPasswordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val phoneNumberFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val showDialog = mutableStateOf(false)
+    val selectedCountry = mutableStateOf(Country("sy", "963", "Syrian Arab Republic"))
+
 }
