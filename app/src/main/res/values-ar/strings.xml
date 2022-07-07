@@ -102,4 +102,5 @@
     <string name="entered_code_isnt_correct">الكود المدخل غير صحيح</string>
     <string name="donations_receipts">إيصالات التبرعات</string>
     <string name="edit_profile">تعديل الحساب</string>
+    <string name="name_must_contain_chars">يجب أن يحوي الاسم على أحرف</string>
 </resources>

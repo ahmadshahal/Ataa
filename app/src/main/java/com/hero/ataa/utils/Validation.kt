@@ -1,6 +1,7 @@
 package com.hero.ataa.utils
 
 import android.util.Patterns
+import androidx.core.text.isDigitsOnly
 import com.hero.ataa.R
 
 object Validation {
@@ -33,6 +34,9 @@ object Validation {
     fun validateFullName(fullName: String): Int? {
         if (fullName.isEmpty()) {
             return R.string.cant_be_empty
+        }
+        if(fullName.isDigitsOnly()) {
+            return R.string.name_must_contain_chars
         }
         return null
     }

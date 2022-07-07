@@ -108,7 +108,7 @@ fun EditProfileScreen(
                     )
                 },
                 onClick = {
-                    // TODO.
+                    viewModel.onSubmit()
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,

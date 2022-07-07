@@ -104,4 +104,5 @@
     <string name="entered_code_isnt_correct">Entered code isn\'t correct</string>
     <string name="donations_receipts">Donations Receipts</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="name_must_contain_chars">Name must contain characters</string>
 </resources>
