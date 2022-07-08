@@ -19,7 +19,7 @@ fun SettingsButton(
     modifier: Modifier = Modifier,
     prefix: @Composable () -> Unit,
     text: String,
-    height: Dp = 60.dp,
+    height: Dp = 55.dp,
     suffix: @Composable () -> Unit = {},
     clickable: Boolean = false,
     onClick: () -> Unit = {}
