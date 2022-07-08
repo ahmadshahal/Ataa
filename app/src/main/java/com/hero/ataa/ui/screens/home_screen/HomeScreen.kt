@@ -636,7 +636,7 @@ private fun CategoryItem(
     onClick: () -> Unit,
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
-    val size = min(((screenWidth - 32) / 3.2F).dp, 110.dp)
+    val size = min(((screenWidth - 32) / 3.2F).dp, 140.dp)
     Box(
         modifier = Modifier
             .height(size)
