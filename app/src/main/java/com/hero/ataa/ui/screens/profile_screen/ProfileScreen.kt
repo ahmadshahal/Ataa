@@ -13,34 +13,76 @@ import androidx.compose.material.icons.outlined.GppGood
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.LoadingDialog
 import com.hero.ataa.ui.components.ProfileButton
 import com.hero.ataa.ui.navigation.Screen
 
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    navController.navigate(uiEvent.route) {
+                        popUpTo(route = Screen.HomeScreen.route) {
+                            this.inclusive = true
+                        }
+                    }
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
+        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             ProfileAppBar(navController = navController)
         },
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
+        if(viewModel.loadingDialogState.value) {
+            LoadingDialog()
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -126,6 +168,7 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.log_out),
                 onClick = {
+                      viewModel.logout()
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))
