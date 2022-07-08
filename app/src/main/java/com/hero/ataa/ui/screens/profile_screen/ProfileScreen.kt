@@ -8,8 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Article
+import androidx.compose.material.icons.outlined.GppGood
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.SettingsButton
+import com.hero.ataa.ui.components.ProfileButton
 import com.hero.ataa.ui.navigation.Screen
 
 @Composable
@@ -88,10 +88,10 @@ fun ProfileScreen(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(25.dp))
-            SettingsButton(
+            ProfileButton(
                 prefix = {
                     Icon(
-                        Icons.Outlined.AccountCircle,
+                        Icons.Outlined.GppGood,
                         tint = MaterialTheme.colors.primary,
                         contentDescription = ""
                     )
@@ -100,11 +100,9 @@ fun ProfileScreen(
                 onClick = {
                       navController.navigate(Screen.EditProfileScreen.route)
                 },
-                clickable = true,
-                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            SettingsButton(
+            ProfileButton(
                 prefix = {
                     Icon(
                         Icons.Outlined.Article,
@@ -115,11 +113,9 @@ fun ProfileScreen(
                 text = stringResource(id = R.string.donations_receipts),
                 onClick = {
                 },
-                clickable = true,
-                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            SettingsButton(
+            ProfileButton(
                 prefix = {
                     Icon(
                         Icons.Rounded.Logout,
@@ -130,8 +126,6 @@ fun ProfileScreen(
                 text = stringResource(id = R.string.log_out),
                 onClick = {
                 },
-                clickable = true,
-                height = 53.dp,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
