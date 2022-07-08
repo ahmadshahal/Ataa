@@ -45,6 +45,7 @@ import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.LoadingDialog
 import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import com.valentinilk.shimmer.shimmer
@@ -71,6 +72,13 @@ fun HomeScreen(
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = uiEvent.message.asString(context),
                     )
+                }
+                is UiEvent.Navigate -> {
+                    navController.navigate(uiEvent.route) {
+                        popUpTo(route = Screen.HomeScreen.route) {
+                            this.inclusive = true
+                        }
+                    }
                 }
                 else -> Unit
             }
@@ -266,7 +274,10 @@ private fun AppDrawer(
 ) {
     val scrollState = rememberScrollState()
     if (viewModel.logOutPopUpDialogState.value) {
-        LogoutAlertDialog(viewModel = viewModel, navController = navController)
+        LogoutAlertDialog(viewModel = viewModel)
+    }
+    if (viewModel.loadingDialogState.value) {
+        LoadingDialog()
     }
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
@@ -675,7 +686,7 @@ private fun CategoryItem(
 }
 
 @Composable
-private fun LogoutAlertDialog(viewModel: HomeViewModel, navController: NavController) {
+private fun LogoutAlertDialog(viewModel: HomeViewModel) {
     AlertDialog(
         onDismissRequest = { viewModel.logOutPopUpDialogState.value = false },
         title = {
@@ -686,14 +697,12 @@ private fun LogoutAlertDialog(viewModel: HomeViewModel, navController: NavContro
             )
         },
         confirmButton = {
-            TextButton(onClick = {
-                // TODO: LogOut.
-                navController.navigate(Screen.LoginScreen.route) {
-                    popUpTo(Screen.HomeScreen.route) {
-                        inclusive = true
-                    }
+            TextButton(
+                onClick = {
+                    viewModel.logOutPopUpDialogState.value = false
+                    viewModel.logout()
                 }
-            }) {
+            ) {
                 Text(
                     text = stringResource(id = R.string.yes),
                     style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primary),
