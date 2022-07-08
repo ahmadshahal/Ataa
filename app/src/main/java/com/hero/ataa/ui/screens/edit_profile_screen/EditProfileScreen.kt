@@ -11,10 +11,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularTextField
@@ -37,13 +40,44 @@ fun EditProfileScreen(
     mainViewModel: MainViewModel,
     viewModel: EditProfileViewModel = hiltViewModel(),
 ) {
+    val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                is UiEvent.Navigate -> {
+                    navController.navigate(uiEvent.route)
+                }
+                is UiEvent.PopBackStack -> {
+                    navController.popBackStack()
+                }
+            }
+        }
+    }
+
     Scaffold(
+        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             EditProfileAppBar(navController = navController)
         },
         contentColor = MaterialTheme.colors.onBackground,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
     ) {
         if (viewModel.showDialog.value) {
             SelectCountryDialog(viewModel = viewModel)
@@ -102,16 +136,23 @@ fun EditProfileScreen(
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
                 content = {
-                    Text(
-                        text = stringResource(id = R.string.save),
-                        style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
-                    )
+                    if (viewModel.uiState.value is EditUiState.Initial) {
+                        Text(
+                            text = stringResource(id = R.string.save),
+                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp,
+                        )
+                    }
                 },
-                onClick = {
-                    viewModel.onSubmit()
-                },
+                onClick = { viewModel.onSubmit() },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
+                enabled = viewModel.uiState.value is EditUiState.Initial
             )
         }
     }

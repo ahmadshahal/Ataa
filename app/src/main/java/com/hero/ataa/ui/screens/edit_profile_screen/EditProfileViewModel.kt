@@ -1,16 +1,36 @@
 package com.hero.ataa.ui.screens.edit_profile_screen
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hero.ataa.R
+import com.hero.ataa.domain.use_cases.EditProfileUseCase
+import com.hero.ataa.shared.DataState
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
 import com.hero.ataa.utils.Country
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditProfileViewModel @Inject constructor() : ViewModel() {
+class EditProfileViewModel @Inject constructor(
+    private val editProfileUseCase: EditProfileUseCase
+) : ViewModel() {
+
+    private val _uiState = mutableStateOf<EditUiState>(EditUiState.Initial)
+    val uiState: State<EditUiState>
+        get() = _uiState
+
+    private val _uiEvent: Channel<UiEvent> = Channel()
+    val uiEvent: Flow<UiEvent>
+        get() = _uiEvent.receiveAsFlow()
+
     val fullNameFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
     val confirmPasswordFieldText = mutableStateOf("")
@@ -40,7 +60,32 @@ class EditProfileViewModel @Inject constructor() : ViewModel() {
         if (validateFullNameResult
             && validatePasswordResult && validateConfirmPasswordResult && validatePhoneNumberResult
         ) {
-            // TODO.
+            viewModelScope.launch {
+                editProfileUseCase(
+                    fullName = fullNameFieldText.value,
+                    password = passwordFieldText.value,
+                    phoneNumber = "+${selectedCountry.value.code}${phoneNumberFieldText.value}"
+                ).collect { dataState ->
+                    when (dataState) {
+                        is DataState.Loading -> {
+                            _uiState.value = EditUiState.Loading
+                        }
+                        is DataState.Error -> {
+                            _uiState.value = EditUiState.Initial
+                            _uiEvent.send(
+                                UiEvent.ShowSnackBar(
+                                    message = dataState.message,
+                                )
+                            )
+                        }
+                        is DataState.Success -> {
+                            _uiState.value = EditUiState.Initial
+                            _uiEvent.send(UiEvent.PopBackStack)
+                        }
+                        else -> Unit
+                    }
+                }
+            }
         }
     }
 
