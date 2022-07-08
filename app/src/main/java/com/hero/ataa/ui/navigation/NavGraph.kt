@@ -17,6 +17,7 @@ import com.hero.ataa.ui.screens.miskeen_project_screen.MiskeenProjectScreen
 import com.hero.ataa.ui.screens.profile_screen.ProfileScreen
 import com.hero.ataa.ui.screens.project_screen.ProjectScreen
 import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
+import com.hero.ataa.ui.screens.receipts_screen.ReceiptsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.screens.sacrifice_project_screen.SacrificeProjectScreen
 import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
@@ -120,6 +121,9 @@ fun NavGraph(mainViewModel: MainViewModel) {
                 navController = navController,
                 mainViewModel = mainViewModel,
             )
+        }
+        composable(route = Screen.ReceiptsScreen.route) {
+            ReceiptsScreen(navController = navController)
         }
     }
 }

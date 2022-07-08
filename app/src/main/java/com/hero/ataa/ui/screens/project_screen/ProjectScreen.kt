@@ -209,12 +209,13 @@ private fun ProgressRow(project: Project) {
 
 @Composable
 private fun TagsRow(project: Project) {
+    val language = Locale.getDefault().language
     FlowRow(
         modifier = Modifier
             .fillMaxWidth(),
         mainAxisSpacing = 10.dp,
         crossAxisSpacing = 10.dp,
-        mainAxisAlignment = FlowMainAxisAlignment.End
+        mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         project.tags.forEach { tag ->
             Tag(title = tag)

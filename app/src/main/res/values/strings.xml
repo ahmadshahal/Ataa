@@ -105,4 +105,8 @@
     <string name="donations_receipts">Donations Receipts</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="name_must_contain_chars">Name must contain characters</string>
+    <string name="project_id">Project Id</string>
+    <string name="donation_date">Donation Date</string>
+    <string name="donation_value">Donation Value</string>
+    <string name="payment_method">Payment Method</string>
 </resources>

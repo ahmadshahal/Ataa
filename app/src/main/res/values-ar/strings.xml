@@ -103,4 +103,8 @@
     <string name="donations_receipts">إيصالات التبرعات</string>
     <string name="edit_profile">تعديل الحساب</string>
     <string name="name_must_contain_chars">يجب أن يحوي الاسم على أحرف</string>
+    <string name="project_id">رمز المشروع</string>
+    <string name="donation_date">تاريخ التبرع</string>
+    <string name="donation_value">قيمة التبرع</string>
+    <string name="payment_method">طريقة الدفع</string>
 </resources>

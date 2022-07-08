@@ -112,6 +112,7 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.donations_receipts),
                 onClick = {
+                    navController.navigate(Screen.ReceiptsScreen.route)
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))
