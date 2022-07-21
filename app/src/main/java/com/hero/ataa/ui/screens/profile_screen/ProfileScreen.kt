@@ -1,11 +1,8 @@
 package com.hero.ataa.ui.screens.profile_screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Article
@@ -67,7 +64,7 @@ fun ProfileScreen(
         scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            ProfileAppBar(navController = navController)
+            ProfileAppBar(navController = navController, scrollState = scrollState)
         },
         snackbarHost = { state ->
             SnackbarHost(state) { data ->
@@ -177,7 +174,7 @@ fun ProfileScreen(
 }
 
 @Composable
-private fun ProfileAppBar(navController: NavController) {
+private fun ProfileAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -199,6 +196,7 @@ private fun ProfileAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }

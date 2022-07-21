@@ -1,6 +1,7 @@
 package com.hero.ataa.ui.screens.verification_screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -63,7 +64,7 @@ fun VerificationScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            VerificationAppBar(navController = navController)
+            VerificationAppBar(navController = navController, scrollState)
         },
         scaffoldState = scaffoldState,
         contentColor = MaterialTheme.colors.onBackground,
@@ -94,7 +95,7 @@ fun VerificationScreen(
 }
 
 @Composable
-private fun VerificationAppBar(navController: NavController) {
+private fun VerificationAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         leading = {
             IconButton(
@@ -109,7 +110,8 @@ private fun VerificationAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

@@ -1,6 +1,7 @@
 package com.hero.ataa.ui.screens.volunteer_screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,7 +26,7 @@ fun VolunteerScreen(navController: NavController) {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            VolunteerAppBar(navController = navController)
+            VolunteerAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -56,7 +57,7 @@ fun VolunteerScreen(navController: NavController) {
 }
 
 @Composable
-private fun VolunteerAppBar(navController: NavController) {
+private fun VolunteerAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -78,7 +79,8 @@ private fun VolunteerAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

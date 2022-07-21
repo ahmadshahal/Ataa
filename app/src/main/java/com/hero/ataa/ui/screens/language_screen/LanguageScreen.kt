@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.language_screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -32,7 +33,7 @@ fun LanguageScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            LanguageAppBar(navController = navController)
+            LanguageAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -68,7 +69,7 @@ fun LanguageScreen(
 }
 
 @Composable
-private fun LanguageAppBar(navController: NavController) {
+private fun LanguageAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -90,7 +91,8 @@ private fun LanguageAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

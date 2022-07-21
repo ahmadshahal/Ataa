@@ -52,7 +52,7 @@ fun ProjectScreen(project: Project, navController: NavController) {
         Scaffold(
             backgroundColor = MaterialTheme.colors.background,
             topBar = {
-                ProjectAppBar(navController = navController)
+                ProjectAppBar(navController = navController, scrollState = scrollState)
             },
             contentColor = MaterialTheme.colors.onBackground,
         ) {
@@ -72,7 +72,7 @@ fun ProjectScreen(project: Project, navController: NavController) {
 }
 
 @Composable
-private fun ProjectAppBar(navController: NavController) {
+private fun ProjectAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         leading = {
             IconButton(
@@ -87,7 +87,8 @@ private fun ProjectAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

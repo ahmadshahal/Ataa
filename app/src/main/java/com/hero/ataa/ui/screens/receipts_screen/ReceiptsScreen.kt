@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -32,10 +34,11 @@ fun ReceiptsScreen(
     navController: NavController,
     viewModel: ReceiptsViewModel = hiltViewModel(),
 ) {
+    val lazyListState = rememberLazyListState()
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            ReceiptsAppBar(navController = navController)
+            ReceiptsAppBar(navController = navController, scrollState = lazyListState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -45,7 +48,8 @@ fun ReceiptsScreen(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp)
+                    verticalArrangement = Arrangement.spacedBy(13.dp),
+                    state = lazyListState
                 ) {
                     items(
                         uiState.receipts
@@ -74,7 +78,7 @@ fun ReceiptsScreen(
 }
 
 @Composable
-private fun ReceiptsAppBar(navController: NavController) {
+private fun ReceiptsAppBar(navController: NavController, scrollState: LazyListState) {
     AppBar(
         title = {
             Text(
@@ -96,7 +100,8 @@ private fun ReceiptsAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
 }
 
@@ -127,7 +132,8 @@ private fun ReceiptItem(receipt: Receipt) {
             val language = Locale.getDefault().language
             FlowRow(
                 modifier = Modifier
-                    .fillMaxWidth().padding(horizontal = 16.dp),
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 mainAxisSpacing = 10.dp,
                 crossAxisSpacing = 10.dp,
                 mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
@@ -176,7 +182,9 @@ private fun InfoRow(
     suffix: String,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(

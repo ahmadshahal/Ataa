@@ -5,7 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -38,10 +40,11 @@ fun ProjectsScreen(
     viewModel: ProjectsViewModel = hiltViewModel(),
     category: String,
 ) {
+    val lazyListState = rememberLazyListState()
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            ProjectsAppBar(navController = navController, category = category)
+            ProjectsAppBar(navController = navController, category = category, scrollState = lazyListState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -52,7 +55,8 @@ fun ProjectsScreen(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp)
+                    verticalArrangement = Arrangement.spacedBy(13.dp),
+                    state = lazyListState
                 ) {
                     items(
                         uiState.projects
@@ -89,7 +93,7 @@ fun ProjectsScreen(
 }
 
 @Composable
-private fun ProjectsAppBar(navController: NavController, category: String) {
+private fun ProjectsAppBar(navController: NavController, category: String, scrollState: LazyListState) {
     AppBar(
         title = {
             Text(
@@ -111,7 +115,8 @@ private fun ProjectsAppBar(navController: NavController, category: String) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
 }
 
@@ -128,7 +133,10 @@ private fun ProjectItem(project: Project, navController: NavController) {
                 shape = RoundedCornerShape(7.dp)
             )
             .clickable {
-                navController.currentBackStackEntry?.savedStateHandle?.set<Project>(Constants.NavArgs.PROJECT_KEY, project)
+                navController.currentBackStackEntry?.savedStateHandle?.set<Project>(
+                    Constants.NavArgs.PROJECT_KEY,
+                    project
+                )
                 navController.navigate(Screen.ProjectScreen.route)
             }
             .padding(16.dp)

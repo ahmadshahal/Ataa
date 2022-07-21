@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.sacrifice_project_screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -34,7 +35,7 @@ fun SacrificeProjectScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            SacrificeProjectAppBar(navController = navController)
+            SacrificeProjectAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -82,7 +83,7 @@ fun SacrificeProjectScreen(
 }
 
 @Composable
-private fun SacrificeProjectAppBar(navController: NavController) {
+private fun SacrificeProjectAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -104,7 +105,8 @@ private fun SacrificeProjectAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

@@ -66,7 +66,7 @@ fun EditProfileScreen(
         scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            EditProfileAppBar(navController = navController)
+            EditProfileAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
         snackbarHost = { state ->
@@ -159,7 +159,7 @@ fun EditProfileScreen(
 }
 
 @Composable
-private fun EditProfileAppBar(navController: NavController) {
+private fun EditProfileAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -181,7 +181,8 @@ private fun EditProfileAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

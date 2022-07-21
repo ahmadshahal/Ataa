@@ -6,6 +6,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 
@@ -14,10 +15,11 @@ fun AppBar(
     title: @Composable () -> Unit = {},
     leading: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    elevation: Dp = 0.dp,
 ) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.background,
-        elevation = 0.dp,
+        elevation = elevation,
         contentColor = MaterialTheme.colors.onBackground,
     ) {
         Box(modifier = Modifier.fillMaxSize()) {

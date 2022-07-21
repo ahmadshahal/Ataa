@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.sadaka_project_screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -44,7 +45,7 @@ fun SadakaProjectScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            SadakaProjectAppBar(navController = navController)
+            SadakaProjectAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -76,7 +77,7 @@ fun SadakaProjectScreen(
 }
 
 @Composable
-private fun SadakaProjectAppBar(navController: NavController) {
+private fun SadakaProjectAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -98,7 +99,8 @@ private fun SadakaProjectAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

@@ -98,7 +98,7 @@ fun HomeScreen(
         },
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            HomeAppBar(scaffoldState = scaffoldState)
+            HomeAppBar(scaffoldState = scaffoldState, scrollState = scrollState)
         },
         drawerShape = RoundedCornerShape(7.dp),
         drawerBackgroundColor = MaterialTheme.colors.background,
@@ -239,7 +239,7 @@ private fun SearchButton() {
 }
 
 @Composable
-private fun HomeAppBar(scaffoldState: ScaffoldState) {
+private fun HomeAppBar(scaffoldState: ScaffoldState, scrollState: ScrollState) {
     val coroutineScope = rememberCoroutineScope()
     AppBar(
         title = {
@@ -263,7 +263,8 @@ private fun HomeAppBar(scaffoldState: ScaffoldState) {
                     modifier = Modifier.size(20.dp)
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

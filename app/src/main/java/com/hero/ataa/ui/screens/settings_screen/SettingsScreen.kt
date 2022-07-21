@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.settings_screen
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -31,7 +32,7 @@ fun SettingsScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            SettingsAppBar(navController = navController)
+            SettingsAppBar(navController = navController, scrollState = scrollState)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -113,7 +114,7 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun SettingsAppBar(navController: NavController) {
+private fun SettingsAppBar(navController: NavController, scrollState: ScrollState) {
     AppBar(
         title = {
             Text(
@@ -135,6 +136,7 @@ private fun SettingsAppBar(navController: NavController) {
                     tint = MaterialTheme.colors.onBackground
                 )
             }
-        }
+        },
+        elevation = if(scrollState.value > 0) 1.dp else 0.dp
     )
 }
