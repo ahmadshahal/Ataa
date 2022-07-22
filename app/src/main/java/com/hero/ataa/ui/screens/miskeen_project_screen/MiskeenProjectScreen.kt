@@ -77,7 +77,9 @@ fun MiskeenProjectScreen(
                     )
                 }
             }
-            else -> Unit
+            is MiskeenUiState.Error -> {
+                ErrorWidget(onClick = { viewModel.getMiskeenValue() })
+            }
         }
     }
 }

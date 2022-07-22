@@ -25,7 +25,7 @@ class MiskeenViewModel @Inject constructor(
         getMiskeenValue()
     }
 
-    private fun getMiskeenValue() {
+    fun getMiskeenValue() {
         viewModelScope.launch {
             getMiskeenValueUseCase().collect { dataState ->
                 when (dataState) {

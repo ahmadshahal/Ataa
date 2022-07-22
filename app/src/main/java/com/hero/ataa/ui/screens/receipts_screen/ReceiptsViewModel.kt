@@ -23,7 +23,7 @@ class ReceiptsViewModel @Inject constructor(
         getReceipts()
     }
 
-    private fun getReceipts() {
+    fun getReceipts() {
         viewModelScope.launch {
             getReceiptsUseCase().collect { dataState ->
                 when (dataState) {

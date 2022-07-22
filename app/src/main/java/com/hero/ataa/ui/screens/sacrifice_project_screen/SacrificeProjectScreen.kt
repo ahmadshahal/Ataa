@@ -77,7 +77,9 @@ fun SacrificeProjectScreen(
                     )
                 }
             }
-            else -> Unit
+            is SacrificeUiState.Error -> {
+                ErrorWidget(onClick = { viewModel.getSacrificeValue() })
+            }
         }
     }
 }

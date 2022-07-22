@@ -25,7 +25,7 @@ class SacrificeViewModel @Inject constructor(
         getSacrificeValue()
     }
 
-    private fun getSacrificeValue() {
+    fun getSacrificeValue() {
         viewModelScope.launch {
             getSacrificeValueUseCase().collect { dataState ->
                 when (dataState) {

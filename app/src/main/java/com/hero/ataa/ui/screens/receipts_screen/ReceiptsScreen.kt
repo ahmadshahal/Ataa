@@ -25,6 +25,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Receipt
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.ErrorWidget
 import com.hero.ataa.ui.components.LoadingDots
 import com.hero.ataa.ui.components.Tag
 import java.util.*
@@ -72,7 +73,9 @@ fun ReceiptsScreen(
                     )
                 }
             }
-            else -> Unit
+            is ReceiptsUiState.Error -> {
+                ErrorWidget(onClick = { viewModel.getReceipts() })
+            }
         }
     }
 }
