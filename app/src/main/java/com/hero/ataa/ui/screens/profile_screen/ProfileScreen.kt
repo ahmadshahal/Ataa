@@ -77,7 +77,7 @@ fun ProfileScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
-        if(viewModel.loadingDialogState.value) {
+        if (viewModel.loadingDialogState.value) {
             LoadingDialog()
         }
         Column(
@@ -137,7 +137,8 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.edit_profile),
                 onClick = {
-                      navController.navigate(Screen.EditProfileScreen.route)
+                    // TODO: User.fullName
+                    navController.navigate(Screen.EditProfileScreen.route + "/Ahmad Al-Shahal")
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -165,7 +166,7 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.log_out),
                 onClick = {
-                      viewModel.logout()
+                    viewModel.logout()
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -197,6 +198,6 @@ private fun ProfileAppBar(navController: NavController, scrollState: ScrollState
                 )
             }
         },
-        elevation = if(scrollState.value > 0) 1.dp else 0.dp
+        elevation = if (scrollState.value > 0) 1.dp else 0.dp
     )
 }

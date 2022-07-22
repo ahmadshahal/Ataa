@@ -112,7 +112,14 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(route = Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController, mainViewModel = mainViewModel)
         }
-        composable(route = Screen.EditProfileScreen.route) {
+        composable(route = Screen.EditProfileScreen.route + "/{${Constants.NavArgs.FULL_NAME_KEY}}",
+            arguments = listOf(
+                navArgument(Constants.NavArgs.FULL_NAME_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                }
+            )
+        ) {
             EditProfileScreen(
                 navController = navController,
                 mainViewModel = mainViewModel,

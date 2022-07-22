@@ -27,6 +27,7 @@ object Constants {
         const val PROJECT_KEY = "project"
         const val IS_ARABIC_KEY = "is_arabic"
         const val EMAIL_KEY = "email"
+        const val FULL_NAME_KEY = "full_name"
     }
     /**
      * Number of digits of the maximum value allowed.

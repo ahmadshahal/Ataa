@@ -2,10 +2,12 @@ package com.hero.ataa.ui.screens.edit_profile_screen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hero.ataa.R
 import com.hero.ataa.domain.use_cases.EditProfileUseCase
+import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val editProfileUseCase: EditProfileUseCase
+    private val editProfileUseCase: EditProfileUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = mutableStateOf<EditUiState>(EditUiState.Initial)
@@ -30,7 +33,7 @@ class EditProfileViewModel @Inject constructor(
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
 
-    val fullNameFieldText = mutableStateOf("")
+    val fullNameFieldText = mutableStateOf(savedStateHandle.get<String>(Constants.NavArgs.FULL_NAME_KEY)!!)
     val oldPasswordFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
     val confirmPasswordFieldText = mutableStateOf("")
