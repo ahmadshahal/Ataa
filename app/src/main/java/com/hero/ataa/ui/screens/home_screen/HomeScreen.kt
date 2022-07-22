@@ -612,7 +612,6 @@ private fun DonateRow(navController: NavController) {
         val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
         val zakat = stringResource(id = R.string.paying_zakat)
-        val kaffara = stringResource(id = R.string.atonement)
 
         CategoryItem(
             name = sacrifice,
@@ -631,11 +630,6 @@ private fun DonateRow(navController: NavController) {
         CategoryItem(
             name = zakat,
             icon = painterResource(id = R.drawable.ic_zakat_icon),
-        ) {}
-        CategoryItem(
-            name = kaffara,
-            icon = painterResource(id = R.drawable.ic_prayer_icon),
-            iconSize = 25.dp
         ) {}
     }
 }
