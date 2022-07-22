@@ -236,6 +236,8 @@ private fun OldPasswordTextField(viewModel: EditProfileViewModel) {
                 focusManager.moveFocus(FocusDirection.Next)
             }
         ),
+        isError = viewModel.isErrorOldPasswordField.value,
+        errorMessage = viewModel.oldPasswordFieldErrorMsg.value.asString(),
         visualTransformation = if (viewModel.oldPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
     )
 }

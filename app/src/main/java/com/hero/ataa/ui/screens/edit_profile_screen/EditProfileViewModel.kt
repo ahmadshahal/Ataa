@@ -43,10 +43,12 @@ class EditProfileViewModel @Inject constructor(
     val confirmPasswordVisible = mutableStateOf(false)
 
     val isErrorNameField = mutableStateOf(false)
+    val isErrorOldPasswordField = mutableStateOf(false)
     val isErrorPasswordField = mutableStateOf(false)
     val isErrorConfirmPasswordField = mutableStateOf(false)
 
     val nameFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+    val oldPasswordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val passwordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val confirmPasswordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
@@ -55,8 +57,10 @@ class EditProfileViewModel @Inject constructor(
         val validateFullNameResult = validateFullName()
         val validatePasswordResult = validatePassword()
         val validateConfirmPasswordResult = validateConfirmPassword()
+        val validateOldPasswordResult = validateOldPassword()
         if (validateFullNameResult
             && validatePasswordResult && validateConfirmPasswordResult
+            && validateOldPasswordResult
         ) {
             viewModelScope.launch {
                 editProfileUseCase(
@@ -99,6 +103,23 @@ class EditProfileViewModel @Inject constructor(
             else -> {
                 isErrorNameField.value = true
                 nameFieldErrorMsg.value = UiText.ResourceText(fullNameResId)
+                false
+            }
+        }
+    }
+
+    private fun validateOldPassword(): Boolean {
+        return when (val passwordResId: Int? =
+            Validation.validateLoginPassword(oldPasswordFieldText.value)
+        ) {
+            null -> {
+                isErrorOldPasswordField.value = false
+                oldPasswordFieldErrorMsg.value = UiText.DynamicText("")
+                true
+            }
+            else -> {
+                isErrorOldPasswordField.value = true
+                oldPasswordFieldErrorMsg.value = UiText.ResourceText(passwordResId)
                 false
             }
         }
