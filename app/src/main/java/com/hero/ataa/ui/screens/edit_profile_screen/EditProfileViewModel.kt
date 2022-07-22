@@ -9,7 +9,6 @@ import com.hero.ataa.domain.use_cases.EditProfileUseCase
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
-import com.hero.ataa.utils.Country
 import com.hero.ataa.utils.Validation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -32,39 +31,35 @@ class EditProfileViewModel @Inject constructor(
         get() = _uiEvent.receiveAsFlow()
 
     val fullNameFieldText = mutableStateOf("")
+    val oldPasswordFieldText = mutableStateOf("")
     val passwordFieldText = mutableStateOf("")
     val confirmPasswordFieldText = mutableStateOf("")
-    val phoneNumberFieldText = mutableStateOf("")
 
+    val oldPasswordVisible = mutableStateOf(false)
     val passwordVisible = mutableStateOf(false)
     val confirmPasswordVisible = mutableStateOf(false)
 
     val isErrorNameField = mutableStateOf(false)
     val isErrorPasswordField = mutableStateOf(false)
     val isErrorConfirmPasswordField = mutableStateOf(false)
-    val isErrorPhoneNumberField = mutableStateOf(false)
 
     val nameFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val passwordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
     val confirmPasswordFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
-    val phoneNumberFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
-    val showDialog = mutableStateOf(false)
-    val selectedCountry = mutableStateOf(Country("sy", "963", "Syrian Arab Republic"))
 
     fun onSubmit() {
         val validateFullNameResult = validateFullName()
         val validatePasswordResult = validatePassword()
         val validateConfirmPasswordResult = validateConfirmPassword()
-        val validatePhoneNumberResult = validatePhoneNumber()
         if (validateFullNameResult
-            && validatePasswordResult && validateConfirmPasswordResult && validatePhoneNumberResult
+            && validatePasswordResult && validateConfirmPasswordResult
         ) {
             viewModelScope.launch {
                 editProfileUseCase(
                     fullName = fullNameFieldText.value,
                     password = passwordFieldText.value,
-                    phoneNumber = "+${selectedCountry.value.code}${phoneNumberFieldText.value}"
+                    oldPassword = oldPasswordFieldText.value
                 ).collect { dataState ->
                     when (dataState) {
                         is DataState.Loading -> {
@@ -142,26 +137,6 @@ class EditProfileViewModel @Inject constructor(
             else -> {
                 isErrorConfirmPasswordField.value = true
                 confirmPasswordFieldErrorMsg.value = UiText.ResourceText(confirmPasswordResId)
-                false
-            }
-        }
-    }
-
-    private fun validatePhoneNumber(): Boolean {
-        return when (val phoneNumberResId: Int? =
-            Validation.validatePhoneNumber(
-                phoneNumber = phoneNumberFieldText.value,
-                countryCode = selectedCountry.value.code
-            )
-        ) {
-            null -> {
-                isErrorPhoneNumberField.value = false
-                phoneNumberFieldErrorMsg.value = UiText.DynamicText("")
-                true
-            }
-            else -> {
-                isErrorPhoneNumberField.value = true
-                phoneNumberFieldErrorMsg.value = UiText.ResourceText(phoneNumberResId)
                 false
             }
         }

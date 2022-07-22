@@ -106,4 +106,5 @@
     <string name="donation_value">قيمة التبرع</string>
     <string name="payment_method">طريقة الدفع</string>
     <string name="all_code_digits_must_be_filled">يجب تعبئة جميع الخانات</string>
+    <string name="old_password">كلمة السر السابقة</string>
 </resources>

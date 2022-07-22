@@ -12,23 +12,25 @@ import javax.inject.Inject
 // This UseCase returns User.
 
 class EditProfileUseCase @Inject constructor() {
-    operator fun invoke(fullName: String, password: String, phoneNumber: String) =
-        flow<DataState<String>> {
-            emit(DataState.Loading())
-            try {
-                delay(3000)
-                // TODO: Returns User.
-                val verificationCode = "1234"
-                emit(DataState.Success(verificationCode))
-            } catch (ex: Exception) {
-                emit(
-                    DataState.Error(
-                        if (ex.message != null)
-                            UiText.DynamicText(ex.message!!)
-                        else
-                            UiText.ResourceText(R.string.something_went_wrong)
-                    )
+    operator fun invoke(
+        fullName: String,
+        oldPassword: String,
+        password: String
+    ) = flow<DataState<String>> {
+        emit(DataState.Loading())
+        try {
+            delay(3000)
+            // TODO: Returns User.
+            emit(DataState.Success(""))
+        } catch (ex: Exception) {
+            emit(
+                DataState.Error(
+                    if (ex.message != null)
+                        UiText.DynamicText(ex.message!!)
+                    else
+                        UiText.ResourceText(R.string.something_went_wrong)
                 )
-            }
+            )
         }
+    }
 }

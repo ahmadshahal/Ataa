@@ -108,4 +108,5 @@
     <string name="donation_value">Donation Value</string>
     <string name="payment_method">Payment Method</string>
     <string name="all_code_digits_must_be_filled">All code digits must be filled</string>
+    <string name="old_password">Old Password</string>
 </resources>

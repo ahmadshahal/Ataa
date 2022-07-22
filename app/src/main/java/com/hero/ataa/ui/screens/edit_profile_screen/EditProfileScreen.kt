@@ -2,8 +2,6 @@ package com.hero.ataa.ui.screens.edit_profile_screen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
@@ -32,7 +29,6 @@ import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularTextField
-import com.hero.ataa.utils.Country
 
 @Composable
 fun EditProfileScreen(
@@ -79,9 +75,6 @@ fun EditProfileScreen(
             }
         },
     ) {
-        if (viewModel.showDialog.value) {
-            SelectCountryDialog(viewModel = viewModel)
-        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -126,11 +119,11 @@ fun EditProfileScreen(
                 Spacer(modifier = Modifier.height(25.dp))
                 FullNameTextField(viewModel = viewModel)
                 Spacer(modifier = Modifier.height(16.dp))
+                OldPasswordTextField(viewModel = viewModel)
+                Spacer(modifier = Modifier.height(16.dp))
                 PasswordTextField(viewModel = viewModel)
                 Spacer(modifier = Modifier.height(16.dp))
                 ConfirmPasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(16.dp))
-                PhoneNumberTextField(viewModel = viewModel)
                 Spacer(modifier = Modifier.height(16.dp))
             }
             MaterialButton(
@@ -211,6 +204,43 @@ private fun FullNameTextField(viewModel: EditProfileViewModel) {
 }
 
 @Composable
+private fun OldPasswordTextField(viewModel: EditProfileViewModel) {
+    val focusManager = LocalFocusManager.current
+    RectangularTextField(
+        value = viewModel.oldPasswordFieldText.value,
+        hint = stringResource(id = R.string.old_password),
+        onValueChanged = {
+            viewModel.oldPasswordFieldText.value = it
+        },
+        trailingIcon = {
+            IconButton(
+                onClick = {
+                    viewModel.oldPasswordVisible.value = !viewModel.oldPasswordVisible.value
+                },
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = if (viewModel.oldPasswordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
+                    ),
+                    contentDescription = "",
+                    modifier = Modifier.size(19.dp),
+                )
+            }
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = {
+                focusManager.moveFocus(FocusDirection.Next)
+            }
+        ),
+        visualTransformation = if (viewModel.oldPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+    )
+}
+
+@Composable
 private fun PasswordTextField(viewModel: EditProfileViewModel) {
     val focusManager = LocalFocusManager.current
     RectangularTextField(
@@ -286,96 +316,4 @@ private fun ConfirmPasswordTextField(viewModel: EditProfileViewModel) {
         errorMessage = viewModel.confirmPasswordFieldErrorMsg.value.asString(),
         visualTransformation = if (viewModel.confirmPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
     )
-}
-
-@Composable
-private fun PhoneNumberTextField(viewModel: EditProfileViewModel) {
-    val focusManager = LocalFocusManager.current
-    RectangularTextField(
-        value = viewModel.phoneNumberFieldText.value,
-        hint = stringResource(id = R.string.phone_number),
-        onValueChanged = {
-            viewModel.phoneNumberFieldText.value = it
-        },
-        trailingIcon = {
-            IconButton(onClick = { viewModel.showDialog.value = true }) {
-                Text(
-                    text = Country.getFlagEmojiFor(viewModel.selectedCountry.value.nameCode),
-                    style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Phone,
-            imeAction = ImeAction.Done
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                focusManager.clearFocus()
-            }
-        ),
-        isError = viewModel.isErrorPhoneNumberField.value,
-        errorMessage = viewModel.phoneNumberFieldErrorMsg.value.asString()
-    )
-}
-
-@Composable
-private fun SelectCountryDialog(viewModel: EditProfileViewModel) {
-    Dialog(
-        onDismissRequest = {
-            viewModel.showDialog.value = false
-        },
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth(0.95F)
-                .fillMaxHeight(0.8F)
-                .clip(RoundedCornerShape(7.dp))
-                .background(MaterialTheme.colors.background)
-        ) {
-            LazyColumn(
-                modifier = Modifier,
-            ) {
-                items(Country.getCountriesList()) { country ->
-                    CountryItem(viewModel = viewModel, country = country)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun CountryItem(viewModel: EditProfileViewModel, country: Country) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .clickable {
-                viewModel.selectedCountry.value = country
-                viewModel.showDialog.value = false
-            }
-            .padding(horizontal = 18.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = Country.getFlagEmojiFor(countryCode = country.nameCode),
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = country.fullName,
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = "|",
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = "${country.code}+",
-            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground),
-        )
-    }
-
 }
