@@ -14,6 +14,7 @@ import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.language_screen.LanguageScreen
 import com.hero.ataa.ui.screens.login_screen.LoginScreen
 import com.hero.ataa.ui.screens.miskeen_project_screen.MiskeenProjectScreen
+import com.hero.ataa.ui.screens.payment_screen.PaymentScreen
 import com.hero.ataa.ui.screens.profile_screen.ProfileScreen
 import com.hero.ataa.ui.screens.project_screen.ProjectScreen
 import com.hero.ataa.ui.screens.projects_screen.ProjectsScreen
@@ -131,6 +132,9 @@ fun NavGraph(mainViewModel: MainViewModel) {
         }
         composable(route = Screen.ZakatProjectScreen.route) {
             ZakatProjectScreen(navController = navController)
+        }
+        composable(route = Screen.PaymentScreen.route) {
+            PaymentScreen(navController = navController)
         }
     }
 }

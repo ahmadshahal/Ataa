@@ -111,4 +111,8 @@
     <string name="old_password">Old Password</string>
     <string name="zakat_quote" translatable="false">قال رسول الله صلى الله عليه وسلم: (بني الإسلام على خمس: شهادة أن لا إله إلا الله، وأن محمداً عبده ورسوله، وإقام الصلاة، وإيتاء الزكاة، وحج البيت، وصوم رمضان) و قال أيضاً (أنَّ الله قد افترض عليهم صدقةً في أموالهم, تُؤْخَذ من أغنيائهم, فتُرَدُّ في فُقرائهم)</string>
     <string name="try_again">Try Again</string>
+    <string name="payment">Payment</string>
+    <string name="paypal">Paypal</string>
+    <string name="master_card">MasterCard</string>
+    <string name="just_donate">Donate</string>
 </resources>

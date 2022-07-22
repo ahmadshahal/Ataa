@@ -108,4 +108,8 @@
     <string name="all_code_digits_must_be_filled">يجب تعبئة جميع الخانات</string>
     <string name="old_password">كلمة السر السابقة</string>
     <string name="try_again">إعادة المحاولة</string>
+    <string name="payment">التبرع</string>
+    <string name="paypal">بي بال</string>
+    <string name="master_card">ماستر كارد</string>
+    <string name="just_donate">تبرع</string>
 </resources>

@@ -31,6 +31,7 @@ import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.MoneyTransformation
 import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ fun ProjectScreen(project: Project, navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     ModalBottomSheetLayout(
-        sheetContent = { BottomSheetContent() },
+        sheetContent = { BottomSheetContent(navController = navController) },
         sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp),
         sheetBackgroundColor = MaterialTheme.colors.background,
@@ -226,7 +227,7 @@ private fun TagsRow(project: Project) {
 }
 
 @Composable
-private fun BottomSheetContent() {
+private fun BottomSheetContent(navController: NavController) {
     val chosenAmountIdx = remember {
         mutableStateOf(0)
     }
@@ -320,7 +321,7 @@ private fun BottomSheetContent() {
         Spacer(modifier = Modifier.height(20.dp))
         MaterialButton(
             onClick = {
-                // TODO.
+                navController.navigate(Screen.PaymentScreen.route)
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
