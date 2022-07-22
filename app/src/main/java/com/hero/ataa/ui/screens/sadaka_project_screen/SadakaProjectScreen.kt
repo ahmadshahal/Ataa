@@ -9,8 +9,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -19,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
@@ -34,14 +33,10 @@ import com.hero.ataa.utils.MoneyTransformation
 @Composable
 fun SadakaProjectScreen(
     navController: NavController,
+    viewModel: SadakaViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
-    val chosenAmountIdx = remember {
-        mutableStateOf(0)
-    }
-    val amount = remember {
-        mutableStateOf("10000")
-    }
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
@@ -57,7 +52,7 @@ fun SadakaProjectScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            ContentColumn(chosenAmountIdx = chosenAmountIdx, amount = amount)
+            ContentColumn(chosenAmountIdx = viewModel.chosenAmountIdx, amount = viewModel.amount)
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
                 content = {
