@@ -26,10 +26,7 @@ import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
-import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.LoadingDots
-import com.hero.ataa.ui.components.ProgressBar
-import com.hero.ataa.ui.components.Tag
+import com.hero.ataa.ui.components.*
 import com.hero.ataa.ui.navigation.Screen
 import com.skydoves.landscapist.coil.CoilImage
 import java.util.*
@@ -87,7 +84,9 @@ fun ProjectsScreen(
                      */
                 }
             }
-            else -> Unit
+            is ProjectsUiState.Error -> {
+                ErrorWidget(onClick = { viewModel.getProjects() })
+            }
         }
     }
 }

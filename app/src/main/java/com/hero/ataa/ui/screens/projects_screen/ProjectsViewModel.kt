@@ -25,7 +25,7 @@ class ProjectsViewModel @Inject constructor(
         getProjects()
     }
 
-    private fun getProjects() {
+    fun getProjects() {
         viewModelScope.launch {
             getProjectsUseCase(
                 categoryApiKey = savedStateHandle.get<String>(Constants.NavArgs.CATEGORY_API_KEY_KEY)!!,
