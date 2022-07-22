@@ -24,6 +24,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
+import com.hero.ataa.ui.navigation.Screen
 
 
 @Composable
@@ -39,7 +40,7 @@ fun MiskeenProjectScreen(
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
-        when(val uiState = viewModel.uiState.value) {
+        when (val uiState = viewModel.uiState.value) {
             is MiskeenUiState.Success -> {
                 Column(
                     modifier = Modifier
@@ -59,7 +60,7 @@ fun MiskeenProjectScreen(
                             )
                         },
                         onClick = {
-                            // TODO.
+                            navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.miskeenValue}/${Constants.PermanentProjectId.MISKEEN}")
                         },
                         backgroundColor = MaterialTheme.colors.primary,
                         contentColor = MaterialTheme.colors.onPrimary,
@@ -108,7 +109,7 @@ private fun MiskeenProjectAppBar(navController: NavController, scrollState: Scro
                 )
             }
         },
-        elevation = if(scrollState.value > 0) 1.dp else 0.dp
+        elevation = if (scrollState.value > 0) 1.dp else 0.dp
     )
 }
 

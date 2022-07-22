@@ -24,6 +24,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
+import com.hero.ataa.ui.navigation.Screen
 
 
 @Composable
@@ -59,7 +60,7 @@ fun SacrificeProjectScreen(
                             )
                         },
                         onClick = {
-                            // TODO.
+                            navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.sacrificeValue}/${Constants.PermanentProjectId.SACRIFICE}")
                         },
                         backgroundColor = MaterialTheme.colors.primary,
                         contentColor = MaterialTheme.colors.onPrimary,

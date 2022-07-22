@@ -28,6 +28,7 @@ import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.SquaredRadioButton
 import com.hero.ataa.ui.components.TitledTextField
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.MoneyTransformation
 
 @Composable
@@ -61,7 +62,7 @@ fun ZakatProjectScreen(
                     )
                 },
                 onClick = {
-                    // TODO.
+                    navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.amount.value.toIntOrNull() ?: 0)}/${Constants.PermanentProjectId.ZAKAT}")
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,

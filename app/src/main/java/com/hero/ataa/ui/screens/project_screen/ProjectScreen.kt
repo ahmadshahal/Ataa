@@ -45,7 +45,7 @@ fun ProjectScreen(project: Project, navController: NavController) {
     val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     ModalBottomSheetLayout(
-        sheetContent = { BottomSheetContent(navController = navController) },
+        sheetContent = { BottomSheetContent(navController = navController, project = project) },
         sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp),
         sheetBackgroundColor = MaterialTheme.colors.background,
@@ -227,7 +227,7 @@ private fun TagsRow(project: Project) {
 }
 
 @Composable
-private fun BottomSheetContent(navController: NavController) {
+private fun BottomSheetContent(navController: NavController, project: Project) {
     val chosenAmountIdx = remember {
         mutableStateOf(0)
     }
@@ -321,7 +321,7 @@ private fun BottomSheetContent(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         MaterialButton(
             onClick = {
-                navController.navigate(Screen.PaymentScreen.route)
+                navController.navigate(Screen.PaymentScreen.route + "/${(amount.value.toIntOrNull() ?: 0)}/${project.id}")
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,

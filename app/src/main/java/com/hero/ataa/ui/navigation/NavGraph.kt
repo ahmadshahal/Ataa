@@ -133,7 +133,18 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(route = Screen.ZakatProjectScreen.route) {
             ZakatProjectScreen(navController = navController)
         }
-        composable(route = Screen.PaymentScreen.route) {
+        composable(route = Screen.PaymentScreen.route + "/{${Constants.NavArgs.DONATION_VALUE_KEY}}/{${Constants.NavArgs.PROJECT_ID_KEY}}",
+            arguments = listOf(
+                navArgument(Constants.NavArgs.DONATION_VALUE_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                },
+                navArgument(Constants.NavArgs.PROJECT_ID_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                },
+            )
+        ) {
             PaymentScreen(navController = navController)
         }
     }

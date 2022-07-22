@@ -6,8 +6,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -15,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.LoadingDialog
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularRadioButton
 
@@ -25,13 +29,45 @@ fun PaymentScreen(
     viewModel: PaymentViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                is UiEvent.PopBackStack -> {
+                    navController.popBackStack()
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             PaymentAppBar(navController = navController, scrollState = scrollState)
         },
+        scaffoldState = scaffoldState,
         contentColor = MaterialTheme.colors.onBackground,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
     ) {
+        if (viewModel.loadingDialogState.value) {
+            LoadingDialog()
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -50,7 +86,9 @@ fun PaymentScreen(
                     )
                 },
                 onClick = {
-                    // TODO.
+                    if(viewModel.chosenIdx.value == 0) {
+                        viewModel.onSubmit()
+                    }
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
