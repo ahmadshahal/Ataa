@@ -24,6 +24,7 @@ import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
 import com.hero.ataa.ui.screens.settings_screen.SettingsScreen
 import com.hero.ataa.ui.screens.verification_screen.VerificationScreen
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
+import com.hero.ataa.ui.screens.zakat_project_screen.ZakatProjectScreen
 
 @Composable
 fun NavGraph(mainViewModel: MainViewModel) {
@@ -127,6 +128,9 @@ fun NavGraph(mainViewModel: MainViewModel) {
         }
         composable(route = Screen.ReceiptsScreen.route) {
             ReceiptsScreen(navController = navController)
+        }
+        composable(route = Screen.ZakatProjectScreen.route) {
+            ZakatProjectScreen(navController = navController)
         }
     }
 }

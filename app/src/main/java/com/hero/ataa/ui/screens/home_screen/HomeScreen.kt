@@ -630,7 +630,9 @@ private fun DonateRow(navController: NavController) {
         CategoryItem(
             name = zakat,
             icon = painterResource(id = R.drawable.ic_zakat_icon),
-        ) {}
+        ) {
+            navController.navigate(Screen.ZakatProjectScreen.route)
+        }
     }
 }
 
