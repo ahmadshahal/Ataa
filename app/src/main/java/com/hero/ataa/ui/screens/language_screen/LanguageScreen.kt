@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
@@ -25,7 +25,7 @@ import com.hero.ataa.utils.findActivity
 @Composable
 fun LanguageScreen(
     navController: NavController,
-    viewModel: LanguageViewModel = viewModel(),
+    viewModel: LanguageViewModel = hiltViewModel(),
     mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
