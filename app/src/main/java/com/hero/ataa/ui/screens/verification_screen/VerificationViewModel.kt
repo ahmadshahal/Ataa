@@ -41,7 +41,6 @@ class VerificationViewModel @Inject constructor(
     val thirdFieldText = mutableStateOf("")
     val fourthFieldText = mutableStateOf("")
 
-    private var verifyCode = savedStateHandle.get<String>(Constants.NavArgs.VERIFY_CODE_KEY)!!
     private val email = savedStateHandle.get<String>(Constants.NavArgs.EMAIL_KEY)!!
 
     private val _uiEvent: Channel<UiEvent> = Channel()
@@ -55,10 +54,11 @@ class VerificationViewModel @Inject constructor(
                 fourthFieldText.value + thirdFieldText.value + secondFieldText.value + firstFieldText.value
             else
                 firstFieldText.value + secondFieldText.value + thirdFieldText.value + fourthFieldText.value
-        if (verifyCode == enteredCode) {
+        if (enteredCode.length == 4) {
             viewModelScope.launch {
                 verifyUseCase(
-                    verifyCode = enteredCode
+                    verifyCode = enteredCode,
+                    email = email,
                 ).collect { dataState ->
                     when (dataState) {
                         is DataState.Loading -> {
@@ -84,7 +84,7 @@ class VerificationViewModel @Inject constructor(
             viewModelScope.launch {
                 _uiEvent.send(
                     UiEvent.ShowSnackBar(
-                        message = UiText.ResourceText(R.string.entered_code_isnt_correct)
+                        message = UiText.ResourceText(R.string.all_code_digits_must_be_filled)
                     )
                 )
             }
@@ -108,8 +108,7 @@ class VerificationViewModel @Inject constructor(
                             )
                         )
                     }
-                    is DataState.Success -> {
-                        verifyCode = dataState.data
+                    is DataState.SuccessWithoutData -> {
                         _resendUiState.value = ResendUiState.Initial
                     }
                     else -> Unit

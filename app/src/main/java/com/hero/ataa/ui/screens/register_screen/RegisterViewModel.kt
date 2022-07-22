@@ -81,9 +81,9 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
                                 )
                             )
                         }
-                        is DataState.Success -> {
+                        is DataState.SuccessWithoutData -> {
                             _uiState.value = RegisterUiState.Initial
-                            _uiEvent.send(UiEvent.Navigate(route = Screen.VerificationScreen.route + "/${emailFieldText.value}/${dataState.data}"))
+                            _uiEvent.send(UiEvent.Navigate(route = Screen.VerificationScreen.route + "/${emailFieldText.value}"))
                         }
                         else -> Unit
                     }

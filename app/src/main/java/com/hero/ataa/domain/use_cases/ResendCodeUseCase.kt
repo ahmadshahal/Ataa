@@ -12,8 +12,7 @@ class ResendCodeUseCase @Inject constructor() {
         emit(DataState.Loading())
         try {
             delay(3000)
-            val verifyCode = "1358"
-            emit(DataState.Success(verifyCode))
+            emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
             emit(
                 DataState.Error(

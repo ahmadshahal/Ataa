@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class VerifyUseCase @Inject constructor() {
-    operator fun invoke(verifyCode: String) = flow<DataState<String>> {
+    operator fun invoke(verifyCode: String, email: String) = flow<DataState<String>> {
         emit(DataState.Loading())
         try {
             delay(3000)

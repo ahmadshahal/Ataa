@@ -98,18 +98,14 @@ fun NavGraph(mainViewModel: MainViewModel) {
             SettingsScreen(navController = navController, mainViewModel = mainViewModel)
         }
         composable(
-            route = Screen.VerificationScreen.route + "/{${Constants.NavArgs.EMAIL_KEY}}/{${Constants.NavArgs.VERIFY_CODE_KEY}}",
+            route = Screen.VerificationScreen.route + "/{${Constants.NavArgs.EMAIL_KEY}}",
             arguments = listOf(
                 navArgument(Constants.NavArgs.EMAIL_KEY) {
                     this.nullable = false
                     this.type = NavType.StringType
-                },
-                navArgument(Constants.NavArgs.VERIFY_CODE_KEY) {
-                    this.nullable = false
-                    this.type = NavType.StringType
-                },
+                }
             )
-            ) { navBackStack ->
+        ) { navBackStack ->
             val email = navBackStack.arguments!!.getString(Constants.NavArgs.EMAIL_KEY)!!
             VerificationScreen(navController = navController, email = email)
         }
