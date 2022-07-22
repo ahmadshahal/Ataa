@@ -1,5 +1,7 @@
 package com.hero.ataa.ui.screens.payment_screen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
@@ -42,6 +45,10 @@ fun PaymentScreen(
                 }
                 is UiEvent.PopBackStack -> {
                     navController.popBackStack()
+                }
+                is UiEvent.SendUrlIntent -> {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uiEvent.url))
+                    startActivity(context, browserIntent, null)
                 }
                 else -> Unit
             }

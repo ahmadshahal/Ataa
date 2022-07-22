@@ -53,8 +53,8 @@ class PaymentViewModel @Inject constructor(
                     }
                     is DataState.Success -> {
                         loadingDialogState.value = false
-                        // TODO: Start the browser.
                         _uiEvent.send(UiEvent.PopBackStack)
+                        _uiEvent.send(UiEvent.SendUrlIntent(url = dataState.data))
                     }
                     else -> Unit
                 }
