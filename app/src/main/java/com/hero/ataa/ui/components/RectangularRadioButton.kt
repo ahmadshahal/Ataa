@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -21,6 +22,8 @@ fun RectangularRadioButton(
     text: String,
     painter: Painter,
     isSelected: Boolean = false,
+    iconWidth: Dp = 40.dp,
+    iconHeight: Dp = 20.dp,
     onClick: () -> Unit
 ) {
     Box(
@@ -49,8 +52,8 @@ fun RectangularRadioButton(
                 painter = painter,
                 contentDescription = "",
                 modifier = Modifier
-                    .height(20.dp)
-                    .width(40.dp),
+                    .height(iconHeight)
+                    .width(iconWidth),
             )
             Spacer(modifier = Modifier.width(15.dp))
             Text(
