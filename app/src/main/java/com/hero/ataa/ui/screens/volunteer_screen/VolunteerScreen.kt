@@ -1,5 +1,7 @@
 package com.hero.ataa.ui.screens.volunteer_screen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -9,11 +11,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
@@ -106,6 +110,7 @@ private fun TitleRow() {
 
 @Composable
 private fun ButtonsRow() {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -133,7 +138,10 @@ private fun ButtonsRow() {
                     style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.primary)
                 )
             },
-            onClicked = { /*TODO*/ },
+            onClicked = {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ahmadshahal"))
+                startActivity(context, browserIntent, null)
+            },
             backgroundColor = MaterialTheme.colors.primary,
         )
     }

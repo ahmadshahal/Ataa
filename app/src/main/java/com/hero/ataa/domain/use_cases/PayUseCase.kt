@@ -16,7 +16,7 @@ class PayUseCase @Inject constructor() {
         emit(DataState.Loading())
         try {
             delay(3000)
-            emit(DataState.Success("http://www.facebook.com"))
+            emit(DataState.Success("https://www.facebook.com/ahmad.shahal.2001/"))
         } catch (ex: Exception) {
             emit(
                 DataState.Error(

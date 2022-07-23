@@ -1,5 +1,7 @@
 package com.hero.ataa.ui.screens.home_screen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
@@ -33,6 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
@@ -274,6 +277,7 @@ private fun AppDrawer(
     navController: NavController,
 ) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
     if (viewModel.logOutPopUpDialogState.value) {
         LogoutAlertDialog(viewModel = viewModel)
     }
@@ -317,7 +321,10 @@ private fun AppDrawer(
         DrawerButton(
             text = stringResource(id = R.string.about_us),
             icon = Icons.Outlined.Info,
-        ) {}
+        ) {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/ahmad-shahal/"))
+            startActivity(context, browserIntent, null)
+        }
         Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.log_out),
