@@ -7,7 +7,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DarkMode
-import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -73,31 +72,6 @@ fun SettingsScreen(
                         checked = mainViewModel.isDarkMode.value,
                         onCheckedChange = {
                             mainViewModel.isDarkMode.value = it
-                        },
-                        modifier = Modifier,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colors.primary,
-                            checkedTrackColor = MaterialTheme.colors.primary,
-                            checkedTrackAlpha = 0.3F,
-                        )
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            SettingsButton(
-                prefix = {
-                    Icon(
-                        Icons.Rounded.Notifications,
-                        tint = MaterialTheme.colors.primary,
-                        contentDescription = ""
-                    )
-                },
-                text = stringResource(id = R.string.notifications),
-                suffix = {
-                    Switch(
-                        checked = mainViewModel.notificationsON.value,
-                        onCheckedChange = {
-                            mainViewModel.notificationsON.value = it
                         },
                         modifier = Modifier,
                         colors = SwitchDefaults.colors(
