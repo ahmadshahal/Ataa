@@ -117,4 +117,6 @@
     <string name="just_donate">Donate</string>
     <string name="edit_name">Edit Name</string>
     <string name="edit_password">Edit Password</string>
+    <string name="mtn_cash">Mtn Cash</string>
+    <string name="syriatel_cash">Syriatel Cash</string>
 </resources>

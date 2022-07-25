@@ -59,7 +59,7 @@ fun RectangularRadioButton(
             Text(
                 modifier = Modifier.weight(1F),
                 text = text,
-                style = MaterialTheme.typography.h4.copy(
+                style = MaterialTheme.typography.h5.copy(
                     color = if (isSelected) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onSurface
                 )
             )

@@ -157,5 +157,25 @@ private fun ContentColumn(viewModel: PaymentViewModel) {
         ) {
             viewModel.chosenIdx.value = 1
         }
+        Spacer(modifier = Modifier.height(20.dp))
+        RectangularRadioButton(
+            text = stringResource(id = R.string.syriatel_cash),
+            painter = painterResource(id = R.drawable.ic_syriatel_icon),
+            isSelected = viewModel.chosenIdx.value == 2,
+            iconWidth = 50.dp,
+            iconHeight = 50.dp
+        ) {
+            viewModel.chosenIdx.value = 2
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        RectangularRadioButton(
+            text = stringResource(id = R.string.mtn_cash),
+            painter = painterResource(id = R.drawable.ic__mtn_icon),
+            isSelected = viewModel.chosenIdx.value == 3,
+            iconWidth = 30.dp,
+            iconHeight = 30.dp
+        ) {
+            viewModel.chosenIdx.value = 3
+        }
     }
 }

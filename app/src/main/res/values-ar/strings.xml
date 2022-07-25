@@ -114,4 +114,6 @@
     <string name="just_donate">تبرع</string>
     <string name="edit_name">تعديل الاسم</string>
     <string name="edit_password">تعديل كلمة المرور</string>
+    <string name="mtn_cash">أم تي أن كاش</string>
+    <string name="syriatel_cash">سيريتيل كاش</string>
 </resources>
