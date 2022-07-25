@@ -137,8 +137,7 @@ fun ProfileScreen(
                 },
                 text = stringResource(id = R.string.edit_profile),
                 onClick = {
-                    // TODO: User.fullName
-                    navController.navigate(Screen.EditProfileScreen.route + "/Ahmad Al-Shahal")
+                    navController.navigate(Screen.EditProfileScreen.route)
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))

@@ -1,62 +1,34 @@
 package com.hero.ataa.ui.screens.edit_profile_screen
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.DriveFileRenameOutline
+import androidx.compose.material.icons.rounded.Password
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
-import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.MaterialButton
-import com.hero.ataa.ui.components.RectangularTextField
+import com.hero.ataa.ui.components.ProfileButton
+import com.hero.ataa.ui.navigation.Screen
 
 @Composable
 fun EditProfileScreen(
     navController: NavController,
     mainViewModel: MainViewModel,
-    viewModel: EditProfileViewModel = hiltViewModel(),
 ) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { uiEvent ->
-            when (uiEvent) {
-                is UiEvent.ShowSnackBar -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = uiEvent.message.asString(context),
-                    )
-                }
-                is UiEvent.Navigate -> {
-                    navController.navigate(uiEvent.route)
-                }
-                is UiEvent.PopBackStack -> {
-                    navController.popBackStack()
-                }
-            }
-        }
-    }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -81,72 +53,36 @@ fun EditProfileScreen(
                 .verticalScroll(scrollState)
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(32.dp))
-                Box(
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(RoundedCornerShape(60.dp))
-                        .border(
-                            shape = RoundedCornerShape(60.dp),
-                            color = MaterialTheme.colors.primary,
-                            width = 2.dp
-                        )
-                        .background(MaterialTheme.colors.surface),
-                ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            ProfileButton(
+                prefix = {
                     Icon(
-                        imageVector = Icons.Rounded.AccountCircle,
-                        contentDescription = "",
-                        tint = MaterialTheme.colors.primaryVariant.copy(alpha = 0.2F),
-                        modifier = Modifier
-                            .size(60.dp)
-                            .align(Alignment.Center)
+                        Icons.Rounded.DriveFileRenameOutline,
+                        tint = MaterialTheme.colors.primary,
+                        contentDescription = ""
                     )
-                }
-                Spacer(modifier = Modifier.height(18.dp))
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    text = "ahmad.alshahal2@gmail.com",
-                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(25.dp))
-                FullNameTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(16.dp))
-                OldPasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(16.dp))
-                PasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(16.dp))
-                ConfirmPasswordTextField(viewModel = viewModel)
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            MaterialButton(
-                modifier = Modifier.padding(vertical = 16.dp),
-                content = {
-                    if (viewModel.uiState.value is EditUiState.Initial) {
-                        Text(
-                            text = stringResource(id = R.string.save),
-                            style = MaterialTheme.typography.button.copy(MaterialTheme.colors.onPrimary)
-                        )
-                    } else {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colors.onPrimary,
-                            modifier = Modifier.size(18.dp),
-                            strokeWidth = 2.5.dp,
-                        )
-                    }
                 },
-                onClick = { viewModel.onSubmit() },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                enabled = viewModel.uiState.value is EditUiState.Initial
+                text = stringResource(id = R.string.edit_name),
+                onClick = {
+                    navController.navigate(Screen.EditNameScreen.route + "/Ahmad Al-Shahal")
+                },
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            ProfileButton(
+                prefix = {
+                    Icon(
+                        Icons.Rounded.Password,
+                        tint = MaterialTheme.colors.primary,
+                        contentDescription = ""
+                    )
+                },
+                text = stringResource(id = R.string.edit_password),
+                onClick = {
+                    navController.navigate(Screen.EditPasswordScreen.route)
+                },
+            )
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -176,146 +112,5 @@ private fun EditProfileAppBar(navController: NavController, scrollState: ScrollS
             }
         },
         elevation = if(scrollState.value > 0) 1.dp else 0.dp
-    )
-}
-
-@Composable
-private fun FullNameTextField(viewModel: EditProfileViewModel) {
-    val focusManager = LocalFocusManager.current
-    RectangularTextField(
-        value = viewModel.fullNameFieldText.value,
-        hint = stringResource(id = R.string.full_name),
-        onValueChanged = {
-            viewModel.fullNameFieldText.value = it
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
-            capitalization = KeyboardCapitalization.Words,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Next)
-            }
-        ),
-        isError = viewModel.isErrorNameField.value,
-        errorMessage = viewModel.nameFieldErrorMsg.value.asString()
-    )
-}
-
-@Composable
-private fun OldPasswordTextField(viewModel: EditProfileViewModel) {
-    val focusManager = LocalFocusManager.current
-    RectangularTextField(
-        value = viewModel.oldPasswordFieldText.value,
-        hint = stringResource(id = R.string.old_password),
-        onValueChanged = {
-            viewModel.oldPasswordFieldText.value = it
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = {
-                    viewModel.oldPasswordVisible.value = !viewModel.oldPasswordVisible.value
-                },
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = if (viewModel.oldPasswordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
-                    ),
-                    contentDescription = "",
-                    modifier = Modifier.size(19.dp),
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Next)
-            }
-        ),
-        isError = viewModel.isErrorOldPasswordField.value,
-        errorMessage = viewModel.oldPasswordFieldErrorMsg.value.asString(),
-        visualTransformation = if (viewModel.oldPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-    )
-}
-
-@Composable
-private fun PasswordTextField(viewModel: EditProfileViewModel) {
-    val focusManager = LocalFocusManager.current
-    RectangularTextField(
-        value = viewModel.passwordFieldText.value,
-        hint = stringResource(id = R.string.password),
-        onValueChanged = {
-            viewModel.passwordFieldText.value = it
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = {
-                    viewModel.passwordVisible.value = !viewModel.passwordVisible.value
-                },
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = if (viewModel.passwordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
-                    ),
-                    contentDescription = "",
-                    modifier = Modifier.size(19.dp),
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Next)
-            }
-        ),
-        isError = viewModel.isErrorPasswordField.value,
-        errorMessage = viewModel.passwordFieldErrorMsg.value.asString(),
-        visualTransformation = if (viewModel.passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
-    )
-}
-
-@Composable
-private fun ConfirmPasswordTextField(viewModel: EditProfileViewModel) {
-    val focusManager = LocalFocusManager.current
-    RectangularTextField(
-        value = viewModel.confirmPasswordFieldText.value,
-        hint = stringResource(id = R.string.confirm_password),
-        onValueChanged = {
-            viewModel.confirmPasswordFieldText.value = it
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = {
-                    viewModel.confirmPasswordVisible.value = !viewModel.confirmPasswordVisible.value
-                },
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = if (viewModel.confirmPasswordVisible.value) R.drawable.ic_show_eye_icon else R.drawable.ic_hide_eye_icon
-                    ),
-                    contentDescription = "",
-                    modifier = Modifier.size(19.dp),
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = {
-                focusManager.moveFocus(FocusDirection.Next)
-            }
-        ),
-        isError = viewModel.isErrorConfirmPasswordField.value,
-        errorMessage = viewModel.confirmPasswordFieldErrorMsg.value.asString(),
-        visualTransformation = if (viewModel.confirmPasswordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
     )
 }

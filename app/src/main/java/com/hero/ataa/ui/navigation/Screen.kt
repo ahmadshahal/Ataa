@@ -18,4 +18,6 @@ sealed class Screen(val route: String) {
     object ReceiptsScreen : Screen("/receipts_screen")
     object ZakatProjectScreen : Screen("/zakat_screen")
     object PaymentScreen : Screen("/payment_screen")
+    object EditNameScreen : Screen("/edit_name_screen")
+    object EditPasswordScreen : Screen("/edit_password_screen")
 }

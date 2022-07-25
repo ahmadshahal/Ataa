@@ -9,6 +9,8 @@ import androidx.navigation.navArgument
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
+import com.hero.ataa.ui.screens.edit_name_screen.EditNameScreen
+import com.hero.ataa.ui.screens.edit_password_screen.EditPasswordScreen
 import com.hero.ataa.ui.screens.edit_profile_screen.EditProfileScreen
 import com.hero.ataa.ui.screens.home_screen.HomeScreen
 import com.hero.ataa.ui.screens.language_screen.LanguageScreen
@@ -114,14 +116,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(route = Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController, mainViewModel = mainViewModel)
         }
-        composable(route = Screen.EditProfileScreen.route + "/{${Constants.NavArgs.FULL_NAME_KEY}}",
-            arguments = listOf(
-                navArgument(Constants.NavArgs.FULL_NAME_KEY) {
-                    this.nullable = false
-                    this.type = NavType.StringType
-                }
-            )
-        ) {
+        composable(route = Screen.EditProfileScreen.route) {
             EditProfileScreen(
                 navController = navController,
                 mainViewModel = mainViewModel,
@@ -133,7 +128,8 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(route = Screen.ZakatProjectScreen.route) {
             ZakatProjectScreen(navController = navController)
         }
-        composable(route = Screen.PaymentScreen.route + "/{${Constants.NavArgs.DONATION_VALUE_KEY}}/{${Constants.NavArgs.PROJECT_ID_KEY}}",
+        composable(
+            route = Screen.PaymentScreen.route + "/{${Constants.NavArgs.DONATION_VALUE_KEY}}/{${Constants.NavArgs.PROJECT_ID_KEY}}",
             arguments = listOf(
                 navArgument(Constants.NavArgs.DONATION_VALUE_KEY) {
                     this.nullable = false
@@ -146,6 +142,19 @@ fun NavGraph(mainViewModel: MainViewModel) {
             )
         ) {
             PaymentScreen(navController = navController)
+        }
+        composable(route = Screen.EditNameScreen.route + "/{${Constants.NavArgs.FULL_NAME_KEY}}",
+            arguments = listOf(
+                navArgument(Constants.NavArgs.FULL_NAME_KEY) {
+                    this.nullable = false
+                    this.type = NavType.StringType
+                }
+            )
+        ) {
+            EditNameScreen(navController = navController)
+        }
+        composable(route = Screen.EditPasswordScreen.route) {
+            EditPasswordScreen(navController = navController)
         }
     }
 }

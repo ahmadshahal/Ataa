@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 class EditProfileUseCase @Inject constructor() {
     operator fun invoke(
-        fullName: String,
-        oldPassword: String,
-        password: String
+        fullName: String? = null,
+        oldPassword: String? = null,
+        password: String? = null,
     ) = flow<DataState<String>> {
         emit(DataState.Loading())
         try {

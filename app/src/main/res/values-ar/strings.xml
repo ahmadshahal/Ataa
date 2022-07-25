@@ -112,4 +112,6 @@
     <string name="paypal">بي بال</string>
     <string name="master_card">ماستر كارد</string>
     <string name="just_donate">تبرع</string>
+    <string name="edit_name">تعديل الاسم</string>
+    <string name="edit_password">تعديل كلمة المرور</string>
 </resources>

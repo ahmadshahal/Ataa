@@ -115,4 +115,6 @@
     <string name="paypal">Paypal</string>
     <string name="master_card">MasterCard</string>
     <string name="just_donate">Donate</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="edit_password">Edit Password</string>
 </resources>
