@@ -1,35 +1,24 @@
 package com.hero.ataa.ui.screens.projects_screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
-import com.hero.ataa.domain.models.Project
-import com.hero.ataa.shared.Constants
-import com.hero.ataa.ui.components.*
-import com.hero.ataa.ui.navigation.Screen
-import com.skydoves.landscapist.coil.CoilImage
-import java.util.*
+import com.hero.ataa.ui.components.AppBar
+import com.hero.ataa.ui.components.ErrorWidget
+import com.hero.ataa.ui.components.LoadingDots
+import com.hero.ataa.ui.components.ProjectItem
 
 @Composable
 fun ProjectsScreen(
@@ -117,89 +106,4 @@ private fun ProjectsAppBar(navController: NavController, category: String, scrol
         },
         elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
-}
-
-@Composable
-private fun ProjectItem(project: Project, navController: NavController) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(7.dp))
-            .background(MaterialTheme.colors.surface)
-            .border(
-                width = 0.1.dp,
-                color = MaterialTheme.colors.secondaryVariant,
-                shape = RoundedCornerShape(7.dp)
-            )
-            .clickable {
-                navController.currentBackStackEntry?.savedStateHandle?.set<Project>(
-                    Constants.NavArgs.PROJECT_KEY,
-                    project
-                )
-                navController.navigate(Screen.ProjectScreen.route)
-            }
-            .padding(16.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .height(140.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(7.dp))
-                    .background(MaterialTheme.colors.secondaryVariant.copy(0.1F))
-
-            ) {
-                CoilImage(
-                    modifier = Modifier.fillMaxSize(),
-                    imageModel = project.imageUrl,
-                    contentScale = ContentScale.Crop,
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Text(
-                    text = project.title,
-                    style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground),
-                    modifier = Modifier.weight(1F),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Tag(title = project.location)
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = project.description,
-                style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primaryVariant),
-                maxLines = 4,
-                overflow = TextOverflow.Ellipsis,
-                lineHeight = 18.sp,
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            ProgressBar(progress = project.progress, height = 5.dp)
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "${stringResource(R.string.goal)} ${
-                        "%,d".format(
-                            Locale.US,
-                            project.raisingGoal
-                        )
-                    } ${stringResource(R.string.currency)}",
-                    style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primary),
-                )
-                Text(
-                    text = project.progress.toString() + "%",
-                    style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.primary),
-                )
-            }
-        }
-    }
 }

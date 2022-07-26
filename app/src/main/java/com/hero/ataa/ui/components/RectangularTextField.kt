@@ -15,14 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun RectangularTextField(
     value: String,
     hint: String,
+    height: Dp = 50.dp,
     onValueChanged: (String) -> Unit,
     trailingIcon: @Composable () -> Unit = {},
+    prefixIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
@@ -33,7 +36,7 @@ fun RectangularTextField(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(height)
                 .clip(RoundedCornerShape(7.dp))
                 .background(MaterialTheme.colors.surface)
                 .border(
@@ -48,6 +51,10 @@ fun RectangularTextField(
                     .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if(prefixIcon != null) {
+                    prefixIcon()
+                    Spacer(modifier = Modifier.width(10.dp))
+                }
                 Box(modifier = Modifier.weight(1F)) {
                     BasicTextField(
                         value = value,

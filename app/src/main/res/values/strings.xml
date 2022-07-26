@@ -119,4 +119,6 @@
     <string name="edit_password">Edit Password</string>
     <string name="mtn_cash">Mtn Cash</string>
     <string name="syriatel_cash">Syriatel Cash</string>
+    <string name="search">Search</string>
+    <string name="recent_search">Recent search</string>
 </resources>

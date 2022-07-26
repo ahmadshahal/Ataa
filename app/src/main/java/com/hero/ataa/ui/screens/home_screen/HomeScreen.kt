@@ -133,7 +133,7 @@ fun HomeScreen(
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                SearchButton()
+                SearchButton(navController = navController)
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     modifier = Modifier
@@ -200,7 +200,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun SearchButton() {
+private fun SearchButton(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,7 +214,7 @@ private fun SearchButton() {
                 shape = RoundedCornerShape(7.dp)
             )
             .clickable {
-                // TODO.
+                navController.navigate(Screen.SearchScreen.route)
             }
     ) {
         Row(

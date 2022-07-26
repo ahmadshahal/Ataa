@@ -24,6 +24,7 @@ import com.hero.ataa.ui.screens.receipts_screen.ReceiptsScreen
 import com.hero.ataa.ui.screens.register_screen.RegisterScreen
 import com.hero.ataa.ui.screens.sacrifice_project_screen.SacrificeProjectScreen
 import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
+import com.hero.ataa.ui.screens.search_screen.SearchScreen
 import com.hero.ataa.ui.screens.settings_screen.SettingsScreen
 import com.hero.ataa.ui.screens.verification_screen.VerificationScreen
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
@@ -155,6 +156,9 @@ fun NavGraph(mainViewModel: MainViewModel) {
         }
         composable(route = Screen.EditPasswordScreen.route) {
             EditPasswordScreen(navController = navController)
+        }
+        composable(route = Screen.SearchScreen.route) {
+            SearchScreen(navController = navController)
         }
     }
 }
