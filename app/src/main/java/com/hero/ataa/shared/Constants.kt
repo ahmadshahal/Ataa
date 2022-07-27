@@ -44,4 +44,5 @@ object Constants {
     const val MAX_MONEY_DONATION = 18
     const val MAX_MISKEEN_PERSONS = 4
     const val MAX_SACRIFICE = 2
+    const val NOTIFICATION_CHANNEL_NAME = "Ataa"
 }

@@ -122,4 +122,8 @@
     <string name="search">Search</string>
     <string name="recent_search">Recent search</string>
     <string name="no_results_found">No results found</string>
+    <string name="ataa_notification_channel" translatable="false">Ataa Notification Channel</string>
+    <string name="donate_to_ataa_charity_project">Donate to Ataa charity projects</string>
+    <string name="thank_you_for_considering">Thank you for considering donating by Ataa charity</string>
+    <string name="thank_you">Thank you</string>
 </resources>

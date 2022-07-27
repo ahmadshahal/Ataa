@@ -5,10 +5,14 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.core.app.NotificationManagerCompat
+import com.hero.ataa.notification.NotificationHelper
+import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.navigation.NavGraph
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -18,6 +22,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Ataa)
         super.onCreate(savedInstanceState)
+
+        NotificationHelper.createNotificationChannel(
+            context = this,
+            name = Constants.NOTIFICATION_CHANNEL_NAME,
+            description = getString(R.string.ataa_notification_channel),
+            importance = NotificationManagerCompat.IMPORTANCE_DEFAULT,
+            showBadge = false,
+        )
+
+        NotificationHelper.createNotification(
+            this,
+            title = getString(R.string.donate_now),
+            content = getString(R.string.donate_to_ataa_charity_project),
+            channelName = Constants.NOTIFICATION_CHANNEL_NAME,
+            bigText = getString(R.string.donate_to_ataa_charity_project),
+        )
+
         // Preventing the System settings to change the font size.
         val configuration = resources.configuration
         configuration.fontScale = 1.0.toFloat()

@@ -119,4 +119,7 @@
     <string name="search">بحث</string>
     <string name="recent_search">بحث سابق</string>
     <string name="no_results_found">لم توجد أي نتائج</string>
+    <string name="donate_to_ataa_charity_project">سارع بالتبرع لمشاريع جمعية عطاء الخيرية</string>
+    <string name="thank_you_for_considering">شكراً لك على اتخاذنا سبيلاً في نشر الخير</string>
+    <string name="thank_you">شكراً</string>
 </resources>
