@@ -49,12 +49,15 @@ fun SearchScreen(
                     verticalArrangement = Arrangement.spacedBy(13.dp),
                     state = lazyListState
                 ) {
-                    item { 
+                    item {
                         SearchTextField(viewModel = viewModel)
                     }
                     item {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            Text(text = stringResource(id = R.string.recent_search), style = MaterialTheme.typography.h5)
+                            Text(
+                                text = stringResource(id = R.string.recent_search),
+                                style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground)
+                            )
                             Spacer(modifier = Modifier.height(10.dp))
                             val language = Locale.getDefault().language
                             FlowRow(
@@ -71,10 +74,19 @@ fun SearchScreen(
                             Spacer(modifier = Modifier.height(10.dp))
                         }
                     }
-                    items(
-                        viewModel.searchResults.value
-                    ) { project ->
-                        ProjectItem(project = project, navController = navController)
+                    when {
+                        viewModel.searchResults.value.isEmpty() -> {
+                            item {
+                                NoResultsWidget()
+                            }
+                        }
+                        else -> {
+                            items(
+                                viewModel.searchResults.value
+                            ) { project ->
+                                ProjectItem(project = project, navController = navController)
+                            }
+                        }
                     }
                 }
             }
@@ -123,7 +135,7 @@ private fun SearchAppBar(navController: NavController, scrollState: LazyListStat
                 )
             }
         },
-        elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
+        elevation = if (scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
 }
 

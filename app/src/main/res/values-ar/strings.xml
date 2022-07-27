@@ -118,4 +118,5 @@
     <string name="syriatel_cash">سيريتيل كاش</string>
     <string name="search">بحث</string>
     <string name="recent_search">بحث سابق</string>
+    <string name="no_results_found">لم توجد أي نتائج</string>
 </resources>

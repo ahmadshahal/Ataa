@@ -121,4 +121,5 @@
     <string name="syriatel_cash">Syriatel Cash</string>
     <string name="search">Search</string>
     <string name="recent_search">Recent search</string>
+    <string name="no_results_found">No results found</string>
 </resources>
