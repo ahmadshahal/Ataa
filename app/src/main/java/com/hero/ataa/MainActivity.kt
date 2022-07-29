@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
-                NavGraph(mainViewModel = mainViewModel)
+                NavGraph()
             }
         }
     }

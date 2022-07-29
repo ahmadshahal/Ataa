@@ -2,11 +2,10 @@ package com.hero.ataa.ui.screens.edit_name_screen
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hero.ataa.data.local.repositories.UserRepository
 import com.hero.ataa.domain.use_cases.EditProfileUseCase
-import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
@@ -21,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditNameViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val userRepository: UserRepository,
     private val editProfileUseCase: EditProfileUseCase
 ) : ViewModel() {
     private val _uiState = mutableStateOf<EditUiState>(EditUiState.Initial)
@@ -32,9 +31,15 @@ class EditNameViewModel @Inject constructor(
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
 
-    val fullNameFieldText = mutableStateOf(savedStateHandle.get<String>(Constants.NavArgs.FULL_NAME_KEY)!!)
+    val fullNameFieldText = mutableStateOf("")
     val isErrorNameField = mutableStateOf(false)
     val nameFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    init {
+        viewModelScope.launch {
+            fullNameFieldText.value = userRepository.user().name
+        }
+    }
 
     fun onSubmit() {
         val validateFullNameResult = validateFullName()
@@ -55,7 +60,7 @@ class EditNameViewModel @Inject constructor(
                                 )
                             )
                         }
-                        is DataState.Success -> {
+                        is DataState.SuccessWithoutData -> {
                             _uiState.value = EditUiState.Initial
                             _uiEvent.send(UiEvent.PopBackStack)
                         }

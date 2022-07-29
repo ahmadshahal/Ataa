@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.ProfileButton
@@ -27,7 +26,6 @@ import com.hero.ataa.ui.navigation.Screen
 @Composable
 fun EditProfileScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
 ) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
@@ -67,7 +65,7 @@ fun EditProfileScreen(
                 },
                 text = stringResource(id = R.string.edit_name),
                 onClick = {
-                    navController.navigate(Screen.EditNameScreen.route + "/Ahmad Al-Shahal")
+                    navController.navigate(Screen.EditNameScreen.route)
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))

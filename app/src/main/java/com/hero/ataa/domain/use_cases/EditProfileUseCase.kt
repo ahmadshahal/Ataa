@@ -1,6 +1,8 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
+import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.domain.models.User
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import kotlinx.coroutines.delay
@@ -8,20 +10,26 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
-// TODO.
-// This UseCase returns User.
-
-class EditProfileUseCase @Inject constructor() {
+class EditProfileUseCase @Inject constructor(
+    private val userRepository: UserRepository
+) {
     operator fun invoke(
         fullName: String? = null,
         oldPassword: String? = null,
         password: String? = null,
-    ) = flow<DataState<String>> {
+    ) = flow<DataState<Nothing>> {
         emit(DataState.Loading())
         try {
             delay(3000)
-            // TODO: Returns User.
-            emit(DataState.Success(""))
+            val user = User(
+                name = "Ahmad Al-Shahal",
+                email = "ahmad.alshahal2@gmail.com",
+                token = "bearer 123410923124",
+            )
+            userRepository.update {
+                it.copy(name = user.name, email = user.email, token = user.token)
+            }
+            emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
             emit(
                 DataState.Error(

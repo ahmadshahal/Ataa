@@ -12,6 +12,7 @@ import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
@@ -35,7 +35,6 @@ import com.hero.ataa.ui.navigation.Screen
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -114,14 +113,14 @@ fun ProfileScreen(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Ahmad Al-Shahal",
+                text = viewModel.userNameFlow.collectAsState(initial = "").value,
                 style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onBackground),
                 textAlign = TextAlign.Center
             )
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "ahmad.alshahal2@gmail.com",
+                text = viewModel.userEmailFlow.collectAsState(initial = "").value,
                 style = MaterialTheme.typography.subtitle2.copy(
                     color = MaterialTheme.colors.onBackground,
                     fontSize = 14.sp

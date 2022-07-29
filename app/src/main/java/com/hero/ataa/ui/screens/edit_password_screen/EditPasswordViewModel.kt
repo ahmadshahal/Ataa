@@ -70,7 +70,7 @@ class EditPasswordViewModel @Inject constructor(
                                 )
                             )
                         }
-                        is DataState.Success -> {
+                        is DataState.SuccessWithoutData -> {
                             _uiState.value = EditUiState.Initial
                             _uiEvent.send(UiEvent.PopBackStack)
                         }

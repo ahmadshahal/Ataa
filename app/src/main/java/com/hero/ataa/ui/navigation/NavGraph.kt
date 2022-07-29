@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.screens.edit_name_screen.EditNameScreen
@@ -31,7 +30,7 @@ import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 import com.hero.ataa.ui.screens.zakat_project_screen.ZakatProjectScreen
 
 @Composable
-fun NavGraph(mainViewModel: MainViewModel) {
+fun NavGraph() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
         composable(route = Screen.LoginScreen.route) {
@@ -109,13 +108,10 @@ fun NavGraph(mainViewModel: MainViewModel) {
             VerificationScreen(navController = navController, email = email)
         }
         composable(route = Screen.ProfileScreen.route) {
-            ProfileScreen(navController = navController, mainViewModel = mainViewModel)
+            ProfileScreen(navController = navController)
         }
         composable(route = Screen.EditProfileScreen.route) {
-            EditProfileScreen(
-                navController = navController,
-                mainViewModel = mainViewModel,
-            )
+            EditProfileScreen(navController = navController)
         }
         composable(route = Screen.ReceiptsScreen.route) {
             ReceiptsScreen(navController = navController)
@@ -138,14 +134,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
         ) {
             PaymentScreen(navController = navController)
         }
-        composable(route = Screen.EditNameScreen.route + "/{${Constants.NavArgs.FULL_NAME_KEY}}",
-            arguments = listOf(
-                navArgument(Constants.NavArgs.FULL_NAME_KEY) {
-                    this.nullable = false
-                    this.type = NavType.StringType
-                }
-            )
-        ) {
+        composable(route = Screen.EditNameScreen.route) {
             EditNameScreen(navController = navController)
         }
         composable(route = Screen.EditPasswordScreen.route) {

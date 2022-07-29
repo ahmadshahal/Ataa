@@ -64,7 +64,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
                                 )
                             )
                         }
-                        is DataState.Success -> {
+                        is DataState.SuccessWithoutData -> {
                             _uiState.value = LoginUiState.Initial
                             _uiEvent.send(UiEvent.Navigate(route = Screen.HomeScreen.route))
                         }
