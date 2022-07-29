@@ -25,10 +25,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Receipt
-import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.ErrorWidget
-import com.hero.ataa.ui.components.LoadingDots
-import com.hero.ataa.ui.components.Tag
+import com.hero.ataa.ui.components.*
 import java.util.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -47,17 +44,22 @@ fun ReceiptsScreen(
     ) {
         when (val uiState = viewModel.uiState.value) {
             is ReceiptsUiState.Success -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp),
-                    state = lazyListState
-                ) {
-                    items(
-                        uiState.receipts
-                    ) { receipt ->
-                        ReceiptItem(receipt = receipt)
+                if(uiState.receipts.isEmpty()) {
+                    NoResultsWidget(painter = painterResource(id = R.drawable.ic_no_data))
+                }
+                else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(13.dp),
+                        state = lazyListState
+                    ) {
+                        items(
+                            uiState.receipts
+                        ) { receipt ->
+                            ReceiptItem(receipt = receipt)
+                        }
                     }
                 }
             }

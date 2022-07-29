@@ -1,6 +1,7 @@
 package com.hero.ataa.ui.screens.search_screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -79,7 +80,7 @@ fun SearchScreen(
                     when {
                         viewModel.searchResults.value.isEmpty() -> {
                             item {
-                                NoResultsWidget()
+                                NoResults()
                             }
                         }
                         else -> {
@@ -110,6 +111,31 @@ fun SearchScreen(
                 ErrorWidget(onClick = { viewModel.getProjects() })
             }
         }
+    }
+}
+
+@Composable
+fun NoResults() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_no_results),
+            contentDescription = "",
+            modifier = Modifier
+                .height(250.dp)
+                .width(200.dp),
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(id = R.string.no_results_found),
+            style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
+        )
+        Spacer(modifier = Modifier.height(25.dp))
     }
 }
 

@@ -16,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
-import com.hero.ataa.ui.components.AppBar
-import com.hero.ataa.ui.components.ErrorWidget
-import com.hero.ataa.ui.components.LoadingDots
-import com.hero.ataa.ui.components.ProjectItem
+import com.hero.ataa.ui.components.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -32,24 +29,33 @@ fun ProjectsScreen(
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            ProjectsAppBar(navController = navController, category = category, scrollState = lazyListState)
+            ProjectsAppBar(
+                navController = navController,
+                category = category,
+                scrollState = lazyListState
+            )
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
 
         when (val uiState = viewModel.uiState.value) {
             is ProjectsUiState.Success -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(13.dp),
-                    state = lazyListState
-                ) {
-                    items(
-                        uiState.projects
-                    ) { project ->
-                        ProjectItem(project = project, navController = navController)
+                if(uiState.projects.isEmpty()) {
+                    NoResultsWidget(painter = painterResource(id = R.drawable.ic_void))
+                }
+                else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        contentPadding = PaddingValues(start = 16.dp, bottom = 16.dp, end = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(13.dp),
+                        state = lazyListState
+                    ) {
+                        items(
+                            uiState.projects
+                        ) { project ->
+                            ProjectItem(project = project, navController = navController)
+                        }
                     }
                 }
             }
@@ -83,7 +89,11 @@ fun ProjectsScreen(
 }
 
 @Composable
-private fun ProjectsAppBar(navController: NavController, category: String, scrollState: LazyListState) {
+private fun ProjectsAppBar(
+    navController: NavController,
+    category: String,
+    scrollState: LazyListState
+) {
     AppBar(
         title = {
             Text(
@@ -106,6 +116,6 @@ private fun ProjectsAppBar(navController: NavController, category: String, scrol
                 )
             }
         },
-        elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
+        elevation = if (scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
 }
