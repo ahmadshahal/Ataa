@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.settings_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,7 @@ import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.SettingsButton
 import com.hero.ataa.ui.navigation.Screen
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SettingsScreen(
     navController: NavController,

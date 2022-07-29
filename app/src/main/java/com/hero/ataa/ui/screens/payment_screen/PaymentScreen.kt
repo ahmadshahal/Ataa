@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.payment_screen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.ScrollState
@@ -28,6 +29,7 @@ import com.hero.ataa.ui.components.LoadingDialog
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularRadioButton
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun PaymentScreen(
     navController: NavController,

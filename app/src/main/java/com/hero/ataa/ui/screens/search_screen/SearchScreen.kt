@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.search_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -27,6 +28,7 @@ import com.hero.ataa.R
 import com.hero.ataa.ui.components.*
 import java.util.*
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchScreen(
     navController: NavController,

@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.project_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -37,12 +38,13 @@ import com.skydoves.landscapist.coil.CoilImage
 import kotlinx.coroutines.launch
 import java.util.*
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProjectScreen(project: Project, navController: NavController) {
 
     val scrollState = rememberScrollState()
-    val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
 
     ModalBottomSheetLayout(
         sheetContent = { BottomSheetContent(navController = navController, project = project) },

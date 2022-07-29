@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.projects_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -20,6 +21,7 @@ import com.hero.ataa.ui.components.ErrorWidget
 import com.hero.ataa.ui.components.LoadingDots
 import com.hero.ataa.ui.components.ProjectItem
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProjectsScreen(
     navController: NavController,

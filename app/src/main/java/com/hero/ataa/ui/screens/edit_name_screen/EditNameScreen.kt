@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.edit_name_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,6 +30,7 @@ import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularTextField
 import com.hero.ataa.ui.screens.edit_profile_screen.EditUiState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditNameScreen(
     navController: NavController,

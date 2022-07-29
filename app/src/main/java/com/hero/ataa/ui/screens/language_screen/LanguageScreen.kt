@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.language_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,7 @@ import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularRadioButton
 import com.hero.ataa.utils.findActivity
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LanguageScreen(
     navController: NavController,

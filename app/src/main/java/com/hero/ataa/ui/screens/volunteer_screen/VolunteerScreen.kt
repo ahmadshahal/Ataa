@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.volunteer_screen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -24,6 +25,7 @@ import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.OutlinedMaterialButton
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun VolunteerScreen(navController: NavController) {
     val scrollState = rememberScrollState()

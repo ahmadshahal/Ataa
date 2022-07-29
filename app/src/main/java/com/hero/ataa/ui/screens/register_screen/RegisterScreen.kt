@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.register_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -34,6 +35,7 @@ import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.utils.Country
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel = hiltViewModel()) {
     val scaffoldState = rememberScaffoldState()

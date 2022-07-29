@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.receipts_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -30,6 +31,7 @@ import com.hero.ataa.ui.components.LoadingDots
 import com.hero.ataa.ui.components.Tag
 import java.util.*
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ReceiptsScreen(
     navController: NavController,

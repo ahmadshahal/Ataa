@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.verification_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -32,6 +33,7 @@ import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaFont
 import java.util.*
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun VerificationScreen(
     navController: NavController,

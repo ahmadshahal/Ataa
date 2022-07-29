@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.home_screen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.*
@@ -55,6 +56,7 @@ import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 import java.util.*
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     navController: NavController,

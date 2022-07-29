@@ -1,5 +1,6 @@
 package com.hero.ataa.ui.screens.profile_screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +31,7 @@ import com.hero.ataa.ui.components.LoadingDialog
 import com.hero.ataa.ui.components.ProfileButton
 import com.hero.ataa.ui.navigation.Screen
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
     navController: NavController,
