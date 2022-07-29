@@ -4,6 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hero.ataa.data.local.repositories.NotificationsRepository
+import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.domain.use_cases.PayUseCase
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
@@ -18,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PaymentViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val settingsRepository: SettingsRepository,
+    private val notificationsRepository: NotificationsRepository,
     private val payUseCase: PayUseCase
 ) : ViewModel() {
 
@@ -53,6 +57,9 @@ class PaymentViewModel @Inject constructor(
                     }
                     is DataState.Success -> {
                         loadingDialogState.value = false
+                        if(settingsRepository.settings().notifications) {
+                             notificationsRepository.triggerPaymentNotification()
+                        }
                         _uiEvent.send(UiEvent.PopBackStack)
                         _uiEvent.send(UiEvent.SendUrlIntent(url = dataState.data))
                     }

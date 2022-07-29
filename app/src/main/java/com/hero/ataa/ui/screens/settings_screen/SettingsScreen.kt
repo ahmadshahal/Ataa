@@ -8,14 +8,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
@@ -27,7 +30,8 @@ import com.hero.ataa.ui.navigation.Screen
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
     Scaffold(
@@ -71,9 +75,34 @@ fun SettingsScreen(
                 text = stringResource(id = R.string.dark_mode),
                 suffix = {
                     Switch(
-                        checked = mainViewModel.isDarkMode.value,
+                        checked = settingsViewModel.darkModeFlow.collectAsState(initial = false).value,
                         onCheckedChange = {
-                            mainViewModel.isDarkMode.value = it
+                            settingsViewModel.updateDarkMode(it)
+                        },
+                        modifier = Modifier,
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = MaterialTheme.colors.primary,
+                            checkedTrackColor = MaterialTheme.colors.primary,
+                            checkedTrackAlpha = 0.3F,
+                        )
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            SettingsButton(
+                prefix = {
+                    Icon(
+                        Icons.Rounded.Notifications,
+                        tint = MaterialTheme.colors.primary,
+                        contentDescription = ""
+                    )
+                },
+                text = stringResource(id = R.string.notifications),
+                suffix = {
+                    Switch(
+                        checked = settingsViewModel.notificationsFlow.collectAsState(initial = true).value,
+                        onCheckedChange = {
+                            settingsViewModel.updateNotifications(it)
                         },
                         modifier = Modifier,
                         colors = SwitchDefaults.colors(
@@ -113,6 +142,6 @@ private fun SettingsAppBar(navController: NavController, scrollState: ScrollStat
                 )
             }
         },
-        elevation = if(scrollState.value > 0) 1.dp else 0.dp
+        elevation = if (scrollState.value > 0) 1.dp else 0.dp
     )
 }

@@ -21,8 +21,6 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
-import com.hero.ataa.notification.NotificationHelper
-import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.LoadingDialog
@@ -52,13 +50,6 @@ fun PaymentScreen(
                 }
                 is UiEvent.SendUrlIntent -> {
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uiEvent.url))
-                    NotificationHelper.createNotification(
-                        context = context,
-                        title = context.getString(R.string.thank_you),
-                        content = context.getString(R.string.thank_you_for_considering),
-                        channelName = Constants.NOTIFICATION_CHANNEL_NAME,
-                        bigText = context.getString(R.string.thank_you_for_considering),
-                    )
                     startActivity(context, browserIntent, null)
                 }
                 else -> Unit

@@ -10,7 +10,7 @@ class SettingsRepository @Inject constructor(
 ) {
     val settingsFlow = settingsDataStore.data
 
-    suspend fun initialSettings() = settingsDataStore.data.first()
+    suspend fun settings() = settingsDataStore.data.first()
 
     suspend fun update(transform: (Settings) -> Settings) {
         settingsDataStore.updateData(transform)

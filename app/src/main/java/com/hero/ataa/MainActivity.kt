@@ -5,6 +5,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.hero.ataa.notification.NotificationHelper
@@ -22,7 +23,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val splashScreen = installSplashScreen()
+        val splashScreen = installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                mainViewModel.loading
+            }
+        }
 
         super.onCreate(savedInstanceState)
 
@@ -64,7 +69,7 @@ class MainActivity : ComponentActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
 
         setContent {
-            AtaaTheme(isDarkMode = mainViewModel.isDarkMode.value) {
+            AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
                 NavGraph(mainViewModel = mainViewModel)
             }
         }

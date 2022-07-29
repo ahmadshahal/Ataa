@@ -35,7 +35,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
         composable(route = Screen.LoginScreen.route) {
-            LoginScreen(navController = navController, isDarkMode = mainViewModel.isDarkMode.value)
+            LoginScreen(navController = navController)
         }
         composable(route = Screen.RegisterScreen.route) {
             RegisterScreen(navController = navController)
