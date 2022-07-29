@@ -3,6 +3,7 @@ package com.hero.ataa.ui.screens.language_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hero.ataa.data.local.repositories.RestartRepository
 import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.shared.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,13 +16,15 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
+    private val restartRepository: RestartRepository
 ) : ViewModel() {
 
     private val _uiEvent: Channel<UiEvent> = Channel()
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
 
-    val isArabic = mutableStateOf<Boolean>(true)
+    val isArabic = mutableStateOf(true)
+    val loading = mutableStateOf(false)
 
     init {
         viewModelScope.launch {
@@ -31,11 +34,16 @@ class LanguageViewModel @Inject constructor(
 
     fun save() {
         viewModelScope.launch {
-            settingsRepository.update {
-                it.copy(arabic = isArabic.value)
+            if(settingsRepository.settings().arabic != isArabic.value) {
+                loading.value = true
+                settingsRepository.update {
+                    it.copy(arabic = isArabic.value)
+                }
+                restartRepository.triggerRestart()
             }
-            _uiEvent.send(UiEvent.PopBackStack)
-            // context.findActivity()?.recreate()
+            else {
+                _uiEvent.send(UiEvent.PopBackStack)
+            }
         }
     }
 }

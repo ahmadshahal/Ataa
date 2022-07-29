@@ -60,16 +60,26 @@ fun LanguageScreen(
             MaterialButton(
                 modifier = Modifier.padding(vertical = 16.dp),
                 content = {
-                    Text(
-                        text = stringResource(id = R.string.save),
-                        style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
-                    )
+                    if(viewModel.loading.value) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colors.onPrimary,
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.5.dp
+                        )
+                    }
+                    else {
+                        Text(
+                            text = stringResource(id = R.string.save),
+                            style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
+                        )
+                    }
                 },
                 onClick = {
                     viewModel.save()
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
+                enabled = !viewModel.loading.value
             )
         }
     }

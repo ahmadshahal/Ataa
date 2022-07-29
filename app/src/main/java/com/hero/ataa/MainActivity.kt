@@ -13,6 +13,7 @@ import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.navigation.NavGraph
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 
@@ -31,6 +32,14 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        val isArabic = runBlocking {
+            mainViewModel.settingsRepository.settings().arabic
+        }
+
+        val notificationsOn = runBlocking {
+            mainViewModel.settingsRepository.settings().notifications
+        }
+
         NotificationHelper.createNotificationChannel(
             context = this,
             name = Constants.NOTIFICATION_CHANNEL_NAME,
@@ -39,13 +48,15 @@ class MainActivity : ComponentActivity() {
             showBadge = false,
         )
 
-        NotificationHelper.createNotification(
-            this,
-            title = getString(R.string.donate_now),
-            content = getString(R.string.donate_to_ataa_charity_project),
-            channelName = Constants.NOTIFICATION_CHANNEL_NAME,
-            bigText = getString(R.string.donate_to_ataa_charity_project),
-        )
+        if(notificationsOn) {
+            NotificationHelper.createNotification(
+                this,
+                title = getString(R.string.donate_now),
+                content = getString(R.string.donate_to_ataa_charity_project),
+                channelName = Constants.NOTIFICATION_CHANNEL_NAME,
+                bigText = getString(R.string.donate_to_ataa_charity_project),
+            )
+        }
 
         // Preventing the System settings to change the font size.
         val configuration = resources.configuration
@@ -58,11 +69,11 @@ class MainActivity : ComponentActivity() {
 
         // Changing Locale.
         val config = resources.configuration
-        val locale = Locale("ar")
-//            if (mainViewModel.isArabic)
-//                Locale("ar")
-//            else
-//                Locale("en")
+        val locale =
+            if (isArabic)
+                Locale("ar")
+            else
+                Locale("en")
         Locale.setDefault(locale)
         config.setLocale(locale)
         createConfigurationContext(config)

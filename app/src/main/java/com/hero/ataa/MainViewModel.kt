@@ -10,9 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    settingsRepository: SettingsRepository
+    val settingsRepository: SettingsRepository
 ) : ViewModel() {
-    val arabicFlow = settingsRepository.settingsFlow.map { it.arabic }
     val darkModeFlow = settingsRepository.settingsFlow.map { it.darkMode }
 
     var loading: Boolean = true
