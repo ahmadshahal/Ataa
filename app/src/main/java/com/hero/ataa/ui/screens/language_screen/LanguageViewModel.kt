@@ -3,9 +3,9 @@ package com.hero.ataa.ui.screens.language_screen
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hero.ataa.data.local.repositories.RestartRepository
 import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.shared.UiEvent
+import com.hero.ataa.system.RestartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

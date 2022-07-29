@@ -1,4 +1,4 @@
-package com.hero.ataa.notification
+package com.hero.ataa.system.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

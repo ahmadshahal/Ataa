@@ -8,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.hero.ataa.notification.NotificationHelper
 import com.hero.ataa.shared.Constants
+import com.hero.ataa.system.notification.NotificationHelper
 import com.hero.ataa.ui.navigation.NavGraph
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint

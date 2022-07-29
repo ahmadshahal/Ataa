@@ -4,12 +4,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hero.ataa.data.local.repositories.NotificationsRepository
 import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.domain.use_cases.PayUseCase
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
+import com.hero.ataa.system.notification.NotificationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
