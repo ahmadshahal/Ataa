@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.hero.ataa.notification.NotificationHelper
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.navigation.NavGraph
@@ -20,7 +21,9 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_Ataa)
+
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         NotificationHelper.createNotificationChannel(

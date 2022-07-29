@@ -1,7 +1,7 @@
 package com.hero.ataa.ui.theme
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -55,7 +55,7 @@ fun AtaaTheme(isDarkMode: Boolean = isSystemInDarkTheme(), content: @Composable 
     }
 
     CompositionLocalProvider(
-        LocalOverScrollConfiguration provides null,
+        LocalOverscrollConfiguration provides null,
     ) {
         MaterialTheme(
             colors = colors,

@@ -63,6 +63,8 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
+
     // Compose Extras
     implementation "com.google.accompanist:accompanist-flowlayout:0.25.0"
     implementation "com.github.skydoves:landscapist-coil:1.5.2"
