@@ -51,9 +51,7 @@ fun LoginScreen(
                 }
                 is UiEvent.Navigate -> {
                     navController.navigate(uiEvent.route) {
-                        popUpTo(route = Screen.LoginScreen.route) {
-                            this.inclusive = true
-                        }
+                        popUpTo(0)
                     }
                 }
                 else -> Unit
@@ -206,9 +204,7 @@ private fun SkipRow(navController: NavController) {
         TextButton(
             onClick = {
                 navController.navigate(Screen.HomeScreen.route) {
-                    popUpTo(route = Screen.LoginScreen.route) {
-                        this.inclusive = true
-                    }
+                    popUpTo(0)
                 }
             },
             modifier = Modifier.width(45.dp)

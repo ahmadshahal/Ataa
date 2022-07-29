@@ -30,9 +30,9 @@ import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
 import com.hero.ataa.ui.screens.zakat_project_screen.ZakatProjectScreen
 
 @Composable
-fun NavGraph() {
+fun NavGraph(startDestination: String) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
+    NavHost(navController = navController, startDestination = startDestination) {
         composable(route = Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
         }

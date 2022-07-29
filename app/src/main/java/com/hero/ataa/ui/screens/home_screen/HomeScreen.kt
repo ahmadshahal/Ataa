@@ -17,9 +17,11 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.VolunteerActivism
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Login
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -269,7 +271,7 @@ private fun HomeAppBar(scaffoldState: ScaffoldState, scrollState: ScrollState) {
                 )
             }
         },
-        elevation = if(scrollState.value > 0) 1.dp else 0.dp
+        elevation = if (scrollState.value > 0) 1.dp else 0.dp
     )
 }
 
@@ -294,11 +296,23 @@ private fun AppDrawer(
                 .background(MaterialTheme.colors.primary)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        DrawerButton(
-            text = stringResource(id = R.string.my_account),
-            icon = Icons.Rounded.AccountCircle,
-        ) {
-            navController.navigate(Screen.ProfileScreen.route)
+        when (viewModel.loggedInFlow.collectAsState().value) {
+            true -> {
+                DrawerButton(
+                    text = stringResource(id = R.string.my_account),
+                    icon = Icons.Rounded.AccountCircle,
+                ) {
+                    navController.navigate(Screen.ProfileScreen.route)
+                }
+            }
+            false -> {
+                DrawerButton(
+                    text = stringResource(id = R.string.login),
+                    icon = Icons.Rounded.Login,
+                ) {
+                    navController.navigate(Screen.LoginScreen.route)
+                }
+            }
         }
         Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
@@ -324,15 +338,21 @@ private fun AppDrawer(
             text = stringResource(id = R.string.about_us),
             icon = Icons.Outlined.Info,
         ) {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/ahmad-shahal/"))
+            val browserIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/ahmad-shahal/"))
             startActivity(context, browserIntent, null)
         }
-        Spacer(modifier = Modifier.height(4.dp))
-        DrawerButton(
-            text = stringResource(id = R.string.log_out),
-            icon = Icons.Rounded.Logout,
-        ) {
-            viewModel.logOutPopUpDialogState.value = true
+        when (viewModel.loggedInFlow.collectAsState().value) {
+            true -> {
+                Spacer(modifier = Modifier.height(4.dp))
+                DrawerButton(
+                    text = stringResource(id = R.string.log_out),
+                    icon = Icons.Rounded.Logout,
+                ) {
+                    viewModel.logOutPopUpDialogState.value = true
+                }
+            }
+            false -> Unit
         }
         Spacer(modifier = Modifier.height(8.dp))
     }

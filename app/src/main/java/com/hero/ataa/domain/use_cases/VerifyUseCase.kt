@@ -1,19 +1,31 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
+import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.domain.models.User
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class VerifyUseCase @Inject constructor() {
-    operator fun invoke(verifyCode: String, email: String) = flow<DataState<String>> {
+class VerifyUseCase @Inject constructor(
+    private val userRepository: UserRepository
+) {
+    operator fun invoke(verifyCode: String, email: String) = flow<DataState<Nothing>> {
         emit(DataState.Loading())
         try {
             delay(3000)
-            val token = "1234"
-            emit(DataState.Success(token))
+            val user = User(
+                name = "Ahmad Al-Shahal",
+                email = "ahmad.alshahal2@gmail.com",
+                token = "bearer 123410923124",
+            )
+            userRepository.update {
+                it.copy(name = user.name, email = user.email, token = user.token)
+            }
+            userRepository.triggerLoggedInValue(true)
+            emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
             emit(
                 DataState.Error(

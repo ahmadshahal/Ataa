@@ -24,6 +24,7 @@ class LoginUseCase @Inject constructor(
             userRepository.update {
                 it.copy(name = user.name, email = user.email, token = user.token)
             }
+            userRepository.triggerLoggedInValue(true)
             emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
             emit(

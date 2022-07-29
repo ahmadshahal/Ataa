@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hero.ataa.data.local.repositories.UserRepository
 import com.hero.ataa.domain.use_cases.GetAdsUseCase
 import com.hero.ataa.domain.use_cases.LogoutUseCase
 import com.hero.ataa.shared.DataState
@@ -19,8 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAdsUseCase: GetAdsUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    userRepository: UserRepository,
 ) : ViewModel() {
+
     private val _adsUiState = mutableStateOf<AdsUiState>(AdsUiState.Loading)
     val adsUiState: State<AdsUiState>
         get() = _adsUiState
@@ -28,6 +31,8 @@ class HomeViewModel @Inject constructor(
     private val _uiEvent: Channel<UiEvent> = Channel()
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
+
+    val loggedInFlow = userRepository.loggedInFlow
 
     val logOutPopUpDialogState = mutableStateOf<Boolean>(false)
     val loadingDialogState = mutableStateOf<Boolean>(false)

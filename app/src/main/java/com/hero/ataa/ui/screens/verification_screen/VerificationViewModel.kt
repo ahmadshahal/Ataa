@@ -72,7 +72,7 @@ class VerificationViewModel @Inject constructor(
                                 )
                             )
                         }
-                        is DataState.Success -> {
+                        is DataState.SuccessWithoutData -> {
                             _verifyUiState.value = VerifyUiState.Initial
                             _uiEvent.send(UiEvent.Navigate(route = Screen.HomeScreen.route))
                         }

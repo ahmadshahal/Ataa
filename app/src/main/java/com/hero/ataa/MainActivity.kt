@@ -11,6 +11,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.system.notification.NotificationHelper
 import com.hero.ataa.ui.navigation.NavGraph
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -32,6 +33,16 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        setContent {
+            AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
+                NavGraph(
+                    startDestination = if (mainViewModel.loggedIn.value)
+                        Screen.HomeScreen.route
+                    else Screen.LoginScreen.route
+                )
+            }
+        }
+
         val isArabic = runBlocking {
             mainViewModel.settingsRepository.settings().arabic
         }
@@ -48,7 +59,7 @@ class MainActivity : ComponentActivity() {
             showBadge = false,
         )
 
-        if(notificationsOn) {
+        if (notificationsOn) {
             NotificationHelper.createNotification(
                 this,
                 title = getString(R.string.donate_now),
@@ -78,11 +89,5 @@ class MainActivity : ComponentActivity() {
         config.setLocale(locale)
         createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
-
-        setContent {
-            AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
-                NavGraph()
-            }
-        }
     }
 }

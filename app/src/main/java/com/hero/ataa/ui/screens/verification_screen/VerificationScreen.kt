@@ -29,7 +29,6 @@ import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.OneCharTextField
-import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaFont
 import java.util.*
 
@@ -54,9 +53,7 @@ fun VerificationScreen(
                 }
                 is UiEvent.Navigate -> {
                     navController.navigate(uiEvent.route) {
-                        popUpTo(route = Screen.RegisterScreen.route) {
-                            this.inclusive = true
-                        }
+                        popUpTo(0)
                     }
                 }
                 else -> Unit
