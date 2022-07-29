@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.SettingsButton
@@ -30,7 +29,6 @@ import com.hero.ataa.ui.navigation.Screen
 @Composable
 fun SettingsScreen(
     navController: NavController,
-    mainViewModel: MainViewModel,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -59,7 +57,7 @@ fun SettingsScreen(
                 },
                 text = stringResource(id = R.string.language),
                 onClick = {
-                    navController.navigate(Screen.LanguageScreen.route + "/${mainViewModel.isArabic}")
+                    navController.navigate(Screen.LanguageScreen.route)
                 },
                 clickable = true,
             )

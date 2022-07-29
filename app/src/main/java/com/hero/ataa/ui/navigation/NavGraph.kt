@@ -72,15 +72,9 @@ fun NavGraph(mainViewModel: MainViewModel) {
             VolunteerScreen(navController = navController)
         }
         composable(
-            route = Screen.LanguageScreen.route + "/{${Constants.NavArgs.IS_ARABIC_KEY}}",
-            arguments = listOf(
-                navArgument(name = Constants.NavArgs.IS_ARABIC_KEY) {
-                    type = NavType.BoolType
-                    nullable = false
-                }
-            )
+            route = Screen.LanguageScreen.route,
         ) {
-            LanguageScreen(navController = navController, mainViewModel = mainViewModel)
+            LanguageScreen(navController = navController)
         }
         composable(
             route = Screen.SadakaProjectScreen.route,
@@ -100,7 +94,7 @@ fun NavGraph(mainViewModel: MainViewModel) {
         composable(
             route = Screen.SettingsScreen.route,
         ) {
-            SettingsScreen(navController = navController, mainViewModel = mainViewModel)
+            SettingsScreen(navController = navController)
         }
         composable(
             route = Screen.VerificationScreen.route + "/{${Constants.NavArgs.EMAIL_KEY}}",

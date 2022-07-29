@@ -7,31 +7,40 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.hero.ataa.MainViewModel
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.RectangularRadioButton
-import com.hero.ataa.utils.findActivity
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LanguageScreen(
     navController: NavController,
     viewModel: LanguageViewModel = hiltViewModel(),
-    mainViewModel: MainViewModel
 ) {
     val scrollState = rememberScrollState()
-    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.PopBackStack -> {
+                    navController.popBackStack()
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
@@ -57,11 +66,7 @@ fun LanguageScreen(
                     )
                 },
                 onClick = {
-                    if (mainViewModel.isArabic != viewModel.isArabic.value) {
-                        mainViewModel.isArabic = viewModel.isArabic.value
-                        context.findActivity()?.recreate()
-                    }
-                    navController.popBackStack()
+                    viewModel.save()
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,

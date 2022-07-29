@@ -58,11 +58,11 @@ class MainActivity : ComponentActivity() {
 
         // Changing Locale.
         val config = resources.configuration
-        val locale =
-            if (mainViewModel.isArabic)
-                Locale("ar")
-            else
-                Locale("en")
+        val locale = Locale("ar")
+//            if (mainViewModel.isArabic)
+//                Locale("ar")
+//            else
+//                Locale("en")
         Locale.setDefault(locale)
         config.setLocale(locale)
         createConfigurationContext(config)
