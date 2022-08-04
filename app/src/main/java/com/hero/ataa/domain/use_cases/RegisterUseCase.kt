@@ -1,18 +1,27 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
+import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class RegisterUseCase @Inject constructor() {
+class RegisterUseCase @Inject constructor(
+    private val authRepository: AuthRepository
+) {
     operator fun invoke(email: String, fullName: String, password: String, phoneNumber: String) =
         flow<DataState<Nothing>> {
             emit(DataState.Loading())
             try {
                 delay(3000)
+                authRepository.register(
+                    email = email,
+                    password = password,
+                    fullName = fullName,
+                    phoneNumber = phoneNumber
+                )
                 emit(DataState.SuccessWithoutData())
             } catch (ex: Exception) {
                 emit(

@@ -2,7 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
-import com.hero.ataa.domain.models.User
+import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import kotlinx.coroutines.delay
@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 
 class EditProfileUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository
 ) {
     operator fun invoke(
         fullName: String? = null,
@@ -21,11 +22,7 @@ class EditProfileUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(3000)
-            val user = User(
-                name = "Ahmad Al-Shahal",
-                email = "ahmad.alshahal2@gmail.com",
-                token = "bearer 123410923124",
-            )
+            val user = authRepository.editProfile(name = fullName, oldPassword = oldPassword, password = password)
             userRepository.update {
                 it.copy(name = user.name, email = user.email, token = user.token)
             }

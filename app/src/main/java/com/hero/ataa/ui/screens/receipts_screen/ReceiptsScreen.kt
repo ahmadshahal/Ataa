@@ -177,7 +177,7 @@ private fun ReceiptItem(receipt: Receipt) {
             Spacer(modifier = Modifier.height(10.dp))
             InfoRow(
                 prefix = stringResource(id = R.string.payment_method),
-                suffix = "MasterCard | ${receipt.cardCode}"
+                suffix = "Paypal"
             )
         }
     }
