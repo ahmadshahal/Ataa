@@ -6,7 +6,7 @@ import com.hero.ataa.shared.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class NotificationsRepository @Inject constructor(
+class NotificationsService @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     fun triggerPaymentNotification() {

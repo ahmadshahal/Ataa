@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.shared.UiEvent
-import com.hero.ataa.system.RestartRepository
+import com.hero.ataa.system.RestartService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    private val restartRepository: RestartRepository
+    private val restartService: RestartService
 ) : ViewModel() {
 
     private val _uiEvent: Channel<UiEvent> = Channel()
@@ -39,7 +39,7 @@ class LanguageViewModel @Inject constructor(
                 settingsRepository.update {
                     it.copy(arabic = isArabic.value)
                 }
-                restartRepository.triggerRestart()
+                restartService.triggerRestart()
             }
             else {
                 _uiEvent.send(UiEvent.PopBackStack)

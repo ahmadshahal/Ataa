@@ -41,7 +41,7 @@ object NotificationHelper {
         val channelId = "${context.packageName}-${channelName}"
 
         val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(R.drawable.ic_outer_logo_icon)
+            setSmallIcon(R.drawable.ic_notification_logo)
             setContentTitle(title)
             setContentText(content)
             setStyle(NotificationCompat.BigTextStyle().bigText(bigText))
