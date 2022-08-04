@@ -39,8 +39,6 @@ class PaymentViewModel @Inject constructor(
         viewModelScope.launch {
             payUseCase(
                 donationValue = donationValue,
-                // TODO.
-                token = "",
                 projectId = projectId
             ).collect { dataState ->
                 when (dataState) {
