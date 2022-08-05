@@ -69,7 +69,7 @@ fun ProjectScreen(
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
             ) {
-                ContentColumn(project = project, scrollState = scrollState)
+                ContentColumn(project = project, scrollState = scrollState, viewModel = viewModel)
                 if(viewModel.userLoggedInFlow.collectAsState().value) {
                     DonateButton(
                         modifier = Modifier.align(Alignment.BottomCenter),
@@ -103,7 +103,7 @@ private fun ProjectAppBar(navController: NavController, scrollState: ScrollState
 }
 
 @Composable
-private fun ContentColumn(scrollState: ScrollState, project: Project) {
+private fun ContentColumn(scrollState: ScrollState, project: Project, viewModel: ProjectViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -166,7 +166,10 @@ private fun ContentColumn(scrollState: ScrollState, project: Project) {
             style = MaterialTheme.typography.overline.copy(color = MaterialTheme.colors.primaryVariant),
             lineHeight = 20.sp
         )
-        Spacer(modifier = Modifier.height(75.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        if(viewModel.userLoggedInFlow.collectAsState().value) {
+            Spacer(modifier = Modifier.height(59.dp))
+        }
     }
 }
 
