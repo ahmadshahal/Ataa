@@ -16,7 +16,7 @@ class GetAllProjectsUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(1000)
-            val list = projectsRepository.getAllProjects()
+            val list = projectsRepository.getAllProjects().projects
             emit(DataState.Success(data = list))
         } catch (ex: Exception) {
             emit(

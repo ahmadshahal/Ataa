@@ -1,8 +1,8 @@
 package com.hero.ataa.data.remote.repositories
 
 import com.hero.ataa.data.remote.models.requests.*
+import com.hero.ataa.data.remote.models.responses.UserResponse
 import com.hero.ataa.di.BASE_URL
-import com.hero.ataa.domain.models.User
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -19,7 +19,7 @@ private const val VALIDATE_TOKEN_URL = "/m/tokencheck"
 class AuthRepository @Inject constructor(
     private val httpClient: HttpClient
 ) {
-    suspend fun login(loginRequest: LoginRequest): User {
+    suspend fun login(loginRequest: LoginRequest): UserResponse {
         return httpClient.post {
             url("${BASE_URL}${LOGIN_URL}")
             setBody(loginRequest)
@@ -33,7 +33,7 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun editProfile(editProfileRequest: EditProfileRequest, token: String): User {
+    suspend fun editProfile(editProfileRequest: EditProfileRequest, token: String): UserResponse {
         return httpClient.post {
             url("${BASE_URL}${EDIT_PROFILE_URL}")
             setBody(editProfileRequest)
@@ -41,7 +41,7 @@ class AuthRepository @Inject constructor(
         }.body()
     }
 
-    suspend fun verifyEmail(verifyEmailRequest: VerifyEmailRequest): User {
+    suspend fun verifyEmail(verifyEmailRequest: VerifyEmailRequest): UserResponse {
         return httpClient.post {
             url("${BASE_URL}${VERIFY_URL}")
             setBody(verifyEmailRequest)

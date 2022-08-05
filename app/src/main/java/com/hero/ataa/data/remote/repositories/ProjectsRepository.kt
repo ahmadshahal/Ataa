@@ -2,10 +2,10 @@ package com.hero.ataa.data.remote.repositories
 
 import com.hero.ataa.data.remote.models.requests.PayRequest
 import com.hero.ataa.data.remote.models.responses.PayResponse
+import com.hero.ataa.data.remote.models.responses.ProjectsResponse
+import com.hero.ataa.data.remote.models.responses.ReceiptsResponse
 import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Ad
-import com.hero.ataa.domain.models.Project
-import com.hero.ataa.domain.models.Receipt
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -37,13 +37,13 @@ class ProjectsRepository @Inject constructor(
         )
     }
 
-    suspend fun getAllProjects(): List<Project> {
+    suspend fun getAllProjects(): ProjectsResponse {
         return httpClient.get {
             url("${BASE_URL}${GET_ALL_PROJECTS_URL}")
         }.body()
     }
 
-    suspend fun getProjects(categoryApiKey: String): List<Project> {
+    suspend fun getProjects(categoryApiKey: String): ProjectsResponse {
         return httpClient.get {
             url("${BASE_URL}${GET_PROJECTS_BY_TAG_URL}${categoryApiKey}")
         }.body()
@@ -57,7 +57,7 @@ class ProjectsRepository @Inject constructor(
         return 900000
     }
 
-    suspend fun getReceipts(token: String): List<Receipt> {
+    suspend fun getReceipts(token: String): ReceiptsResponse {
         return httpClient.get {
             url("${BASE_URL}${RECEIPTS_URL}")
             header(HttpHeaders.Authorization, "Bearer $token")

@@ -19,7 +19,7 @@ class GetReceiptsUseCase @Inject constructor(
         try {
             delay(1000)
             val token = userRepository.user().token
-            val list = projectsRepository.getReceipts(token = token)
+            val list = projectsRepository.getReceipts(token = token).receipts
             emit(DataState.Success(data = list))
         } catch (ex: Exception) {
             emit(

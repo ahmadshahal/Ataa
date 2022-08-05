@@ -3,6 +3,7 @@ package com.hero.ataa.domain.use_cases
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
 import com.hero.ataa.data.remote.models.requests.EditProfileRequest
+import com.hero.ataa.data.remote.models.responses.toUser
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -30,7 +31,7 @@ class EditProfileUseCase @Inject constructor(
                     password = password
                 ),
                 token = userRepository.user().token
-            )
+            ).toUser()
             userRepository.update {
                 it.copy(name = user.name, email = user.email, token = user.token)
             }
