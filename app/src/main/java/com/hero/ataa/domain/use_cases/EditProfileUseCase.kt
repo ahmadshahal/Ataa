@@ -2,6 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.data.remote.models.EditProfileRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -22,7 +23,14 @@ class EditProfileUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(3000)
-            val user = authRepository.editProfile(name = fullName, oldPassword = oldPassword, password = password)
+            val user = authRepository.editProfile(
+                editProfileRequest = EditProfileRequest(
+                    fullName = fullName,
+                    oldPassword = oldPassword,
+                    password = password
+                ),
+                token = userRepository.user().token
+            )
             userRepository.update {
                 it.copy(name = user.name, email = user.email, token = user.token)
             }

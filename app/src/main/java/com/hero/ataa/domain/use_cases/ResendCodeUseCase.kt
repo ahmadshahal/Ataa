@@ -1,6 +1,7 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
+import com.hero.ataa.data.remote.models.ResendCodeRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -15,7 +16,7 @@ class ResendCodeUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(3000)
-            authRepository.resendCode(email = email)
+            authRepository.resendCode(ResendCodeRequest(email = email))
             emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
             emit(

@@ -2,6 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.data.remote.models.VerifyEmailRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -17,7 +18,7 @@ class VerifyUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(3000)
-            val user = authRepository.verifyEmail(verifyCode = verifyCode, email = email)
+            val user = authRepository.verifyEmail(VerifyEmailRequest(email = email, verificationCode = verifyCode))
             userRepository.update {
                 it.copy(name = user.name, email = user.email, token = user.token)
             }

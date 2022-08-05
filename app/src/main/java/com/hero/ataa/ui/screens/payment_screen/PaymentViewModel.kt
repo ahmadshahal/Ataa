@@ -39,7 +39,7 @@ class PaymentViewModel @Inject constructor(
         viewModelScope.launch {
             payUseCase(
                 donationValue = donationValue,
-                projectId = projectId
+                projectId = projectId.toInt()
             ).collect { dataState ->
                 when (dataState) {
                     is DataState.Loading -> {

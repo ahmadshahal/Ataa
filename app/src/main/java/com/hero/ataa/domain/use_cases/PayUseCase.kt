@@ -2,6 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.data.remote.models.PayRequest
 import com.hero.ataa.data.remote.repositories.ProjectsRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -15,13 +16,13 @@ class PayUseCase @Inject constructor(
 ) {
     operator fun invoke(
         donationValue: String,
-        projectId: String
+        projectId: Int
     ) = flow<DataState<String>> {
         emit(DataState.Loading())
         try {
             delay(3000)
             val token = userRepository.user().token
-            val url = projectsRepository.pay(token = token, donationValue = donationValue, projectId = projectId)
+            val url = projectsRepository.pay(token = token, payRequest = PayRequest(projectId = projectId, value = donationValue)).url
             emit(DataState.Success(url))
         } catch (ex: Exception) {
             emit(

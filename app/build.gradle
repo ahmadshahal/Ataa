@@ -98,4 +98,11 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     implementation 'com.jakewharton:process-phoenix:2.1.2'
+
+    // Ktor Http Client
+    implementation 'io.ktor:ktor-client-core:2.0.3'
+    implementation 'io.ktor:ktor-client-android:2.0.3'
+    implementation 'io.ktor:ktor-client-content-negotiation:2.0.3'
+    implementation 'io.ktor:ktor-serialization-kotlinx-json:2.0.3'
+    implementation 'io.ktor:ktor-client-logging-jvm:2.0.3'
 }

@@ -1,6 +1,7 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
+import com.hero.ataa.data.remote.models.RegisterRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
@@ -17,10 +18,12 @@ class RegisterUseCase @Inject constructor(
             try {
                 delay(3000)
                 authRepository.register(
-                    email = email,
-                    password = password,
-                    fullName = fullName,
-                    phoneNumber = phoneNumber
+                    RegisterRequest(
+                        email = email,
+                        password = password,
+                        fullName = fullName,
+                        phoneNumber = phoneNumber,
+                    )
                 )
                 emit(DataState.SuccessWithoutData())
             } catch (ex: Exception) {
