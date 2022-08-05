@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class User(
     @SerialName("full_Name")
-    val name: String,
+    val name: String = "Ahmad",
 
     @SerialName("email")
-    val email: String,
+    val email: String = "ahmad.alshahal@gmail.com",
 
     @SerialName("token")
-    val token: String
+    val token: String = "bearer 1231234314"
 )
