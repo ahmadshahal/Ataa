@@ -2,31 +2,22 @@ package com.hero.ataa.shared
 
 object Constants {
     object CategoryApiKey {
-        // TODO: Update with the API.
-        const val RAMADAN = "ramadan"
-        const val ORPHAN = "orphan"
-        const val HEALTH = "health"
-        const val MOSQUES = "mosques"
-        const val EDUCATION = "education"
-        const val FOOD = "food"
-        const val HOUSING = "housing"
-        const val DRESSING = "housing"
-        const val SPECIALNEEDS = "special needs"
-        const val ASSISTANCE = "assistance"
-    }
-    object PermanentProjectApiKey {
-        // TODO: Update with the API.
-        const val SADAKA = "sadaka"
-        const val MISKEEN = "miskeen"
-        const val SACRIFICE = "sacrifice"
-        const val ZAKAT = "zakat"
+        const val RAMADAN = "رمضان"
+        const val ORPHAN = "أيتام"
+        const val HEALTH = "صحة"
+        const val MOSQUES = "مساجد"
+        const val EDUCATION = "تعليم"
+        const val FOOD = "غذاء"
+        const val HOUSING = "إسكان"
+        const val DRESSING = "كسوة"
+        const val SPECIALNEEDS = "ذوي الأحتياجات"
+        const val ASSISTANCE = "أغاثة"
     }
     object PermanentProjectId {
-        // TODO: Update with the API.
-        const val SADAKA = "sadaka"
-        const val MISKEEN = "miskeen"
-        const val SACRIFICE = "sacrifice"
-        const val ZAKAT = "zakat"
+        const val SADAKA = "3"
+        const val MISKEEN = "1"
+        const val SACRIFICE = "4"
+        const val ZAKAT = "2"
     }
     object NavArgs {
         const val CATEGORY_KEY = "category"
