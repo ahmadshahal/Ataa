@@ -10,10 +10,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
@@ -41,10 +39,17 @@ import java.util.*
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProjectScreen(project: Project, navController: NavController) {
+fun ProjectScreen(
+    project: Project,
+    navController: NavController,
+    viewModel: ProjectViewModel = hiltViewModel()
+) {
 
     val scrollState = rememberScrollState()
-    val modalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    )
 
     ModalBottomSheetLayout(
         sheetContent = { BottomSheetContent(navController = navController, project = project) },
@@ -65,10 +70,12 @@ fun ProjectScreen(project: Project, navController: NavController) {
                     .padding(horizontal = 16.dp)
             ) {
                 ContentColumn(project = project, scrollState = scrollState)
-                DonateButton(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    modalBottomSheetState = modalBottomSheetState
-                )
+                if(viewModel.userLoggedInFlow.collectAsState().value) {
+                    DonateButton(
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        modalBottomSheetState = modalBottomSheetState
+                    )
+                }
             }
         }
     }
@@ -91,7 +98,7 @@ private fun ProjectAppBar(navController: NavController, scrollState: ScrollState
                 )
             }
         },
-        elevation = if(scrollState.value > 0) 1.dp else 0.dp
+        elevation = if (scrollState.value > 0) 1.dp else 0.dp
     )
 }
 
@@ -165,7 +172,10 @@ private fun ContentColumn(scrollState: ScrollState, project: Project) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun DonateButton(modifier: Modifier = Modifier, modalBottomSheetState: ModalBottomSheetState) {
+private fun DonateButton(
+    modifier: Modifier = Modifier,
+    modalBottomSheetState: ModalBottomSheetState
+) {
 
     val scope = rememberCoroutineScope()
 
