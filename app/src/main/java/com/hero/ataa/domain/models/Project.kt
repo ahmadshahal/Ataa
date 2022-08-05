@@ -30,13 +30,14 @@ data class Project(
     @SerialName("raised")
     val raised: Long,
 
-    // @SerialName("progress")
+    @SerialName("progress")
     val progress: Double = raised.div(raisingGoal.toDouble()),
 
     @SerialName("province")
     val location: String,
 
+    // TODO: Remove Nullability
     @SerialName("image")
-    val imageUrl: String,
+    val imageUrl: String?,
 
 ) : Parcelable
