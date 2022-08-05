@@ -21,18 +21,16 @@ class ValidateTokenUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(3000)
-            if(context.hasNetwork()) {
-                val token = userRepository.user().token
-                if(token.isNotEmpty()) {
+            val token = userRepository.user().token
+            if (token.isNotEmpty()) {
+                if (context.hasNetwork()) {
                     authRepository.validateToken(token)
                     userRepository.triggerLoggedInValue(true)
+                } else {
+                    userRepository.triggerLoggedInValue(true)
                 }
-                else {
-                    userRepository.triggerLoggedInValue(false)
-                }
-            }
-            else {
-                userRepository.triggerLoggedInValue(true)
+            } else {
+                userRepository.triggerLoggedInValue(false)
             }
             emit(DataState.SuccessWithoutData())
         } catch (ex: Exception) {
