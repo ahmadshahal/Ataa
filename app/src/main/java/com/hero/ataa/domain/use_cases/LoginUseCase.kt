@@ -2,7 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
-import com.hero.ataa.data.remote.models.LoginRequest
+import com.hero.ataa.data.remote.models.requests.LoginRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText

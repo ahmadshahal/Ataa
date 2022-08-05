@@ -2,7 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
-import com.hero.ataa.data.remote.models.PayRequest
+import com.hero.ataa.data.remote.models.requests.PayRequest
 import com.hero.ataa.data.remote.repositories.ProjectsRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText

@@ -1,6 +1,6 @@
 package com.hero.ataa.data.remote.repositories
 
-import com.hero.ataa.data.remote.models.*
+import com.hero.ataa.data.remote.models.requests.*
 import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.User
 import io.ktor.client.*

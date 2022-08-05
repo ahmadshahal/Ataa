@@ -1,7 +1,7 @@
 package com.hero.ataa.data.remote.repositories
 
-import com.hero.ataa.data.remote.models.PayRequest
-import com.hero.ataa.data.remote.models.PayResponse
+import com.hero.ataa.data.remote.models.requests.PayRequest
+import com.hero.ataa.data.remote.models.responses.PayResponse
 import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.domain.models.Project

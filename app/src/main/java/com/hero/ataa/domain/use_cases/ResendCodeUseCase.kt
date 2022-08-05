@@ -1,7 +1,7 @@
 package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
-import com.hero.ataa.data.remote.models.ResendCodeRequest
+import com.hero.ataa.data.remote.models.requests.ResendCodeRequest
 import com.hero.ataa.data.remote.repositories.AuthRepository
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
