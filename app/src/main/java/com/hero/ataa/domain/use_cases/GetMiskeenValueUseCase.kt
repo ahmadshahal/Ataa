@@ -15,7 +15,7 @@ class GetMiskeenValueUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(1000)
-            val value = projectsRepository.getMiskeenValue()
+            val value = projectsRepository.getMiskeenValue().projectValue
             emit(DataState.Success(data = value))
         } catch (ex: Exception) {
             emit(

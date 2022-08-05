@@ -2,6 +2,7 @@ package com.hero.ataa.data.remote.repositories
 
 import com.hero.ataa.data.remote.models.requests.PayRequest
 import com.hero.ataa.data.remote.models.responses.PayResponse
+import com.hero.ataa.data.remote.models.responses.ProjectValueResponse
 import com.hero.ataa.data.remote.models.responses.ProjectsResponse
 import com.hero.ataa.data.remote.models.responses.ReceiptsResponse
 import com.hero.ataa.di.BASE_URL
@@ -16,6 +17,8 @@ private const val GET_ALL_PROJECTS_URL = "/m/projects"
 private const val GET_PROJECTS_BY_TAG_URL = "/m/projects/"
 private const val DONATE_URL = "/m/donate"
 private const val RECEIPTS_URL = "/m/profile/donations"
+private const val MISKEEN_URL = "/m/data/miskeen"
+private const val SACRIFICE_URL = "/m/data/sacrifice"
 
 class ProjectsRepository @Inject constructor(
     private val httpClient: HttpClient
@@ -49,12 +52,16 @@ class ProjectsRepository @Inject constructor(
         }.body()
     }
 
-    fun getMiskeenValue(): Int {
-        return 10000
+    suspend fun getMiskeenValue(): ProjectValueResponse {
+        return httpClient.get {
+            url("${BASE_URL}${MISKEEN_URL}")
+        }.body()
     }
 
-    fun getSacrificeValue(): Int {
-        return 900000
+    suspend fun getSacrificeValue(): ProjectValueResponse {
+        return httpClient.get {
+            url("${BASE_URL}${SACRIFICE_URL}")
+        }.body()
     }
 
     suspend fun getReceipts(token: String): ReceiptsResponse {

@@ -15,7 +15,7 @@ class GetSacrificeValueUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
             delay(1000)
-            val value = projectsRepository.getSacrificeValue()
+            val value = projectsRepository.getSacrificeValue().projectValue
             emit(DataState.Success(data = value))
         } catch (ex: Exception) {
             emit(
