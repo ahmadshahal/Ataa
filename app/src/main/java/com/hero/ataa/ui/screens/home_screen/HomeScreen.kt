@@ -187,16 +187,18 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 ContributeWithUsRow(navController)
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    text = stringResource(id = R.string.donate),
-                    style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                DonateRow(navController)
+                if(viewModel.userLoggedInFlow.collectAsState().value) {
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        text = stringResource(id = R.string.donate),
+                        style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground),
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    DonateRow(navController)
+                }
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -520,23 +522,24 @@ private fun MostImportantRow(navController: NavController) {
         crossAxisSpacing = (localConfig.screenWidthDp * 2.5F / 100.0F).dp,
         mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
-        val miskeen = stringResource(id = R.string.poor_feed)
+
         val orphan = stringResource(id = R.string.orphan_assist)
         val ramadan = stringResource(id = R.string.ramadan_projects)
+        val health = stringResource(id = R.string.health)
 
-        CategoryItem(
-            name = miskeen,
-            icon = painterResource(id = R.drawable.ic_food_bag_icon),
-            iconSize = 25.dp
-        ) {
-            navController.navigate(Screen.MiskeenProjectScreen.route)
-        }
         CategoryItem(
             name = orphan,
             icon = painterResource(id = R.drawable.ic_yateem_icon),
             iconSize = 23.dp,
         ) {
             navController.navigate(Screen.ProjectsScreen.route + "/${orphan}/${Constants.CategoryApiKey.ORPHAN}")
+        }
+        CategoryItem(
+            name = health,
+            icon = painterResource(id = R.drawable.ic_health_icon),
+            iconSize = 22.dp,
+        ) {
+            navController.navigate(Screen.ProjectsScreen.route + "/${health}/${Constants.CategoryApiKey.HEALTH}")
         }
         CategoryItem(
             name = ramadan,
@@ -560,7 +563,6 @@ private fun ContributeWithUsRow(navController: NavController) {
         mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
     ) {
         val mosques = stringResource(id = R.string.mosques)
-        val health = stringResource(id = R.string.health)
         val education = stringResource(id = R.string.education)
         val food = stringResource(id = R.string.food)
         val housing = stringResource(id = R.string.housing)
@@ -574,13 +576,6 @@ private fun ContributeWithUsRow(navController: NavController) {
             iconSize = 25.dp,
         ) {
             navController.navigate(Screen.ProjectsScreen.route + "/${mosques}/${Constants.CategoryApiKey.MOSQUES}")
-        }
-        CategoryItem(
-            name = health,
-            icon = painterResource(id = R.drawable.ic_health_icon),
-            iconSize = 22.dp,
-        ) {
-            navController.navigate(Screen.ProjectsScreen.route + "/${health}/${Constants.CategoryApiKey.HEALTH}")
         }
         CategoryItem(
             name = education,
@@ -641,6 +636,7 @@ private fun DonateRow(navController: NavController) {
         val sacrifice = stringResource(id = R.string.sacrifice)
         val sadaka = stringResource(id = R.string.sadaka)
         val zakat = stringResource(id = R.string.paying_zakat)
+        val miskeen = stringResource(id = R.string.poor_feed)
 
         CategoryItem(
             name = sacrifice,
@@ -657,11 +653,19 @@ private fun DonateRow(navController: NavController) {
             navController.navigate(Screen.SadakaProjectScreen.route)
         }
         CategoryItem(
+            name = miskeen,
+            icon = painterResource(id = R.drawable.ic_food_bag_icon),
+            iconSize = 25.dp
+        ) {
+            navController.navigate(Screen.MiskeenProjectScreen.route)
+        }
+        CategoryItem(
             name = zakat,
             icon = painterResource(id = R.drawable.ic_zakat_icon),
         ) {
             navController.navigate(Screen.ZakatProjectScreen.route)
         }
+
     }
 }
 

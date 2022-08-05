@@ -28,6 +28,8 @@ class HomeViewModel @Inject constructor(
     val adsUiState: State<AdsUiState>
         get() = _adsUiState
 
+    val userLoggedInFlow = userRepository.loggedInFlow
+
     private val _uiEvent: Channel<UiEvent> = Channel()
     val uiEvent: Flow<UiEvent>
         get() = _uiEvent.receiveAsFlow()
