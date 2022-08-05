@@ -1,11 +1,13 @@
 package com.hero.ataa.di
 
 import android.util.Log
+import com.hero.ataa.data.remote.models.responses.ErrorResponse
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -28,6 +30,14 @@ object HttpClientModule {
         return HttpClient(Android) {
 
             expectSuccess = true
+            HttpResponseValidator {
+                handleResponseExceptionWithRequest { exception, _ ->
+                    val clientException = exception as? ClientRequestException ?: return@handleResponseExceptionWithRequest
+                    val exceptionResponse = clientException.response
+                    val exceptionResponseText = exceptionResponse.body<ErrorResponse>()
+                    throw Exception(exceptionResponseText.message)
+                }
+            }
 
             install(ContentNegotiation) {
                 json(
