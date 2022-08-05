@@ -7,17 +7,17 @@ import kotlinx.serialization.Serializable
 data class Receipt(
 
     @SerialName("name")
-    val title: String = "بناء وتأثيث مدرسة ابتدائية بمساحة 5500 م2 لتعليم ذوي الاحتياجات الخاصة",
+    val title: String,
 
     @SerialName("categories")
-    val tags: List<String> = listOf("تعليم", "ذوي الهمم"),
+    val tags: List<String>,
 
     @SerialName("project_id")
-    val projectId: String = "#tKt2341",
+    val projectId: String,
 
     @SerialName("date")
-    val donationDate: String = "1/1/2022",
+    val donationDate: String,
 
     @SerialName("value")
-    val donationValue: Int = 200000,
+    val donationValue: Int,
 )
