@@ -2,6 +2,7 @@ package com.hero.ataa.di
 
 import android.util.Log
 import com.hero.ataa.data.remote.models.responses.ErrorResponse
+import com.hero.ataa.shared.AtaaException
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,7 +36,7 @@ object HttpClientModule {
                     val clientException = exception as? ClientRequestException ?: return@handleResponseExceptionWithRequest
                     val exceptionResponse = clientException.response
                     val exceptionResponseText = exceptionResponse.body<ErrorResponse>()
-                    throw Exception(exceptionResponseText.message)
+                    throw AtaaException(message = exceptionResponseText.message)
                 }
             }
 

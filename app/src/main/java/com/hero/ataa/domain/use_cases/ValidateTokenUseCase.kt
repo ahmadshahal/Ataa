@@ -4,11 +4,11 @@ import android.content.Context
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
 import com.hero.ataa.data.remote.repositories.AuthRepository
+import com.hero.ataa.shared.AtaaException
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
 import com.hero.ataa.system.hasNetwork
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class ValidateTokenUseCase @Inject constructor(
     operator fun invoke() = flow<DataState<Nothing>> {
         emit(DataState.Loading())
         try {
-            delay(3000)
+//            delay(3000)
             val token = userRepository.user().token
             if (token.isNotEmpty()) {
                 if (context.hasNetwork()) {
@@ -33,6 +33,12 @@ class ValidateTokenUseCase @Inject constructor(
                 userRepository.triggerLoggedInValue(false)
             }
             emit(DataState.SuccessWithoutData())
+        } catch (ex: AtaaException) {
+            userRepository.update {
+                it.copy(name = "", email = "", token = "")
+            }
+            userRepository.triggerLoggedInValue(false)
+            emit(DataState.Error(UiText.DynamicText(ex.message)))
         } catch (ex: Exception) {
             userRepository.update {
                 it.copy(name = "", email = "", token = "")

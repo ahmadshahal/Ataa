@@ -2,10 +2,13 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.remote.repositories.ProjectsRepository
+import com.hero.ataa.shared.AtaaException
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiText
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class GetSacrificeValueUseCase @Inject constructor(
@@ -14,9 +17,17 @@ class GetSacrificeValueUseCase @Inject constructor(
     operator fun invoke() = flow<DataState<Int>> {
         emit(DataState.Loading())
         try {
-            delay(1000)
+//            delay(1000)
             val value = projectsRepository.getSacrificeValue().projectValue
             emit(DataState.Success(data = value))
+        } catch (ex: UnknownHostException) {
+            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+        } catch (ex: ConnectException) {
+            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+        } catch (ex: SocketTimeoutException) {
+            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+        } catch (ex: AtaaException) {
+            emit(DataState.Error(UiText.DynamicText(ex.message)))
         } catch (ex: Exception) {
             emit(
                 DataState.Error(
