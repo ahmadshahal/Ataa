@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
@@ -47,6 +48,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.hero.ataa.R
+import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.UiEvent
@@ -494,7 +496,7 @@ private fun AdItem(ad: Ad) {
     ) {
         CoilImage(
             modifier = Modifier.fillMaxSize(),
-            imageModel = ad.url,
+            imageModel = "$BASE_URL/${ad.url}",
             contentScale = ContentScale.Crop,
         )
         // TODO: Add Shadow.
@@ -506,6 +508,8 @@ private fun AdItem(ad: Ad) {
                 .fillMaxWidth()
                 .padding(10.dp),
             lineHeight = 20.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

@@ -12,7 +12,7 @@ data class Receipt(
     @SerialName("categories")
     val tags: List<String>,
 
-    @SerialName("project_id")
+    @SerialName("ProjectId")
     val projectId: String,
 
     @SerialName("date")

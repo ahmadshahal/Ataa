@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Ad(
-    @SerialName("text")
+    @SerialName("name")
     val text: String,
 
-    @SerialName("image_url")
-    val url: String,
+    @SerialName("image")
+    val url: String?,
 )

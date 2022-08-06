@@ -12,7 +12,7 @@ data class RegisterRequest(
     @SerialName("password")
     val password: String,
 
-    @SerialName("full_Name")
+    @SerialName("full_name")
     val fullName: String,
 
     @SerialName("phone_number")

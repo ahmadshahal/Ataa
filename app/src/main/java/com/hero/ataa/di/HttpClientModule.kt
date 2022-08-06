@@ -20,7 +20,8 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
-const val BASE_URL = "https://c5e0ee53-8575-47f1-b527-0605c6e1a420.mock.pstmn.io"
+const val BASE_API_URL = "http://192.168.43.8:8000/api"
+const val BASE_URL = "http://192.168.43.8:8000"
 
 @InstallIn(SingletonComponent::class)
 @Module

@@ -19,7 +19,7 @@ class GetAdsUseCase @Inject constructor(
         emit(DataState.Loading())
         try {
 //            delay(2000)
-            val adsList = projectsRepository.getAds()
+            val adsList = projectsRepository.getAds().ads
             emit(DataState.Success(adsList))
         } catch (ex: UnknownHostException) {
             emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))

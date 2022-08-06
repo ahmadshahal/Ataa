@@ -17,7 +17,7 @@ fun UserResponse.toUser() = User(email = user.email, name = user.name, token = t
 
 @Serializable
 data class NetworkUser(
-    @SerialName("name")
+    @SerialName("full_name")
     val name: String,
 
     @SerialName("email")

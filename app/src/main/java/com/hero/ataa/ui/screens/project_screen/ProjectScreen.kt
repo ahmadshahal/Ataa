@@ -27,6 +27,7 @@ import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
+import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
@@ -119,7 +120,7 @@ private fun ContentColumn(scrollState: ScrollState, project: Project, viewModel:
         ) {
             CoilImage(
                 modifier = Modifier.fillMaxSize(),
-                imageModel = project.imageUrl,
+                imageModel = "$BASE_URL/${project.imageUrl}",
                 contentScale = ContentScale.Crop,
             )
         }
