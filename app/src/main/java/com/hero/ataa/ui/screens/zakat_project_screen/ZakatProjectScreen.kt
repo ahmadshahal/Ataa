@@ -64,7 +64,9 @@ fun ZakatProjectScreen(
                     )
                 },
                 onClick = {
-                    navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.amount.value.toIntOrNull() ?: 0)}/${Constants.PermanentProjectId.ZAKAT}")
+                    if(viewModel.amount.value.toIntOrNull() ?: 0 != 0) {
+                        navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.amount.value.toIntOrNull() ?: 0)}/${Constants.PermanentProjectId.ZAKAT}")
+                    }
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,

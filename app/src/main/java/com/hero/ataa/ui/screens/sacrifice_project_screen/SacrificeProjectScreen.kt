@@ -61,7 +61,9 @@ fun SacrificeProjectScreen(
                             )
                         },
                         onClick = {
-                            navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.sacrificeValue}/${Constants.PermanentProjectId.SACRIFICE}")
+                            if(viewModel.number.value.toIntOrNull() ?: 0 != 0) {
+                                navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.sacrificeValue}/${Constants.PermanentProjectId.SACRIFICE}")
+                            }
                         },
                         backgroundColor = MaterialTheme.colors.primary,
                         contentColor = MaterialTheme.colors.onPrimary,

@@ -62,7 +62,9 @@ fun MiskeenProjectScreen(
                             )
                         },
                         onClick = {
-                            navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.miskeenValue}/${Constants.PermanentProjectId.MISKEEN}")
+                            if(viewModel.number.value.toIntOrNull() ?: 0 != 0) {
+                                navController.navigate(Screen.PaymentScreen.route + "/${(viewModel.number.value.toIntOrNull() ?: 0) * uiState.miskeenValue}/${Constants.PermanentProjectId.MISKEEN}")
+                            }
                         },
                         backgroundColor = MaterialTheme.colors.primary,
                         contentColor = MaterialTheme.colors.onPrimary,

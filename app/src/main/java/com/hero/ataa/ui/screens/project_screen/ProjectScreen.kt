@@ -337,7 +337,9 @@ private fun BottomSheetContent(navController: NavController, project: Project) {
         Spacer(modifier = Modifier.height(20.dp))
         MaterialButton(
             onClick = {
-                navController.navigate(Screen.PaymentScreen.route + "/${(amount.value.toIntOrNull() ?: 0)}/${project.id}")
+                if(amount.value.toIntOrNull() ?: 0 != 0) {
+                    navController.navigate(Screen.PaymentScreen.route + "/${(amount.value.toIntOrNull() ?: 0)}/${project.id}")
+                }
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
