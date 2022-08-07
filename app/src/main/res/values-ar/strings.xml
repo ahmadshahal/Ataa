@@ -123,4 +123,8 @@
     <string name="thank_you_for_considering">شكراً لك لاتخاذنا سبيلاً في نشر الخير</string>
     <string name="thank_you">شكراً</string>
     <string name="no_internet_connection">لا يوجد اتصال بالانترنت</string>
+    <string name="beneficiary_form">" استمارة مستفيد"</string>
+    <string name="volunteer_form">استمارة متطوع</string>
+    <string name="personal_info">معلومات شخصية</string>
+    <string name="national_number">الرقم الوطني</string>
 </resources>
