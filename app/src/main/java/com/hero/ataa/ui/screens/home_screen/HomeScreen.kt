@@ -323,13 +323,15 @@ private fun AppDrawer(
             text = stringResource(id = R.string.volunteer_with_us),
             icon = Icons.Outlined.VolunteerActivism,
         ) {
-            navController.navigate(Screen.VolunteerScreen.route)
+            navController.navigate(Screen.VolunteerOuterScreen.route)
         }
         Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.beneficiary_application),
             icon = Icons.Outlined.Article,
-        ) {}
+        ) {
+            navController.navigate(Screen.BeneficiaryScreen.route)
+        }
         Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.settings),

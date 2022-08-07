@@ -26,7 +26,7 @@ import com.hero.ataa.ui.screens.sadaka_project_screen.SadakaProjectScreen
 import com.hero.ataa.ui.screens.search_screen.SearchScreen
 import com.hero.ataa.ui.screens.settings_screen.SettingsScreen
 import com.hero.ataa.ui.screens.verification_screen.VerificationScreen
-import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreen
+import com.hero.ataa.ui.screens.volunteer_outer_screen.VolunteerOuterScreen
 import com.hero.ataa.ui.screens.zakat_project_screen.ZakatProjectScreen
 
 @Composable
@@ -67,8 +67,8 @@ fun NavGraph(startDestination: String) {
                 ProjectScreen(project = it, navController = navController)
             }
         }
-        composable(route = Screen.VolunteerScreen.route) {
-            VolunteerScreen(navController = navController)
+        composable(route = Screen.VolunteerOuterScreen.route) {
+            VolunteerOuterScreen(navController = navController)
         }
         composable(
             route = Screen.LanguageScreen.route,
@@ -142,6 +142,12 @@ fun NavGraph(startDestination: String) {
         }
         composable(route = Screen.SearchScreen.route) {
             SearchScreen(navController = navController)
+        }
+        composable(route = Screen.BeneficiaryScreen.route) {
+            BeneficiaryNavGraph(outerNavController = navController)
+        }
+        composable(route = Screen.VolunteerScreen.route) {
+            BeneficiaryNavGraph(outerNavController = navController)
         }
     }
 }

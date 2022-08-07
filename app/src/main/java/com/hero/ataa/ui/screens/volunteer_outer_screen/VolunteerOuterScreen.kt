@@ -1,4 +1,4 @@
-package com.hero.ataa.ui.screens.volunteer_screen
+package com.hero.ataa.ui.screens.volunteer_outer_screen
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -24,10 +24,11 @@ import com.hero.ataa.R
 import com.hero.ataa.ui.components.AppBar
 import com.hero.ataa.ui.components.MaterialButton
 import com.hero.ataa.ui.components.OutlinedMaterialButton
+import com.hero.ataa.ui.navigation.Screen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun VolunteerScreen(navController: NavController) {
+fun VolunteerOuterScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
@@ -45,7 +46,7 @@ fun VolunteerScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
             TitleRow()
             Spacer(modifier = Modifier.height(30.dp))
-            ButtonsRow()
+            ButtonsRow(navController = navController)
             Spacer(modifier = Modifier.height(25.dp))
             Text(
                 text = stringResource(id = R.string.why_do_we_volunteer),
@@ -111,7 +112,7 @@ private fun TitleRow() {
 }
 
 @Composable
-private fun ButtonsRow() {
+private fun ButtonsRow(navController: NavController) {
     val context = LocalContext.current
     Row(
         modifier = Modifier
@@ -127,7 +128,9 @@ private fun ButtonsRow() {
                     style = MaterialTheme.typography.button.copy(color = MaterialTheme.colors.onPrimary)
                 )
             },
-            onClick = { /*TODO*/ },
+            onClick = {
+                  navController.navigate(Screen.VolunteerScreen.route)
+            },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary
         )
