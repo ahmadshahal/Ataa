@@ -2,41 +2,38 @@ package com.hero.ataa.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RectangularTextField(
-    value: String,
-    hint: String,
-    height: Dp = 50.dp,
-    onValueChanged: (String) -> Unit,
-    trailingIcon: @Composable () -> Unit = {},
-    prefixIcon: @Composable (() -> Unit)? = null,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(),
-    visualTransformation: VisualTransformation = VisualTransformation.None,
+fun Spinner(
+    text: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     isError: Boolean = false,
     errorMessage: String = "",
-    keyboardActions: KeyboardActions = KeyboardActions()
+    icon: ImageVector = Icons.Rounded.ArrowDropDown,
+    iconSize: Dp = 24.dp,
+    hint: String
 ) {
     Column {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
-                .height(height)
+                .height(50.dp)
                 .clip(RoundedCornerShape(7.dp))
                 .background(MaterialTheme.colors.surface)
                 .border(
@@ -44,6 +41,7 @@ fun RectangularTextField(
                     color = MaterialTheme.colors.secondaryVariant,
                     shape = RoundedCornerShape(7.dp)
                 )
+                .clickable(onClick = onClick)
                 .padding(start = 16.dp, end = 14.dp)
         ) {
             Row(
@@ -51,25 +49,12 @@ fun RectangularTextField(
                     .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if(prefixIcon != null) {
-                    prefixIcon()
-                    Spacer(modifier = Modifier.width(10.dp))
-                }
                 Box(modifier = Modifier.weight(1F)) {
-                    BasicTextField(
-                        value = value,
-                        onValueChange = onValueChanged,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterStart),
-                        textStyle = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground),
-                        visualTransformation = visualTransformation,
-                        keyboardOptions = keyboardOptions,
-                        singleLine = true,
-                        keyboardActions = keyboardActions,
-                        cursorBrush = SolidColor(value = MaterialTheme.colors.primary)
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primaryVariant),
                     )
-                    if (value.isEmpty()) {
+                    if (text.isEmpty()) {
                         Text(
                             modifier = Modifier.align(Alignment.CenterStart),
                             text = hint,
@@ -77,8 +62,13 @@ fun RectangularTextField(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.width(5.dp))
-                trailingIcon()
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.onBackground,
+                    modifier = Modifier.size(iconSize)
+                )
             }
         }
         Spacer(modifier = Modifier.height(2.dp))
@@ -90,4 +80,5 @@ fun RectangularTextField(
             )
         }
     }
+
 }

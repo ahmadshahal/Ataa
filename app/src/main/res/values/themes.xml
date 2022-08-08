@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.Ataa" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/green_300</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">

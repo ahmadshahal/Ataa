@@ -23,7 +23,8 @@ private val LightColorPalette = lightColors(
     onSecondary = White800,
     onSurface = Black600,
     primaryVariant = Gray600,
-    error = Red800
+    error = Red800,
+    onError = Gray200
 )
 
 private val DarkColorPalette = darkColors(
@@ -37,7 +38,8 @@ private val DarkColorPalette = darkColors(
     onSecondary = White600,
     onSurface = White600,
     primaryVariant = White500,
-    error = Red800
+    error = Red800,
+    onError = White500
 )
 
 @OptIn(ExperimentalFoundationApi::class)

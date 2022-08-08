@@ -28,7 +28,7 @@ fun ProgressItem(
                 .fillMaxWidth()
                 .height(5.dp)
                 .clip(RoundedCornerShape(25.dp))
-                .background(if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.primaryVariant)
+                .background(if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onError)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Icon(

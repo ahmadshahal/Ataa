@@ -127,4 +127,12 @@
     <string name="volunteer_form">استمارة متطوع</string>
     <string name="personal_info">معلومات شخصية</string>
     <string name="national_number">الرقم الوطني</string>
+    <string name="gender">الجنس</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="social_status">الحالة الاجتماعية</string>
+    <string name="married">متزوج</string>
+    <string name="unmarried">أعزب</string>
+    <string name="number_of_kids">عدد الأولاد</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
 </resources>
