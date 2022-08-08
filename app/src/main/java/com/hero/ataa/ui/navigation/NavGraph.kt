@@ -147,7 +147,7 @@ fun NavGraph(startDestination: String) {
             BeneficiaryNavGraph(outerNavController = navController)
         }
         composable(route = Screen.VolunteerScreen.route) {
-            BeneficiaryNavGraph(outerNavController = navController)
+            VolunteerNavGraph(outerNavController = navController)
         }
     }
 }
