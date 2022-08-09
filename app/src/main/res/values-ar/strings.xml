@@ -135,4 +135,11 @@
     <string name="unmarried">أعزب</string>
     <string name="number_of_kids">عدد الأولاد</string>
     <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="location_info">معلومات السكن</string>
+    <string name="governorate">المحافظة</string>
+    <string name="place">المنطقة</string>
+    <string name="residence_status">حالة السكن</string>
+    <string name="owned">ملك</string>
+    <string name="rented">أجار</string>
+    <string name="detailed_location">العنوان التفصيلي</string>
 </resources>

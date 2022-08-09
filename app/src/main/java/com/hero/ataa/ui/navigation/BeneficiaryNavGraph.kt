@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hero.ataa.ui.screens.beneficiary_screen.BeneficiaryScreenOne
+import com.hero.ataa.ui.screens.beneficiary_screen.BeneficiaryScreenTwo
 import com.hero.ataa.ui.screens.beneficiary_screen.BeneficiaryViewModel
 
 @Composable
@@ -24,7 +25,7 @@ fun BeneficiaryNavGraph(
             )
         }
         composable(route = Screen.BeneficiaryScreenTwo.route) {
-
+            BeneficiaryScreenTwo(innerNavController = innerNavController, viewModel = viewModel)
         }
         composable(route = Screen.BeneficiaryScreenThree.route) {
 

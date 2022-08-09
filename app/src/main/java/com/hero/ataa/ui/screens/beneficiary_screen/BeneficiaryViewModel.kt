@@ -47,6 +47,26 @@ class BeneficiaryViewModel @Inject constructor() : ViewModel() {
     val isErrorDateOfBirthField = mutableStateOf(false)
     val dateOfBirthFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
+    val governorateFieldText = mutableStateOf("")
+    val isErrorGovernorateField = mutableStateOf(false)
+    val governorateFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val placeFieldText = mutableStateOf("")
+    val isErrorPlaceField = mutableStateOf(false)
+    val placeFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val residenceFieldText = mutableStateOf("")
+    val isErrorResidenceField = mutableStateOf(false)
+    val residenceFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val phoneNumberFieldText = mutableStateOf("")
+    val isErrorPhoneNumberField = mutableStateOf(false)
+    val phoneNumberFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val addressFieldText = mutableStateOf("")
+    val isErrorAddressField = mutableStateOf(false)
+    val addressFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
     fun firstFormValidation(): Boolean {
         var valid = true
         if(fullNameFieldText.value.isEmpty()) {

@@ -3,7 +3,6 @@ package com.hero.ataa.ui.screens.beneficiary_screen
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.widget.DatePicker
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -39,25 +38,14 @@ fun BeneficiaryScreenOne(
     innerNavController: NavController,
     viewModel: BeneficiaryViewModel,
 ) {
-    val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
 
     Scaffold(
-        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            BeneficiaryOneAppBar(outerNavController = outerNavController, scrollState = scrollState)
+            BeneficiaryOneAppBar(outerNavController = outerNavController)
         },
         contentColor = MaterialTheme.colors.onBackground,
-        snackbarHost = { state ->
-            SnackbarHost(state) { data ->
-                Snackbar(
-                    backgroundColor = MaterialTheme.colors.secondary,
-                    contentColor = MaterialTheme.colors.onSecondary,
-                    snackbarData = data,
-                )
-            }
-        },
     ) {
         Column(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
             ProgressRow(selectedItem = 0)
@@ -91,7 +79,7 @@ fun BeneficiaryScreenOne(
 }
 
 @Composable
-private fun BeneficiaryOneAppBar(outerNavController: NavController, scrollState: ScrollState) {
+private fun BeneficiaryOneAppBar(outerNavController: NavController) {
     AppBar(
         title = {
             Text(
@@ -131,7 +119,7 @@ private fun ContentColumn(viewModel: BeneficiaryViewModel) {
 }
 
 @Composable
-fun FieldsColumn(viewModel: BeneficiaryViewModel) {
+private fun FieldsColumn(viewModel: BeneficiaryViewModel) {
     val focusManager = LocalFocusManager.current
     Column {
         RectangularTextField(
@@ -149,7 +137,7 @@ fun FieldsColumn(viewModel: BeneficiaryViewModel) {
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
+                    focusManager.moveFocus(FocusDirection.Next)
                 }
             )
         )
@@ -164,11 +152,11 @@ fun FieldsColumn(viewModel: BeneficiaryViewModel) {
             errorMessage = viewModel.nationalNumberFieldErrorMsg.value.asString(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
-                onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
+                onDone = {
+                    focusManager.clearFocus()
                 }
             )
         )
@@ -185,7 +173,7 @@ fun FieldsColumn(viewModel: BeneficiaryViewModel) {
 }
 
 @Composable
-fun GenderSpinner(viewModel: BeneficiaryViewModel) {
+private fun GenderSpinner(viewModel: BeneficiaryViewModel) {
     val genderSpinnerExpanded = remember {
         mutableStateOf(false)
     }
@@ -234,7 +222,7 @@ fun GenderSpinner(viewModel: BeneficiaryViewModel) {
 }
 
 @Composable
-fun SocialStatusSpinner(viewModel: BeneficiaryViewModel) {
+private fun SocialStatusSpinner(viewModel: BeneficiaryViewModel) {
     val socialStatusSpinnerExpanded = remember {
         mutableStateOf(false)
     }
@@ -283,7 +271,7 @@ fun SocialStatusSpinner(viewModel: BeneficiaryViewModel) {
 }
 
 @Composable
-fun KidsSpinner(viewModel: BeneficiaryViewModel) {
+private fun KidsSpinner(viewModel: BeneficiaryViewModel) {
     val kidsSpinnerExpanded = remember {
         mutableStateOf(false)
     }
@@ -298,7 +286,7 @@ fun KidsSpinner(viewModel: BeneficiaryViewModel) {
             hint = stringResource(id = R.string.number_of_kids)
         )
         DropdownMenu(
-            modifier = Modifier.height(180.dp),
+            modifier = Modifier.heightIn(max = 180.dp),
             expanded = kidsSpinnerExpanded.value,
             onDismissRequest = {
                 kidsSpinnerExpanded.value = false
@@ -319,7 +307,7 @@ fun KidsSpinner(viewModel: BeneficiaryViewModel) {
 }
 
 @Composable
-fun DateOfBirthPicker(viewModel: BeneficiaryViewModel) {
+private fun DateOfBirthPicker(viewModel: BeneficiaryViewModel) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
 

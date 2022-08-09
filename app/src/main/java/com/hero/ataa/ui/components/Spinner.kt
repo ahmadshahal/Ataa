@@ -52,7 +52,7 @@ fun Spinner(
                 Box(modifier = Modifier.weight(1F)) {
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primaryVariant),
+                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground),
                     )
                     if (text.isEmpty()) {
                         Text(

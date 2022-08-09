@@ -51,7 +51,7 @@ fun RectangularTextField(
                     .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if(prefixIcon != null) {
+                if (prefixIcon != null) {
                     prefixIcon()
                     Spacer(modifier = Modifier.width(10.dp))
                 }
@@ -79,6 +79,62 @@ fun RectangularTextField(
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 trailingIcon()
+            }
+        }
+        Spacer(modifier = Modifier.height(2.dp))
+        if (isError) {
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.subtitle1.copy(color = MaterialTheme.colors.error)
+            )
+        }
+    }
+}
+
+
+@Composable
+fun LargeRectangularTextField(
+    value: String,
+    hint: String,
+    onValueChanged: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    isError: Boolean = false,
+    errorMessage: String = "",
+    keyboardActions: KeyboardActions = KeyboardActions()
+) {
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 120.dp)
+                .clip(RoundedCornerShape(7.dp))
+                .background(MaterialTheme.colors.surface)
+                .border(
+                    width = 0.1.dp,
+                    color = MaterialTheme.colors.secondaryVariant,
+                    shape = RoundedCornerShape(7.dp)
+                )
+                .padding(16.dp)
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChanged,
+                modifier = Modifier
+                    .fillMaxSize(),
+                textStyle = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground),
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                cursorBrush = SolidColor(value = MaterialTheme.colors.primary),
+                maxLines = 15
+            )
+            if (value.isEmpty()) {
+                Text(
+                    text = hint,
+                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.primaryVariant)
+                )
             }
         }
         Spacer(modifier = Modifier.height(2.dp))

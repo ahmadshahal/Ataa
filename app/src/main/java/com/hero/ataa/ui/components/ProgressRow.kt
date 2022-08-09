@@ -20,19 +20,19 @@ fun ProgressRow(
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         ProgressItem(
             imageVector = Icons.Rounded.Article,
-            isSelected = selectedItem == 0,
+            isSelected = selectedItem >= 0,
             modifier = Modifier.weight(1F)
         )
         Spacer(modifier = Modifier.width(8.dp))
         ProgressItem(
             imageVector = Icons.Rounded.LocationOn,
-            isSelected = selectedItem == 1,
+            isSelected = selectedItem >= 1,
             modifier = Modifier.weight(1F)
         )
         Spacer(modifier = Modifier.width(8.dp))
         ProgressItem(
             imageVector = Icons.Rounded.Feed,
-            isSelected = selectedItem == 2,
+            isSelected = selectedItem >= 2,
             modifier = Modifier.weight(1F)
         )
     }

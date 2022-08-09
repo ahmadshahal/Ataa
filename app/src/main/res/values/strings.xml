@@ -139,4 +139,11 @@
     <string name="unmarried">Unmarried</string>
     <string name="number_of_kids">Number of Kids</string>
     <string name="date_of_birth">Date of Birth</string>
+    <string name="location_info">Location Information</string>
+    <string name="governorate">Governorate</string>
+    <string name="place">Place</string>
+    <string name="residence_status">Residence Status</string>
+    <string name="owned">Owned</string>
+    <string name="rented">Rented</string>
+    <string name="detailed_location">Detailed Location</string>
 </resources>
