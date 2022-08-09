@@ -125,4 +125,54 @@ class BeneficiaryViewModel @Inject constructor() : ViewModel() {
         }
         return valid
     }
+
+    fun secondFormValidation(): Boolean {
+        var valid = true
+        if(governorateFieldText.value.isEmpty()) {
+            isErrorGovernorateField.value = true
+            governorateFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorGovernorateField.value = false
+            governorateFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(placeFieldText.value.isEmpty()) {
+            isErrorPlaceField.value = true
+            placeFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorPlaceField.value = false
+            placeFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(residenceFieldText.value.isEmpty()) {
+            isErrorResidenceField.value = true
+            residenceFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorResidenceField.value = false
+            residenceFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(phoneNumberFieldText.value.isEmpty()) {
+            isErrorPhoneNumberField.value = true
+            phoneNumberFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorPhoneNumberField.value = false
+            phoneNumberFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(addressFieldText.value.isEmpty()) {
+            isErrorAddressField.value = true
+            addressFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorAddressField.value = false
+            addressFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        return valid
+    }
 }

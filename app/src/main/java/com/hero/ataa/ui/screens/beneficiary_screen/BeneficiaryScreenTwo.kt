@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import com.hero.ataa.R
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.components.*
+import com.hero.ataa.ui.navigation.Screen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -62,9 +63,8 @@ fun BeneficiaryScreenTwo(
                         )
                     },
                     onClick = {
-                        if (viewModel.firstFormValidation()) {
-                            // TODO:
-//                            innerNavController.navigate(Screen.BeneficiaryScreenThree.route)
+                        if (viewModel.secondFormValidation()) {
+                            innerNavController.navigate(Screen.BeneficiaryScreenThree.route)
                         }
                     },
                     backgroundColor = MaterialTheme.colors.primary,
