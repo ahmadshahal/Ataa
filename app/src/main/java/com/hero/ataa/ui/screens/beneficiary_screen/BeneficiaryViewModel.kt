@@ -3,17 +3,23 @@ package com.hero.ataa.ui.screens.beneficiary_screen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hero.ataa.R
+import com.hero.ataa.domain.use_cases.BeneficiaryUseCase
+import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.shared.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeneficiaryViewModel @Inject constructor() : ViewModel() {
+class BeneficiaryViewModel @Inject constructor(
+    private val beneficiaryUseCase: BeneficiaryUseCase
+) : ViewModel() {
 
     private val _uiEvent: Channel<UiEvent> = Channel()
     val uiEvent: Flow<UiEvent>
@@ -66,6 +72,22 @@ class BeneficiaryViewModel @Inject constructor() : ViewModel() {
     val addressFieldText = mutableStateOf("")
     val isErrorAddressField = mutableStateOf(false)
     val addressFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val workFieldText = mutableStateOf("")
+    val isErrorWorkField = mutableStateOf(false)
+    val workFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val incomeFieldText = mutableStateOf("")
+    val isErrorIncomeField = mutableStateOf(false)
+    val incomeFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val healthFieldText = mutableStateOf("")
+    val isErrorHealthField = mutableStateOf(false)
+    val healthFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
+
+    val aboutFieldText = mutableStateOf("")
+    val isErrorAboutField = mutableStateOf(false)
+    val aboutFieldErrorMsg = mutableStateOf<UiText>(UiText.DynamicText(""))
 
     fun firstFormValidation(): Boolean {
         var valid = true
@@ -174,5 +196,87 @@ class BeneficiaryViewModel @Inject constructor() : ViewModel() {
             addressFieldErrorMsg.value = UiText.DynamicText("")
         }
         return valid
+    }
+
+    fun thirdFormValidation(): Boolean {
+        var valid = true
+        if(workFieldText.value.isEmpty()) {
+            isErrorWorkField.value = true
+            workFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorWorkField.value = false
+            workFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(incomeFieldText.value.isEmpty()) {
+            isErrorIncomeField.value = true
+            incomeFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorIncomeField.value = false
+            incomeFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(healthFieldText.value.isEmpty()) {
+            isErrorHealthField.value = true
+            healthFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorHealthField.value = false
+            healthFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        if(aboutFieldText.value.isEmpty()) {
+            isErrorAboutField.value = true
+            aboutFieldErrorMsg.value = UiText.ResourceText(R.string.cant_be_empty)
+            valid = false
+        }
+        else {
+            isErrorAboutField.value = false
+            aboutFieldErrorMsg.value = UiText.DynamicText("")
+        }
+        return valid
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            beneficiaryUseCase(
+                name = fullNameFieldText.value,
+                nationalNumber = nationalNumberFieldText.value,
+                birthDate = dateOfBirthFieldText.value,
+                gender = genderFieldText.value,
+                socialStatus = socialStatusFieldText.value,
+                kids = kidsFieldText.value,
+                governorate = governorateFieldText.value,
+                place = placeFieldText.value,
+                residenceStatus = residenceFieldText.value,
+                phoneNumber = phoneNumberFieldText.value,
+                address = addressFieldText.value,
+                work = workFieldText.value,
+                income = incomeFieldText.value,
+                healthStatus = healthFieldText.value,
+                about = aboutFieldText.value,
+            ).collect { dataState ->
+                when (dataState) {
+                    is DataState.Loading -> {
+                        _uiState.value = FormUiState.Loading
+                    }
+                    is DataState.Error -> {
+                        _uiState.value = FormUiState.Initial
+                        _uiEvent.send(
+                            UiEvent.ShowSnackBar(
+                                message = dataState.message,
+                            )
+                        )
+                    }
+                    is DataState.SuccessWithoutData -> {
+                        _uiState.value = FormUiState.Initial
+                        _uiEvent.send(UiEvent.PopBackStack)
+                    }
+                    else -> Unit
+                }
+            }
+        }
     }
 }

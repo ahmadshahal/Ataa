@@ -146,4 +146,10 @@
     <string name="owned">Owned</string>
     <string name="rented">Rented</string>
     <string name="detailed_location">Detailed Location</string>
+    <string name="work_and_health_info">Work and Health Information</string>
+    <string name="done">Done</string>
+    <string name="current_work">Current Work</string>
+    <string name="monthly_income">Monthly Income in SP</string>
+    <string name="health_status">Health Status</string>
+    <string name="about_beneficiary">About Beneficiary</string>
 </resources>

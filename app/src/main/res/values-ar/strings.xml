@@ -142,4 +142,10 @@
     <string name="owned">ملك</string>
     <string name="rented">أجار</string>
     <string name="detailed_location">العنوان التفصيلي</string>
+    <string name="work_and_health_info">معلومات العمل و الصحة</string>
+    <string name="done">تسجيل</string>
+    <string name="current_work">العمل الحالي</string>
+    <string name="monthly_income">الدخل الشهري بالليرة السورية</string>
+    <string name="health_status">الحالة الصحية</string>
+    <string name="about_beneficiary">شرح عام عن حالة المستفيد</string>
 </resources>
