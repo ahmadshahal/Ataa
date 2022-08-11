@@ -18,8 +18,8 @@ data class Project(
     @SerialName("description")
     val description: String,
 
-    @SerialName("goals")
-    val goals: String = "",
+    @SerialName("project_goal")
+    val goals: String,
 
     @SerialName("categories")
     val tags: List<String>,
@@ -31,7 +31,7 @@ data class Project(
     val raised: Long,
 
     @SerialName("progress")
-    val progress: Double = raised.div(raisingGoal.toDouble()),
+    val progress: Int = raised.times(100F).div(raisingGoal.toDouble()).toInt(),
 
     @SerialName("province")
     val location: String,

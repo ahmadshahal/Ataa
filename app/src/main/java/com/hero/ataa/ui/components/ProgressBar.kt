@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProgressBar(progress: Double, height: Dp) {
+fun ProgressBar(progress: Int, height: Dp) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
