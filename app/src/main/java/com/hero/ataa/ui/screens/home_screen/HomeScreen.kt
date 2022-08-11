@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
@@ -319,20 +318,22 @@ private fun AppDrawer(
             }
         }
         Spacer(modifier = Modifier.height(4.dp))
-        DrawerButton(
-            text = stringResource(id = R.string.volunteer_with_us),
-            icon = Icons.Outlined.VolunteerActivism,
-        ) {
-            navController.navigate(Screen.VolunteerOuterScreen.route)
+        if(viewModel.loggedInFlow.collectAsState().value) {
+            DrawerButton(
+                text = stringResource(id = R.string.volunteer_with_us),
+                icon = Icons.Outlined.VolunteerActivism,
+            ) {
+                navController.navigate(Screen.VolunteerOuterScreen.route)
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            DrawerButton(
+                text = stringResource(id = R.string.beneficiary_application),
+                icon = Icons.Outlined.Article,
+            ) {
+                navController.navigate(Screen.BeneficiaryScreen.route)
+            }
+            Spacer(modifier = Modifier.height(4.dp))
         }
-        Spacer(modifier = Modifier.height(4.dp))
-        DrawerButton(
-            text = stringResource(id = R.string.beneficiary_application),
-            icon = Icons.Outlined.Article,
-        ) {
-            navController.navigate(Screen.BeneficiaryScreen.route)
-        }
-        Spacer(modifier = Modifier.height(4.dp))
         DrawerButton(
             text = stringResource(id = R.string.settings),
             icon = Icons.Outlined.Settings,
@@ -502,6 +503,7 @@ private fun AdItem(ad: Ad) {
             contentScale = ContentScale.Crop,
         )
         // TODO: Add Shadow.
+        /*
         Text(
             text = ad.text,
             style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onPrimary),
@@ -513,6 +515,7 @@ private fun AdItem(ad: Ad) {
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
+         */
     }
 }
 

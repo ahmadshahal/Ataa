@@ -35,6 +35,16 @@ class BeneficiaryUseCase @Inject constructor(
         about: String,
     ) = flow<DataState<Nothing>> {
         emit(DataState.Loading())
+        val genderStr = when(gender) {
+            "Male" -> "ذكر"
+            "Female" -> "أنثى"
+            else -> gender
+        }
+        val socialStr = when(socialStatus) {
+            "Married" -> "متزوج"
+            "Unmarried" -> "أعزب"
+            else -> socialStatus
+        }
         try {
             val token = userRepository.user().token
             formsRepository.addBeneficiary(
@@ -46,11 +56,11 @@ class BeneficiaryUseCase @Inject constructor(
                     phoneNumber = phoneNumber,
                     address = address,
                     birthDate = birthDate,
-                    gender = gender,
+                    gender = genderStr,
                     governorate = governorate,
                     place = place,
                     residentialStatus = residenceStatus,
-                    socialStatus = socialStatus,
+                    socialStatus = socialStr,
                     work = work,
                     about = about,
                     healthStatus = healthStatus,

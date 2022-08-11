@@ -8,8 +8,8 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import javax.inject.Inject
 
-private const val BENEFICIARY_URL = "/w/beneficiary/create"
-private const val VOLUNTEER_URL = "w/employee/create"
+private const val BENEFICIARY_URL = "/m/application/benef"
+//private const val VOLUNTEER_URL = "w/employee/create"
 
 class FormsRepository @Inject constructor(
     private val httpClient: HttpClient
