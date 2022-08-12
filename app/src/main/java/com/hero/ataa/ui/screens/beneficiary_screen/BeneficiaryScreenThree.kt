@@ -64,7 +64,7 @@ fun BeneficiaryScreenThree(
         },
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
-            BeneficiaryTwoAppBar(innerNavController = innerNavController)
+            BeneficiaryThreeAppBar(innerNavController = innerNavController)
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {
@@ -112,7 +112,7 @@ fun BeneficiaryScreenThree(
 }
 
 @Composable
-private fun BeneficiaryTwoAppBar(innerNavController: NavController) {
+private fun BeneficiaryThreeAppBar(innerNavController: NavController) {
     AppBar(
         title = {
             Text(
