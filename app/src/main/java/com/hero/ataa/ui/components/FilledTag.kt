@@ -2,6 +2,7 @@ package com.hero.ataa.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FilledTag(title: String) {
+fun FilledTag(title: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .height(31.dp)
@@ -29,6 +30,7 @@ fun FilledTag(title: String) {
                 color = MaterialTheme.colors.secondaryVariant,
                 shape = RoundedCornerShape(7.dp)
             )
+            .clickable(onClick = onClick)
             .padding(horizontal = 16.dp)
     ) {
         Text(

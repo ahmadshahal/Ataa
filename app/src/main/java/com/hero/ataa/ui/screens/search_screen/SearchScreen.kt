@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -86,24 +87,33 @@ fun SearchScreen(
                     }
                     item {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            Text(
-                                text = stringResource(id = R.string.recent_search),
-                                style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground)
-                            )
-                            Spacer(modifier = Modifier.height(10.dp))
-                            val language = Locale.getDefault().language
-                            FlowRow(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                mainAxisSpacing = 15.dp,
-                                crossAxisSpacing = 10.dp,
-                                mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
-                            ) {
-                                listOf("دمشق", "حلب", "دمشق", "حلب", "دمشق").forEach {
-                                    FilledTag(title = it)
+                            if (viewModel.historyFlow.collectAsState(initial = emptyList<String>()).value.isNotEmpty()) {
+                                Text(
+                                    text = stringResource(id = R.string.recent_search),
+                                    style = MaterialTheme.typography.h5.copy(color = MaterialTheme.colors.onBackground)
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                val language = Locale.getDefault().language
+                                FlowRow(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    mainAxisSpacing = 15.dp,
+                                    crossAxisSpacing = 10.dp,
+                                    mainAxisAlignment = if (language == "ar") FlowMainAxisAlignment.End else FlowMainAxisAlignment.Start
+                                ) {
+                                    viewModel.historyFlow.collectAsState(initial = emptyList<String>()).value.toList().takeLast(
+                                        n = 5
+                                    ).forEach {
+                                        FilledTag(
+                                            title = it,
+                                            onClick = {
+                                                viewModel.searchFieldText.value = it
+                                            }
+                                        )
+                                    }
                                 }
+                                Spacer(modifier = Modifier.height(10.dp))
                             }
-                            Spacer(modifier = Modifier.height(10.dp))
                         }
                     }
                     when {
@@ -152,6 +162,7 @@ private fun NoResults() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
+        Spacer(modifier = Modifier.height(32.dp))
         Image(
             painter = painterResource(id = R.drawable.ic_no_results),
             contentDescription = "",
@@ -213,6 +224,7 @@ private fun SearchTextField(viewModel: SearchViewModel) {
         ),
         keyboardActions = KeyboardActions(
             onDone = {
+                viewModel.updateHistory()
                 focusManager.clearFocus()
             }
         ),
