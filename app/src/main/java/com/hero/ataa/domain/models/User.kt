@@ -12,5 +12,8 @@ data class User(
     val email: String = "",
 
     @SerialName("token")
-    val token: String = ""
+    val token: String = "",
+
+    @SerialName("first_launch")
+    val firstLaunch: Boolean = true
 )

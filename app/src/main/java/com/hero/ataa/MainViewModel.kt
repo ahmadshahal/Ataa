@@ -3,6 +3,7 @@ package com.hero.ataa
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hero.ataa.data.local.repositories.AlarmsRepository
 import com.hero.ataa.data.local.repositories.SettingsRepository
 import com.hero.ataa.data.local.repositories.UserRepository
 import com.hero.ataa.domain.use_cases.ValidateTokenUseCase
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     val settingsRepository: SettingsRepository,
     validateTokenUseCase: ValidateTokenUseCase,
-    val userRepository: UserRepository
+    val userRepository: UserRepository,
+    alarmsRepository: AlarmsRepository
 ) : ViewModel() {
     val darkModeFlow = settingsRepository.settingsFlow.map { it.darkMode }
 
@@ -28,6 +30,12 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            if(userRepository.user().firstLaunch) {
+                alarmsRepository.setUpAlarm()
+                userRepository.update {
+                    it.copy(firstLaunch = false)
+                }
+            }
             validateTokenUseCase.invoke().collect { dataState ->
                 when (dataState) {
                     !is DataState.Loading -> {

@@ -9,7 +9,7 @@ import com.hero.ataa.domain.use_cases.PayUseCase
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
 import com.hero.ataa.shared.UiEvent
-import com.hero.ataa.system.notification.NotificationsService
+import com.hero.ataa.system.notification.NotificationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class PaymentViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val settingsRepository: SettingsRepository,
-    private val notificationsService: NotificationsService,
+    private val notificationsRepository: NotificationsRepository,
     private val payUseCase: PayUseCase
 ) : ViewModel() {
 
@@ -56,7 +56,7 @@ class PaymentViewModel @Inject constructor(
                     is DataState.Success -> {
                         loadingDialogState.value = false
                         if(settingsRepository.settings().notifications) {
-                             notificationsService.triggerPaymentNotification()
+                             notificationsRepository.triggerPaymentNotification()
                         }
                         _uiEvent.send(UiEvent.PopBackStack)
                         _uiEvent.send(UiEvent.SendUrlIntent(url = dataState.data))
