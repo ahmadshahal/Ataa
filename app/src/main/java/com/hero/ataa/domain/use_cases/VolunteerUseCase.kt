@@ -2,6 +2,7 @@ package com.hero.ataa.domain.use_cases
 
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.UserRepository
+import com.hero.ataa.data.remote.models.requests.VolunteerRequest
 import com.hero.ataa.data.remote.repositories.FormsRepository
 import com.hero.ataa.shared.AtaaException
 import com.hero.ataa.shared.DataState
@@ -16,19 +17,42 @@ class VolunteerUseCase @Inject constructor(
     private val formsRepository: FormsRepository,
     private val userRepository: UserRepository,
 ) {
-    operator fun invoke() = flow<DataState<Nothing>> {
+    operator fun invoke(
+        name: String,
+        nationalNumber: String,
+        phoneNumber: String,
+        birthDate: String,
+        gender: String,
+        governorate: String,
+        place: String,
+        address: String,
+        about: String,
+        job: String,
+    ) = flow<DataState<Nothing>> {
         emit(DataState.Loading())
-        val genderStr = when("") {
+        val genderStr = when(gender) {
             "Male" -> "ذكر"
             "Female" -> "أنثى"
-            else -> ""
+            else -> gender
         }
         try {
             val token = userRepository.user().token
-//            formsRepository.addVolunteer(
-//                token = token,
-//                volunteerRequest = VolunteerRequest()
-//            )
+            formsRepository.addVolunteer(
+                token = token,
+                volunteerRequest = VolunteerRequest(
+                    name = name,
+                    about = about,
+                    work = job,
+                    place = place,
+                    governorate = governorate,
+                    gender = genderStr,
+                    birthDate = birthDate,
+                    address = address,
+                    phoneNumber = phoneNumber,
+                    email = userRepository.user().email,
+                    nationalNumber = nationalNumber,
+                )
+            )
             emit(DataState.SuccessWithoutData())
         } catch (ex: UnknownHostException) {
             emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
