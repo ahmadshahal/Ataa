@@ -20,12 +20,12 @@ class AlarmsRepository @Inject constructor(
         }
         val alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val alarmTime = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 3)
-            set(Calendar.MINUTE, 11)
+            set(Calendar.HOUR_OF_DAY, 9)
+            set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime.timeInMillis, AlarmManager.INTERVAL_HALF_DAY, alarmIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime.timeInMillis, AlarmManager.INTERVAL_HOUR, alarmIntent)
     }
 }

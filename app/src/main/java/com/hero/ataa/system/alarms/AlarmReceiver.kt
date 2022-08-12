@@ -3,7 +3,6 @@ package com.hero.ataa.system.alarms
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.core.app.NotificationManagerCompat
 import com.hero.ataa.R
 import com.hero.ataa.data.local.repositories.NOTIFICATION_ALARM_ACTION
 import com.hero.ataa.data.local.repositories.SettingsRepository
@@ -22,13 +21,6 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) = runBlocking {
         if(context != null && intent != null) {
             if(intent.action == NOTIFICATION_ALARM_ACTION && settingsRepository.settings().notifications) {
-                NotificationHelper.createNotificationChannel(
-                    context = context,
-                    name = Constants.NOTIFICATION_CHANNEL_NAME,
-                    description = context.getString(R.string.ataa_notification_channel),
-                    importance = NotificationManagerCompat.IMPORTANCE_DEFAULT,
-                    showBadge = false,
-                )
                 NotificationHelper.createNotification(
                     context,
                     title = context.getString(R.string.donate_now),
