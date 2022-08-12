@@ -148,4 +148,6 @@
     <string name="monthly_income">الدخل الشهري بالليرة السورية</string>
     <string name="health_status">الحالة الصحية</string>
     <string name="about_beneficiary">شرح عام عن حالة المستفيد</string>
+    <string name="work_info">معلومات العمل</string>
+    <string name="volunteer_exp">شرح عن خبرات المتطوع</string>
 </resources>

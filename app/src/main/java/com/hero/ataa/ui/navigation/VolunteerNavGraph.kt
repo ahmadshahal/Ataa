@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreenOne
+import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreenThree
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerScreenTwo
 import com.hero.ataa.ui.screens.volunteer_screen.VolunteerViewModel
 
@@ -28,7 +29,11 @@ fun VolunteerNavGraph(
             VolunteerScreenTwo(innerNavController = innerNavController, viewModel = viewModel)
         }
         composable(route = Screen.VolunteerScreenThree.route) {
-
+            VolunteerScreenThree(
+                innerNavController = innerNavController,
+                outerNavController = outerNavController,
+                viewModel = viewModel
+            )
         }
     }
 }

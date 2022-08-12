@@ -152,4 +152,6 @@
     <string name="monthly_income">Monthly Income in SP</string>
     <string name="health_status">Health Status</string>
     <string name="about_beneficiary">About Beneficiary</string>
+    <string name="work_info">Work Information</string>
+    <string name="volunteer_exp">Volunteer Experience</string>
 </resources>
