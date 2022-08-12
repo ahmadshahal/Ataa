@@ -29,13 +29,13 @@ class ValidateTokenUseCase @Inject constructor(
             emit(DataState.SuccessWithoutData())
         } catch (ex: UnknownHostException) {
             userRepository.triggerLoggedInValue(true)
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.can_not_reach_the_server)))
         } catch (ex: ConnectException) {
             userRepository.triggerLoggedInValue(true)
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: SocketTimeoutException) {
             userRepository.triggerLoggedInValue(true)
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: AtaaException) {
             userRepository.triggerLoggedInValue(false)
             userRepository.update {

@@ -20,7 +20,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
-const val BASE_URL = "http://192.168.211.109:3000"
+const val BASE_URL = "http://192.168.1.9:3000"
 const val BASE_API_URL = "$BASE_URL/api"
 
 @InstallIn(SingletonComponent::class)

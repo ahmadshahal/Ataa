@@ -70,13 +70,13 @@ class BeneficiaryUseCase @Inject constructor(
             )
             emit(DataState.SuccessWithoutData())
         } catch (ex: UnknownHostException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.can_not_reach_the_server)))
         } catch (ex: ConnectException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: SocketTimeoutException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: AtaaException) {
-            emit(DataState.Error(UiText.DynamicText(ex.message)))
+            emit(DataState.Error(UiText.ResourceText(resId = R.string.can_not_register_this_form_more_than_once)))
         } catch (ex: Exception) {
             emit(
                 DataState.Error(

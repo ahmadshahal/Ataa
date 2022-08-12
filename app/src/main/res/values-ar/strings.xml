@@ -150,4 +150,10 @@
     <string name="about_beneficiary">شرح عام عن حالة المستفيد</string>
     <string name="work_info">معلومات العمل</string>
     <string name="volunteer_exp">شرح عن خبرات المتطوع</string>
+    <string name="invalid_email_or_password">البريد الإلكتروني أو كلمة السر غير صحيحين</string>
+    <string name="can_not_register_this_form_more_than_once">لا يمكن التسجيل على هذه الاستمارة اكثر من مرة</string>
+    <string name="email_already_exists">البريد الإلكتروني موجود مسبقاً</string>
+    <string name="invalid_code">الكود المدخل غير صحيح</string>
+    <string name="can_not_reach_the_server">لا يمكن الاتصال بالسرفر</string>
+    <string name="bad_internet_connection">اتصال سيء بالانترنت</string>
 </resources>

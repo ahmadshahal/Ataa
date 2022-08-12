@@ -154,4 +154,10 @@
     <string name="about_beneficiary">About Beneficiary</string>
     <string name="work_info">Work Information</string>
     <string name="volunteer_exp">Volunteer Experience</string>
+    <string name="invalid_email_or_password">Invalid email or password</string>
+    <string name="can_not_register_this_form_more_than_once">Can\'t register this form more than once</string>
+    <string name="email_already_exists">Email already exists</string>
+    <string name="invalid_code">Invalid Code</string>
+    <string name="can_not_reach_the_server">Can\'t reach the server</string>
+    <string name="bad_internet_connection">Bad internet connection</string>
 </resources>

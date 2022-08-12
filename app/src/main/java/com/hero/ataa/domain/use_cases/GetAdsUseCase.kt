@@ -22,11 +22,11 @@ class GetAdsUseCase @Inject constructor(
             val adsList = projectsRepository.getAds().ads
             emit(DataState.Success(adsList))
         } catch (ex: UnknownHostException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.can_not_reach_the_server)))
         } catch (ex: ConnectException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: SocketTimeoutException) {
-            emit(DataState.Error(UiText.ResourceText(R.string.no_internet_connection)))
+            emit(DataState.Error(UiText.ResourceText(R.string.bad_internet_connection)))
         } catch (ex: AtaaException) {
             emit(DataState.Error(UiText.DynamicText(ex.message)))
         } catch (ex: Exception) {
