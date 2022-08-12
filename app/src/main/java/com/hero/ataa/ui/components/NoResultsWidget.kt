@@ -18,6 +18,7 @@ import com.hero.ataa.R
 fun NoResultsWidget(
     modifier: Modifier = Modifier,
     painter: Painter,
+    textResId: Int = R.string.no_results_found,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -37,7 +38,7 @@ fun NoResultsWidget(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(id = R.string.no_results_found),
+            text = stringResource(id = textResId),
             style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onBackground)
         )
         Spacer(modifier = Modifier.height(25.dp))

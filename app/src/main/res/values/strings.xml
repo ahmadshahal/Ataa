@@ -160,4 +160,6 @@
     <string name="invalid_code">Invalid Code</string>
     <string name="can_not_reach_the_server">Can\'t reach the server</string>
     <string name="bad_internet_connection">Bad internet connection</string>
+    <string name="you_have_no_donations">You have no donations</string>
+    <string name="no_projects_are_running_in_this_category">No projects are running in this category</string>
 </resources>

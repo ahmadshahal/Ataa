@@ -156,4 +156,6 @@
     <string name="invalid_code">الكود المدخل غير صحيح</string>
     <string name="can_not_reach_the_server">لا يمكن الاتصال بالسرفر</string>
     <string name="bad_internet_connection">اتصال سيء بالانترنت</string>
+    <string name="you_have_no_donations">لا يوجد لديك أي تبرعات</string>
+    <string name="no_projects_are_running_in_this_category">لا يوجد أي مشاريع قائمة ضمن هذه الفئة</string>
 </resources>

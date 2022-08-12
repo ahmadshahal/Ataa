@@ -69,10 +69,12 @@ fun ProjectsScreen(
 
         when (val uiState = viewModel.uiState.value) {
             is ProjectsUiState.Success -> {
-                if(uiState.projects.isEmpty()) {
-                    NoResultsWidget(painter = painterResource(id = R.drawable.ic_void))
-                }
-                else {
+                if (uiState.projects.isEmpty()) {
+                    NoResultsWidget(
+                        painter = painterResource(id = R.drawable.ic_no_projects),
+                        textResId = R.string.no_projects_are_running_in_this_category
+                    )
+                } else {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,

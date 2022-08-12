@@ -144,7 +144,7 @@ fun SearchScreen(
 }
 
 @Composable
-fun NoResults() {
+private fun NoResults() {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -72,10 +72,12 @@ fun ReceiptsScreen(
     ) {
         when (val uiState = viewModel.uiState.value) {
             is ReceiptsUiState.Success -> {
-                if(uiState.receipts.isEmpty()) {
-                    NoResultsWidget(painter = painterResource(id = R.drawable.ic_no_data))
-                }
-                else {
+                if (uiState.receipts.isEmpty()) {
+                    NoResultsWidget(
+                        painter = painterResource(id = R.drawable.ic_empty_data),
+                        textResId = R.string.you_have_no_donations
+                    )
+                } else {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -136,7 +138,7 @@ private fun ReceiptsAppBar(navController: NavController, scrollState: LazyListSt
                 )
             }
         },
-        elevation = if(scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
+        elevation = if (scrollState.firstVisibleItemScrollOffset > 0) 1.dp else 0.dp
     )
 }
 
@@ -155,7 +157,7 @@ private fun ReceiptItem(receipt: Receipt) {
             .padding(vertical = 16.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            if(receipt.title.isNotEmpty()) {
+            if (receipt.title.isNotEmpty()) {
                 Text(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = receipt.title,
