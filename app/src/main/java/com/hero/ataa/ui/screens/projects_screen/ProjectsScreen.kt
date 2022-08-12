@@ -8,14 +8,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -26,7 +29,24 @@ fun ProjectsScreen(
     category: String,
 ) {
     val lazyListState = rememberLazyListState()
+    val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
+        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             ProjectsAppBar(
@@ -36,6 +56,15 @@ fun ProjectsScreen(
             )
         },
         contentColor = MaterialTheme.colors.onBackground,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
     ) {
 
         when (val uiState = viewModel.uiState.value) {

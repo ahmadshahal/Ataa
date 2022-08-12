@@ -8,7 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.domain.use_cases.GetAllProjectsUseCase
 import com.hero.ataa.shared.DataState
+import com.hero.ataa.shared.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +26,10 @@ class SearchViewModel @Inject constructor(
     private val _uiState = mutableStateOf<AllProjectsUiState>(AllProjectsUiState.Loading)
     val uiState: State<AllProjectsUiState>
         get() = _uiState
+
+    private val _uiEvent: Channel<UiEvent> = Channel()
+    val uiEvent: Flow<UiEvent>
+        get() = _uiEvent.receiveAsFlow()
 
     val searchFieldText = mutableStateOf("")
 
@@ -45,6 +53,7 @@ class SearchViewModel @Inject constructor(
                         _uiState.value = AllProjectsUiState.Loading
                     }
                     is DataState.Error -> {
+                        _uiEvent.send(UiEvent.ShowSnackBar(message = dataState.message))
                         _uiState.value = AllProjectsUiState.Error
                     }
                     is DataState.Success -> {

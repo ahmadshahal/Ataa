@@ -8,7 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.hero.ataa.domain.use_cases.GetProjectsUseCase
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.DataState
+import com.hero.ataa.shared.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +24,10 @@ class ProjectsViewModel @Inject constructor(
     private val _uiState = mutableStateOf<ProjectsUiState>(ProjectsUiState.Loading)
     val uiState: State<ProjectsUiState>
         get() = _uiState
+
+    private val _uiEvent: Channel<UiEvent> = Channel()
+    val uiEvent: Flow<UiEvent>
+        get() = _uiEvent.receiveAsFlow()
 
     init {
         getProjects()
@@ -35,6 +43,7 @@ class ProjectsViewModel @Inject constructor(
                         _uiState.value = ProjectsUiState.Loading
                     }
                     is DataState.Error -> {
+                        _uiEvent.send(UiEvent.ShowSnackBar(message = dataState.message))
                         _uiState.value = ProjectsUiState.Error
                     }
                     is DataState.Success -> {

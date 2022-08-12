@@ -11,9 +11,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,6 +27,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
 import com.hero.ataa.domain.models.Receipt
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.*
 import java.util.*
 
@@ -35,10 +38,35 @@ fun ReceiptsScreen(
     viewModel: ReceiptsViewModel = hiltViewModel(),
 ) {
     val lazyListState = rememberLazyListState()
+    val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                else -> Unit
+            }
+        }
+    }
     Scaffold(
+        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             ReceiptsAppBar(navController = navController, scrollState = lazyListState)
+        },
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
         },
         contentColor = MaterialTheme.colors.onBackground,
     ) {

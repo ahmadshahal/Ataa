@@ -11,8 +11,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +28,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.hero.ataa.R
+import com.hero.ataa.shared.UiEvent
 import com.hero.ataa.ui.components.*
 import java.util.*
 
@@ -36,7 +39,33 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val lazyListState = rememberLazyListState()
+    val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = uiEvent.message.asString(context),
+                    )
+                }
+                else -> Unit
+            }
+        }
+    }
+
     Scaffold(
+        scaffoldState = scaffoldState,
+        snackbarHost = { state ->
+            SnackbarHost(state) { data ->
+                Snackbar(
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    contentColor = MaterialTheme.colors.onSecondary,
+                    snackbarData = data,
+                )
+            }
+        },
         backgroundColor = MaterialTheme.colors.background,
         topBar = {
             SearchAppBar(navController = navController, scrollState = lazyListState)
