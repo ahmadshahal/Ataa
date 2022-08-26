@@ -41,7 +41,11 @@ class MainActivity : ComponentActivity() {
                 )
                 LaunchedEffect(key1 = Unit) {
                     if(mainViewModel.loggedIn.value) {
-                        navController.navigate(Screen.HomeScreen.route)
+                        navController.navigate(Screen.HomeScreen.route) {
+                            popUpTo(Screen.LoginScreen.route) {
+                                inclusive = true
+                            }
+                        }
                     }
                 }
             }
