@@ -1,10 +1,10 @@
 package com.hero.ataa.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
@@ -30,8 +30,7 @@ import com.hero.ataa.ui.screens.volunteer_outer_screen.VolunteerOuterScreen
 import com.hero.ataa.ui.screens.zakat_project_screen.ZakatProjectScreen
 
 @Composable
-fun NavGraph(startDestination: String) {
-    val navController = rememberNavController()
+fun NavGraph(startDestination: String, navController: NavHostController) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = Screen.LoginScreen.route) {
             LoginScreen(navController = navController)

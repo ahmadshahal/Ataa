@@ -5,8 +5,10 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
 import com.hero.ataa.ui.navigation.NavGraph
 import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaTheme
@@ -32,11 +34,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
+                val navController = rememberNavController()
                 NavGraph(
-                    startDestination = if (mainViewModel.loggedIn.value)
-                        Screen.HomeScreen.route
-                    else Screen.LoginScreen.route
+                    startDestination = Screen.LoginScreen.route,
+                    navController = navController
                 )
+                LaunchedEffect(key1 = Unit) {
+                    if(mainViewModel.loggedIn.value) {
+                        navController.navigate(Screen.HomeScreen.route)
+                    }
+                }
             }
         }
 
