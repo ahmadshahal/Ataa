@@ -1,43 +1,68 @@
 package com.hero.ataa
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.hero.ataa.ui.navigation.NavGraph
+import com.hero.ataa.ui.navigation.Screen
 import com.hero.ataa.ui.theme.AtaaTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
+import java.util.*
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AtaaTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+
+        val splashScreen = installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                mainViewModel.loading
             }
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+        super.onCreate(savedInstanceState)
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    AtaaTheme {
-        Greeting("Android")
+        setContent {
+            AtaaTheme(isDarkMode = mainViewModel.darkModeFlow.collectAsState(initial = false).value) {
+                NavGraph(
+                    startDestination = if (mainViewModel.loggedIn.value)
+                        Screen.HomeScreen.route
+                    else Screen.LoginScreen.route
+                )
+            }
+        }
+
+        val isArabic = runBlocking {
+            mainViewModel.settingsRepository.settings().arabic
+        }
+
+        // Preventing the System settings to change the font size.
+        val configuration = resources.configuration
+        configuration.fontScale = 1.0.toFloat()
+        val metrics = resources.displayMetrics
+        val wm = getSystemService(WINDOW_SERVICE) as WindowManager
+        wm.defaultDisplay.getMetrics(metrics)
+        metrics.scaledDensity = configuration.fontScale * metrics.density
+        baseContext.resources.updateConfiguration(configuration, metrics)
+
+        // Changing Locale.
+        val config = resources.configuration
+        val locale =
+            if (isArabic)
+                Locale("ar")
+            else
+                Locale("en")
+        Locale.setDefault(locale)
+        config.setLocale(locale)
+        createConfigurationContext(config)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
