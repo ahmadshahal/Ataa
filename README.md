@@ -1,7 +1,7 @@
 ## Intro
 Ataa is an E-Donation Mobile Application, created to help Ataa Charity with their Non-Profitable work.
 
-It is offering three main usecases:
+The Application is offering three main usecases:
 * Donation
 * Beneficiary Registration
 * Volunteer Registration
