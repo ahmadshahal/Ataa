@@ -7,7 +7,7 @@ The Application is offering three main usecases:
 * Volunteer Registration
 
 ## Technologies
-Ataa is built using Native Android framework with Jetpack Compose, MVVM Clean Architecture, Dagger-Hilt, Datastore and Ktor Http Client.
+Ataa is built using Native Android framework with Jetpack Compose, MVVM Clean Architecture, Dagger-Hilt, Datastore, and Ktor Http Client.
 
 ## Preview
 ![image1](https://user-images.githubusercontent.com/57716361/187018761-9ef4ec4f-44d7-44d0-9357-6fd2b15fc99c.png)
