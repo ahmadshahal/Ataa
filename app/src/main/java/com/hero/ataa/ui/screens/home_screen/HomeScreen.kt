@@ -47,6 +47,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.hero.ataa.R
+import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Ad
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.shared.UiEvent
@@ -498,8 +499,7 @@ private fun AdItem(ad: Ad) {
     ) {
         CoilImage(
             modifier = Modifier.fillMaxSize(),
-//            imageModel = "$BASE_URL/${ad.url}",
-            imageModel = "${ad.url}",
+            imageModel = "$BASE_URL/${ad.url}",
             contentScale = ContentScale.Crop,
         )
         // TODO: Add Shadow.

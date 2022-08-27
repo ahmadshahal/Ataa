@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hero.ataa.R
+import com.hero.ataa.di.BASE_URL
 import com.hero.ataa.domain.models.Project
 import com.hero.ataa.shared.Constants
 import com.hero.ataa.ui.navigation.Screen
@@ -56,8 +57,7 @@ fun ProjectItem(project: Project, navController: NavController) {
             ) {
                 CoilImage(
                     modifier = Modifier.fillMaxSize(),
-//                    imageModel = "$BASE_URL/${project.imageUrl}",
-                    imageModel = "${project.imageUrl}",
+                    imageModel = "$BASE_URL/${project.imageUrl}",
                     contentScale = ContentScale.Crop,
                 )
             }
