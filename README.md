@@ -1,13 +1,13 @@
 ## Intro
 Ataa is an E-Donation Mobile Application, created to help Ataa Charity with their Non-Profitable work.
 
-It is offering three main usecases:
+The Application is offering three main usecases:
 * Donation
 * Beneficiary Registration
 * Volunteer Registration
 
 ## Technologies
-Ataa is built using Native Android framework with Jetpack Compose, MVVM Clean Architecture, Dagger-Hilt, Datastore and Ktor Http Client.
+Ataa is built using Native Android framework with Jetpack Compose, MVVM Clean Architecture, Dagger-Hilt, Datastore, and Ktor Http Client.
 
 ## Preview
 ![image1](https://user-images.githubusercontent.com/57716361/187018761-9ef4ec4f-44d7-44d0-9357-6fd2b15fc99c.png)
