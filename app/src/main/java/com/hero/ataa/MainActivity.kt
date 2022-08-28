@@ -40,10 +40,12 @@ class MainActivity : ComponentActivity() {
                     navController = navController
                 )
                 LaunchedEffect(key1 = Unit) {
-                    if(mainViewModel.loggedIn.value) {
-                        navController.navigate(Screen.HomeScreen.route) {
-                            popUpTo(Screen.LoginScreen.route) {
-                                inclusive = true
+                    mainViewModel.loggedIn.collect { loggedIn ->
+                        if (loggedIn) {
+                            navController.navigate(Screen.HomeScreen.route) {
+                                popUpTo(Screen.LoginScreen.route) {
+                                    inclusive = true
+                                }
                             }
                         }
                     }
